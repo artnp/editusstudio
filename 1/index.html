@@ -2,25 +2,22 @@
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
-  <title>แก้ไข</title>
-<link rel="stylesheet" href="style.css">
+  <title>[แก้ไข]✂️ ลบคนออกจากฉากหลัง</title>
+<link rel="stylesheet" href="../style.css">
 <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
 </head>
 <body>
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
-
   <div id="button">
   <button class="button1" onclick="howto()">1️⃣ วิธีใช้บริการ</button><br><br>
-  <button class="button2" onclick="howto()">2️⃣ ส่งไฟล์ใหญ่ ⌛</button><br><br>
-  <button class="button3" onclick="howto()">3️⃣ จ่ายเงิน 💲</button>
+  <button class="button2" onclick="sendfile()">2️⃣ ส่งไฟล์ใหญ่ ⌛</button><br><br>
+  <button class="button3" onclick="payment()">3️⃣ จ่ายเงิน 💲</button>
 </div>
-  
 <div id="image-comparison-slider">
   <img src="1.jpg">
   <div class="img-wrapper">
     <img src="2.jpg">
   </div>
- 
   <div class="handle">
     <div class="handle-line"></div>
     <div class="handle-circle">
@@ -28,7 +25,6 @@
       <i class="fas fa-chevron-right"> <h1><div id="randomword"></div></h1></i>
     </div>
     <div class="handle-line"></div>
-    
   </div>
 </div>
 <div id="foot">
@@ -45,21 +41,36 @@
   function howto(){
 Swal.fire({
   html:
-    '<video width="800" height="500" controls autoplay><source src="https://www.dropbox.com/s/rtnzzivio405uvw/howto_editus.mp4?raw=1" type="video/mp4"> </video>',
+    '<video width="800" height="500" controls autoplay><source src="https://www.dropbox.com/s/rtnzzivio405uvw/howto_editus.mp4?raw=1" type="video/mp4"></video>',
     width: 800,
   showCloseButton: true,
   focusConfirm: false,
   confirmButtonText:
-    '<i class="fa fa-thumbs-up"></i> รับทราบ!!'
+    'รับทราบ!!'
+})}
+function sendfile(){
+  Swal.fire({
+  html:
+    '<center><hr>• ถ้า<font color="Cyan">ไฟล์ไม่ใหญ่ส่งในแชท</font>ได้เลย<br><hr><br>• หาก<font color="Chartreuse">ไฟล์ใหญ่ให้ส่งเข้าลิ้งค์</font>นี้<br><a href="https://www.dropbox.com/request/PLa8MpD0wSCVRHUAZGUC" target="_blank">dropbox.com/request/PLa8MpD0wSCVRHUAZGUC</a><br>• ใส่<font color="DodgerBlue">ชื่อ</font>,<font color="yellow">อีเมล</font>(มั่วๆ) <b>></b> แล้วกด <font color="Chartreuse">upload</font></center>',
+  showCloseButton: true,
+  focusConfirm: false,
+  confirmButtonText:
+  'เข้าใจนะ!'
+})}
+function payment(){
+  Swal.fire({
+  html:
+    '<center><img src="logo-kbank.png" width="17%"><hr>พัชรพล<h2><font color="LawnGreen">0</font>93-<font color="Chartreuse">8</font>-33<font color="LawnGreen">634</font>-2</h2><hr><img src="payment.jpg" width="90%"></center>',
+  showCloseButton: true,
+  focusConfirm: false,
+  confirmButtonText:
+  'จ่ายแล้วงานจึงเริ่ม!'
 })}
   
   var chatbox = document.getElementById('fb-customer-chat');
   chatbox.setAttribute("page_id", "469412846456958");
   chatbox.setAttribute("attribution", "biz_inbox");
-</script>
 
-<!-- Your SDK code -->
-<script>
   window.fbAsyncInit = function() {
     FB.init({
       xfbml            : true,
@@ -75,8 +86,7 @@ Swal.fire({
     fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'facebook-jssdk'));
 </script>
-<!-- partial -->
-  <script src='vanilla-tilt.min.js'></script><script  src="script.js"></script><script  src="word_random.js"></script>
+<script src='../vanilla-tilt.min.js'></script><script  src="../script.js"></script><script  src="../word_random.js"></script>
 
 </body>
 </html>

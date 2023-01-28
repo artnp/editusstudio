@@ -21,6 +21,9 @@ body {
   background-color: #222222;
   opacity: 1
 }
+a {
+  color: hotpink;
+}
 #image-comparison-slider {
   position: relative;
   width: var(--image-comparison-slider-width);
