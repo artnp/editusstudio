@@ -28,10 +28,8 @@
     <script>
          if (window.location.href == 'http://artnp.github.io/editusstudio/redzone/' || window.location.href == 'http://artnp.github.io/editusstudio/redzone/index.html' || window.location.href == 'http://artnp.github.io/editusstudio/redzone/index.html?' || window.location.href == 'http://artnp.github.io/editusstudio/redzone/index.html?=' || window.location.href == 'https://artnp.github.io/editusstudio/redzone/' || window.location.href == 'https://artnp.github.io/editusstudio/redzone/index.html' || window.location.href == 'https://artnp.github.io/editusstudio/redzone/index.html?' || window.location.href == 'https://artnp.github.io/editusstudio/redzone/index.html?='){
             document.getElementById("show").innerHTML = '<img src="404.png" width="30%">'
-			clearUrl = window.location.href.replace('http://artnp.github.io/editusstudio/redzone/index.html?=', '')
-         }
-		 else {
-            clearUrl = window.location.href.replace('https://artnp.github.io/editusstudio/redzone/index.html?=', '')
+         } else {
+            clearUrl = window.location.href.replace('https://artnp.github.io/editusstudio/redzone/index.html?', '')
             document.getElementById("show").innerHTML = '<img src="https://tmpfiles.org/' + clearUrl + '" width="30%">'
             function save(){
                 window.open(clearUrl)
