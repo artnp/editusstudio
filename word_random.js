@@ -34,6 +34,18 @@ var textArray = [
     '',
     '',
     '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
     ''
 ];
 randomWord = Math.floor(Math.random()*textArray.length)
