@@ -1,0 +1,98 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="sweetalert2.min.css">
+    <script src="sweetalert2.min.js"></script>
+    <title>ระบบส่งงาน</title>
+
+    <script>
+      var cnt = 0, wnd;
+      function iframeLoaded(pp) {
+        wnd = pp.contentWindow;
+        window.addEventListener("message", onMessage);
+      }
+
+      function onMessage(e) {   
+        if (e.data == "done") {        
+          cnt++;
+          if(cnt==1) {  /* Photopea loaded! */  }
+          if(cnt==2) {  /* Image loaded!  Run some script! */
+            var x = "app.activeDocument.artLayers.add();"+"app.activeDocument.activeLayer.opacity = 50";
+            wnd.postMessage(x, "*");
+          }
+        }
+      }      
+      ///chatbox
+      var chatbox = document.getElementById('fb-customer-chat');
+  chatbox.setAttribute("page_id", "469412846456958");
+  chatbox.setAttribute("attribution", "biz_inbox");
+  window.fbAsyncInit = function() {
+    FB.init({
+      xfbml            : true,
+      version          : 'v15.0'
+    });
+  };
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = 'https://connect.facebook.net/th_TH/sdk/xfbml.customerchat.js';
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+
+///แจ้งเตือน
+function howto(){
+Swal.fire({
+  html:
+    '<video width="1300" height="700" controls autoplay><source src="https://www.dropbox.com/s/rtnzzivio405uvw/howto_editus.mp4?raw=1" type="video/mp4"></video>',
+    width: 1400,
+  showCloseButton: true,
+  focusConfirm: false,
+  confirmButtonText:
+    '▰ รับทราบ!!'
+})}
+function sendfile(){
+  Swal.fire({
+  html:
+    '<center>• ถ้า<font color="Cyan">ไฟล์ไม่ใหญ่ส่งในแชท</font>ได้เลย<br><br>• หาก<font color="Chartreuse">ไฟล์ใหญ่ให้ส่งเข้าลิ้งค์</font>นี้<br><a href="https://www.dropbox.com/request/PLa8MpD0wSCVRHUAZGUC" target="_blank">dropbox.com/request/PLa8MpD0wSCVRHUAZGUC</a>• ใส่<font color="DodgerBlue">ชื่อ</font>,<font color="yellow">อีเมล</font>(มั่วๆ) <b>></b> แล้วกด <font color="Chartreuse">upload</font></center>',
+  showCloseButton: true,
+  focusConfirm: false,
+  confirmButtonText:
+  '▰ เข้าใจนะ!'
+})}
+function payment(){
+  Swal.fire({
+  html:
+    '<center>ชำระผ่านระบบ Facebook Pay ในแชท</center>',
+  showCloseButton: true,
+  focusConfirm: false,
+  confirmButtonText:
+  '▰ จ่ายก่อน>ถึงเริ่มลุย!'
+})}
+    </script>    
+  </head>  
+  <body>
+<center>
+<div id="button">
+  <button class="button1" onclick="howto()">ส่งไฟล์ให้ยังไง?⚠️</button><br><br>
+  <button class="button3" onclick="payment()">จ่ายเงินอย่างไร? 💲</button>
+</div>
+<div id="teach">
+  <u>คำแนะนำ</u><br><br>
+  <p align="left">
+[1]--> ลากไฟล์ภาพเข้าจอดำ >><br>[2]--> วงตำแน่งจะให้แก้ >>>>><br>[3]--> บันทึกไฟล์ <b>File</b>><b>Save as PSD</b><br>[4]--> ส่งไฟล์ PSD <u>ให้ในแชท</u>🏁 
+  </p></div>
+<button  style="font-size:12pt;height:35px;" onclick="location.reload();">▰ ลากภาพไม่เข้ากดปุ่มนี้</button><br>
+    <iframe id="photopea" src="https://www.photopea.com#%7B%22environment%22:%7B%22intro%22:false,%22vmode%22:0,%22menus%22:%5B%5B0,0,0,0,0,0,1%5D%5D,%22panels%22:%5B2%5D,%22showtools%22:%5B23%5D%7D%7D" width="1010" height="600" onload="iframeLoaded(this)" scrolling="no"></iframe>
+    <br><br><hr><br>
+    <button type="button" style="font-size:12pt;height:35px;"  onclick="window.open('https://www.dropbox.com/request/PLa8MpD0wSCVRHUAZGUC')"><img src="dropbox.png" width="12%"><font size="4.5"></b>ส่งไฟล์ขนาดใหญ่</b></font></button>
+    <br><font color="grey">(-- กรณีไฟล์ใหญ่มากส่งเข้าแชทไม่ได้ ให้ส่งทางนี้ --)</font>
+    <br><br><hr>
+  </center>
+  <div id="fb-root"></div>
+  <div id="fb-customer-chat" class="fb-customerchat">
+  </div> 
+</body>
+</html>
