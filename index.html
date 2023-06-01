@@ -38,7 +38,9 @@
       document.getElementById("footer").style.display = "none";
 
       setTimeout(function() {
-        if(document.getElementById('AI-welcome').paused == false){
+        if(document.getElementById('AI-welcome').paused == true){
+        document.getElementById('welcome').innerHTML='<video id="AI-welcome" width="1000" height="600" autoplay="1" ><source src="https://www.dropbox.com/s/dsjokxyaiwr4n8r/AI-welcome.mp4?raw=1" type="video/mp4"></video><br><center><button style="font-size:16px"; onclick="welcome(); count1();">▶️เล่นวิดีโอ</button></center>'  
+      } else if(document.getElementById('AI-welcome').paused == false){
           count1()
         }
       }, 9000);
@@ -53,9 +55,7 @@
         document.getElementById("AI-welcome").play()
       }
       
-      if(document.getElementById('AI-welcome').paused == true){
-        document.getElementById('welcome').innerHTML='<video id="AI-welcome" width="1000" height="600" autoplay="1" ><source src="https://www.dropbox.com/s/dsjokxyaiwr4n8r/AI-welcome.mp4?raw=1" type="video/mp4"></video><br><center><button style="font-size:16px"; onclick="welcome(); count1();">▶️เล่นวิดีโอ</button></center>'  
-      }
+
       ///ปุ่มบังคับ
       function howto(){
         document.getElementById("footer").style.display = "none";
