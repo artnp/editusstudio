@@ -101,6 +101,8 @@
         setTimeout(countdown, 1000);
       }
     }
+	   if(/^\?fbclid=/.test(location.search))
+     location.replace(location.href.replace(/\?fbclid.+/, ""));
   </script>
   <script src='addon/vanilla-tilt.min.js'></script>
   <script  src="addon/script.js"></script>
