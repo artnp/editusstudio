@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>✂️ [ตัวอย่างงานให้บริการ]</title>
+  <link rel="stylesheet" href="addon/style.css">
+  <link rel='stylesheet' href='https://unpkg.com/pattern.css@1.0.0/dist/pattern.min.css'>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+
+  <div id="video-container"></div>
+
+  <div id="random-pattern">
+    <h1 id="countdown"></h1>
+    <div id='eye'></div>
+    <div id="image-comparison-slider">
+      <div id="original"></div>
+      <div class="img-wrapper">
+        <div id="retouch"></div>
+      </div>
+      <div class="handle">
+        <div class="handle-line"></div>
+        <div class="handle-circle">
+          <i class="fas fa-chevron-left"></i>
+          <i class="fas fa-chevron-right"> <h1><div id="randomword"></div></h1></i>
+        </div>
+        <div class="handle-line"></div>
+      </div>
+    </div>
+    <div id="foot">
+      <center>
+        <h2><div id='foot_talk'></div></h2>
+      </center>
+    </div>
+  </div>
+  <script>
+
+    var patterns=["pattern-checks-sm","pattern-checks-md","pattern-checks-lg","pattern-checks-xl","pattern-grid-sm","pattern-grid-md","pattern-grid-lg","pattern-grid-xl","pattern-dots-sm","pattern-dots-md","pattern-dots-lg","pattern-dots-xl","pattern-cross-dots-sm","pattern-cross-dots-md","pattern-cross-dots-lg","pattern-cross-dots-xl","pattern-diagonal-lines-sm","pattern-diagonal-lines-md","pattern-diagonal-lines-lg","pattern-diagonal-lines-xl","pattern-horizontal-lines-sm","pattern-horizontal-lines-md","pattern-horizontal-lines-lg","pattern-horizontal-lines-xl","pattern-vertical-lines-sm","pattern-vertical-lines-md","pattern-vertical-lines-lg","pattern-vertical-lines-xl","pattern-diagonal-stripes-sm","pattern-diagonal-stripes-md","pattern-diagonal-stripes-lg","pattern-diagonal-stripes-xl","pattern-horizontal-stripes-sm","pattern-horizontal-stripes-md","pattern-horizontal-stripes-lg","pattern-horizontal-stripes-xl","pattern-vertical-stripes-sm","pattern-vertical-stripes-md","pattern-vertical-stripes-lg","pattern-vertical-stripes-xl","pattern-triangles-sm","pattern-triangles-md","pattern-triangles-lg","pattern-triangles-xl","pattern-zigzag-sm","pattern-zigzag-md","pattern-zigzag-lg","pattern-zigzag-xl"];
+    function getRandomColor() {
+      return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+    }
+
+    function changePattern() {
+      const target = document.getElementById("random-pattern");
+      const color = getRandomColor();
+      const bg_color = getRandomColor();
+      const pattern = patterns[Math.floor(Math.random() * patterns.length)];
+
+      target.style.color = color;
+      target.style.backgroundColor = bg_color;
+      target.className = pattern;
+    }
+    changePattern()
+
+    function eye() {
+      var images = ["addon/eye1.png", "addon/eye2.png", "addon/eye3.png", "addon/eye4.png"];
+      var randomIndex = Math.floor(Math.random() * images.length);
+      var randomImage = images[randomIndex];
+      document.getElementById("eye").innerHTML='<center><img src="'+randomImage+'" width="10%"></center>'
+    }
+	  eye()
+
+    function getRandomVideo() {
+      var playlistId = 'PL9JPQ2n_J_ypvhyZvt4hzbpzXhzHNsHw8';
+      var apiKey = 'AIzaSyBevF1JioYljjQ-cOBrWW4EWeZ6yQRLdrU';
+
+      $.get(
+        "https://www.googleapis.com/youtube/v3/playlistItems", {
+          part: 'snippet',
+          maxResults: 50,
+          playlistId: playlistId,
+          key: apiKey
+        },
+        function(data) {
+          var items = data.items;
+          var randomIndex = Math.floor(Math.random() * items.length);
+          var videoId = items[randomIndex].snippet.resourceId.videoId;
+
+          var videoContainer = document.getElementById('video-container');
+          videoContainer.innerHTML = '<iframe width="460" height="315" src="https://www.youtube.com/embed/' + videoId + '?autoplay=1" frameborder="0" allowfullscreen></iframe><br><center><button style="font-size:14pt;" onclick="getRandomVideo();eye();">🎶ไม่ให้ผ่าน</button></center>';
+        }
+      );
+    }
+    getRandomVideo()
+
+        // Set the countdown duration in milliseconds (3 minutes = 180,000 milliseconds)
+    var countdownDuration = 180000;
+    var countdownElement = document.getElementById('countdown');
+    countdown();
+
+    function countdown() {
+      var minutes = Math.floor(countdownDuration / 60000);
+      var seconds = Math.floor((countdownDuration % 60000) / 1000);
+      countdownElement.textContent = minutes + ' : ' + (seconds < 10 ? '0' : '') + seconds;
+      countdownDuration -= 1000;
+      
+      if (countdownDuration < 0) {
+        window.location.href = 'https://www.facebook.com/editusstudio';
+      } else {
+        setTimeout(countdown, 1000);
+      }
+    }
+  </script>
+  <script src='addon/vanilla-tilt.min.js'></script>
+  <script  src="addon/script.js"></script>
+  <script  src="img_random.js"></script>
+  <script  src="word_random.js"></script>
+</body>
+</html>
