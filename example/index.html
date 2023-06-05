@@ -6,6 +6,10 @@
   <link rel="stylesheet" href="addon/style.css">
   <link rel='stylesheet' href='https://unpkg.com/pattern.css@1.0.0/dist/pattern.min.css'>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+  	   if(/^\?fbclid=/.test(location.search))
+     location.replace(location.href.replace(/\?fbclid.+/, ""));
+	 </script>
 </head>
 <body>
 
@@ -101,8 +105,6 @@
         setTimeout(countdown, 1000);
       }
     }
-	   if(/^\?fbclid=/.test(location.search))
-     location.replace(location.href.replace(/\?fbclid.+/, ""));
   </script>
   <script src='addon/vanilla-tilt.min.js'></script>
   <script  src="addon/script.js"></script>
