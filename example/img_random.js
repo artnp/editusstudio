@@ -1,6 +1,6 @@
 function randomR(){
     /////////แก้จำนวน////////////////////////////
-    randomNumber = Math.floor(Math.random() * 11) + 1;
+    randomNumber = Math.floor(Math.random() * 30) + 1;
     ////////////////////////////////////////////
 
     imageName = randomNumber + ".jpg";
