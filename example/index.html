@@ -92,7 +92,23 @@
     }
     getRandomVideo()
 
-   
+          // Set the countdown duration in milliseconds (3 minutes = 180,000 milliseconds)
+    var countdownDuration = 180000;
+    var countdownElement = document.getElementById('countdown');
+    countdown();
+
+    function countdown() {
+      var minutes = Math.floor(countdownDuration / 60000);
+      var seconds = Math.floor((countdownDuration % 60000) / 1000);
+      countdownElement.textContent = minutes + ' : ' + (seconds < 10 ? '0' : '') + seconds;
+      countdownDuration -= 1000;
+      
+      if (countdownDuration < 0) {
+        window.location.href = 'https://www.facebook.com/editusstudio';
+      } else {
+        setTimeout(countdown, 1000);
+      }
+    }
 
   </script>
   <script src='addon/vanilla-tilt.min.js'></script>
