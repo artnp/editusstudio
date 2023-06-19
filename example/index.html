@@ -14,7 +14,6 @@
 <body>
 
   <div id="video-container"></div>
-
   <div id="random-pattern">
     <h1 id="countdown"></h1>
     <div id='eye'></div>
@@ -32,13 +31,18 @@
         <div class="handle-line"></div>
       </div>
     </div>
+    
     <div id="foot">
       <center>
         <h2><div id='foot_talk'></div></h2>
       </center>
     </div>
   </div>
+  <script src="img_random.js"></script>
   <script>
+    imageName = randomNumber + ".jpg";
+    document.getElementById('original').innerHTML='<img src="img/' + imageName + '" >'
+    document.getElementById('retouch').innerHTML='<img src="img/' + randomNumber + 'b.jpg' + '">'
 
     var patterns=["pattern-checks-sm","pattern-checks-md","pattern-checks-lg","pattern-checks-xl","pattern-grid-sm","pattern-grid-md","pattern-grid-lg","pattern-grid-xl","pattern-dots-sm","pattern-dots-md","pattern-dots-lg","pattern-dots-xl","pattern-cross-dots-sm","pattern-cross-dots-md","pattern-cross-dots-lg","pattern-cross-dots-xl","pattern-diagonal-lines-sm","pattern-diagonal-lines-md","pattern-diagonal-lines-lg","pattern-diagonal-lines-xl","pattern-horizontal-lines-sm","pattern-horizontal-lines-md","pattern-horizontal-lines-lg","pattern-horizontal-lines-xl","pattern-vertical-lines-sm","pattern-vertical-lines-md","pattern-vertical-lines-lg","pattern-vertical-lines-xl","pattern-diagonal-stripes-sm","pattern-diagonal-stripes-md","pattern-diagonal-stripes-lg","pattern-diagonal-stripes-xl","pattern-horizontal-stripes-sm","pattern-horizontal-stripes-md","pattern-horizontal-stripes-lg","pattern-horizontal-stripes-xl","pattern-vertical-stripes-sm","pattern-vertical-stripes-md","pattern-vertical-stripes-lg","pattern-vertical-stripes-xl","pattern-triangles-sm","pattern-triangles-md","pattern-triangles-lg","pattern-triangles-xl","pattern-zigzag-sm","pattern-zigzag-md","pattern-zigzag-lg","pattern-zigzag-xl"];
     function getRandomColor() {
@@ -88,27 +92,11 @@
     }
     getRandomVideo()
 
-        // Set the countdown duration in milliseconds (3 minutes = 180,000 milliseconds)
-    var countdownDuration = 180000;
-    var countdownElement = document.getElementById('countdown');
-    countdown();
+   
 
-    function countdown() {
-      var minutes = Math.floor(countdownDuration / 60000);
-      var seconds = Math.floor((countdownDuration % 60000) / 1000);
-      countdownElement.textContent = minutes + ' : ' + (seconds < 10 ? '0' : '') + seconds;
-      countdownDuration -= 1000;
-      
-      if (countdownDuration < 0) {
-        window.location.href = 'https://www.facebook.com/editusstudio';
-      } else {
-        setTimeout(countdown, 1000);
-      }
-    }
   </script>
   <script src='addon/vanilla-tilt.min.js'></script>
-  <script  src="addon/script.js"></script>
-  <script  src="img_random.js"></script>
-  <script  src="word_random.js"></script>
+  <script src="addon/script.js"></script>
+  <script src="word_random.js"></script>
 </body>
 </html>
