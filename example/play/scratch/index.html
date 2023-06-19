@@ -9,10 +9,14 @@
 </head>
 <body>
   <div id="scratch"></div>
+  <div id="original"></div><div id="retouch"></div>
 
   <script src="ScratchIt.min.js"></script>
   <script src="../../img_random.js"></script>
   <script>
+    document.getElementById("original").style.display = "none";
+    document.getElementById("retouch").style.display = "none";
+
     imageName = randomNumber + ".jpg";
 
     document.getElementById('scratch').innerHTML='<img src="../../img/' + randomNumber + 'b.jpg' + '">'
