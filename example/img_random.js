@@ -1,6 +1,6 @@
 function randomR() {
     /////////แก้จำนวน////////////////////////////
-    randomNumber = Math.floor(Math.random() * 33) + 1;
+    randomNumber = Math.floor(Math.random() * 43) + 1;
     ////////////////////////////////////////////
     imageName = randomNumber + ".jpg";
     document.getElementById('original').innerHTML='<img src="img/' + imageName + '" >'
