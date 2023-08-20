@@ -1,7 +1,5 @@
-// Import party-js library for confetti
-<script src="https://cdn.jsdelivr.net/npm/party-js@latest/bundle/party.min.js"></script>
 
-// Initialize VanillaTilt for image comparison slider
+
 VanillaTilt.init(document.querySelector("#image-comparison-slider"), {
   max: 5,
   speed: 800,
@@ -12,27 +10,35 @@ const slider = document.querySelector("#image-comparison-slider");
 const sliderImgWrapper = document.querySelector("#image-comparison-slider .img-wrapper");
 const sliderHandle = document.querySelector("#image-comparison-slider .handle");
 
-// Handle slider mouse movement
 slider.addEventListener("mousemove", sliderMouseMove);
 slider.addEventListener("touchmove", sliderMouseMove);
 
 function sliderMouseMove(event) {
-  // ... (your existing sliderMouseMove code)
+  if (isSliderLocked) return;
+
+  const sliderLeftX = slider.offsetLeft;
+  const sliderWidth = slider.clientWidth;
+  const sliderHandleWidth = sliderHandle.clientWidth;
+
+  let mouseX = (event.clientX || event.touches[0].clientX) - sliderLeftX;
+  if (mouseX < 0) mouseX = 0;
+  else if (mouseX > sliderWidth) mouseX = sliderWidth;
+
+  sliderImgWrapper.style.width = `${((1 - mouseX / sliderWidth) * 100).toFixed(4)}%`;
+  sliderHandle.style.left = `calc(${((mouseX / sliderWidth) * 100).toFixed(4)}% - ${sliderHandleWidth / 2}px)`;
   
+///////////////////////////////////////////////////////////////////////////////////////
   if (mouseX === sliderWidth) {
-    mouseX = 20;
+    mouseX = 20; // Set mouseX to 0 to move the mouse to the left
     sliderImgWrapper.style.width = '100%';
     sliderHandle.style.left = `calc(${((mouseX / sliderWidth) * 100).toFixed(4)}% - ${sliderHandleWidth / 2}px)`;
 
-    // Call party-js confetti when mouse reaches the right edge
-    party.confetti(document.body, {
-      count: party.variation.range(20, 40)
-    });
 
-    // Call your undefined function randomR()
-    randomR();
     
-    // You might want to add more code here if needed
+    randomR()
+
+    
+    //changePattern()
     
   }
 }
