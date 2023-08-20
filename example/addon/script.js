@@ -1,6 +1,3 @@
-//party
-<script src="https://cdn.jsdelivr.net/npm/tsparticles-confetti@2.12.0/tsparticles.confetti.bundle.min.js"></script>
-
 VanillaTilt.init(document.querySelector("#image-comparison-slider"), {
   max: 5,
   speed: 800,
