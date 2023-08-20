@@ -126,8 +126,10 @@ a {
         </style>
       </head>
       <script>
-             if(/^\?fbclid=/.test(location.search))
-         location.replace(location.href.replace(/\?fbclid.+/, ""));
+      if (window.location.href.includes('fbclid')) {
+  const updatedURL = window.location.href.replace(/[?&]fbclid=[^&#]+/, '').replace(/[&?]$/, '');
+  window.location.replace(updatedURL);
+}
          </script>
     <body>
       <div class="ticker-container"><div class="ticker-content" id="ticker"></div></div>
@@ -151,10 +153,10 @@ a {
           <script src="review.js"></script>
           <script>
                      function removeUrl(str) {
-                 return str.split('#')[1]
+                 return str.split('?')[1]
                 }
                             function GetName(str) {
-                    return str.split('index.html#')[1]
+                    return str.split('index.html?')[1]
                 }
 
             url = decodeURIComponent(window.location.href)
