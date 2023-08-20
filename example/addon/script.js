@@ -1,5 +1,3 @@
-
-
 VanillaTilt.init(document.querySelector("#image-comparison-slider"), {
   max: 5,
   speed: 800,
@@ -33,7 +31,11 @@ function sliderMouseMove(event) {
     sliderImgWrapper.style.width = '100%';
     sliderHandle.style.left = `calc(${((mouseX / sliderWidth) * 100).toFixed(4)}% - ${sliderHandleWidth / 2}px)`;
 
-
+confetti({
+  particleCount: 100,
+  spread: 70,
+  origin: { y: 0.6 },
+});
     
     randomR()
 
