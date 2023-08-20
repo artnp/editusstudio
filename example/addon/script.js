@@ -33,11 +33,7 @@ function sliderMouseMove(event) {
     
 
     randomR()
-   
-
-
-    
-    //changePattern()
+    changePattern()
     
   }
 }
