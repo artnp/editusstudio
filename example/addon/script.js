@@ -31,32 +31,44 @@ function sliderMouseMove(event) {
     sliderImgWrapper.style.width = '100%';
     sliderHandle.style.left = `calc(${((mouseX / sliderWidth) * 100).toFixed(4)}% - ${sliderHandleWidth / 2}px)`;
 
-const defaults = {
-  spread: 360,
-  ticks: 100,
-  gravity: 0,
-  decay: 0.94,
-  startVelocity: 30,
-  shapes: ["heart"],
-  colors: ["FFC0CB", "FF69B4", "FF1493", "C71585"],
-};
+const count = 200,
+  defaults = {
+    origin: { y: 0.7 },
+  };
 
-confetti({
-  ...defaults,
-  particleCount: 50,
-  scalar: 2,
+function fire(particleRatio, opts) {
+  confetti(
+    Object.assign({}, defaults, opts, {
+      particleCount: Math.floor(count * particleRatio),
+    })
+  );
+}
+
+fire(0.25, {
+  spread: 26,
+  startVelocity: 55,
 });
 
-confetti({
-  ...defaults,
-  particleCount: 25,
-  scalar: 3,
+fire(0.2, {
+  spread: 60,
 });
 
-confetti({
-  ...defaults,
-  particleCount: 10,
-  scalar: 4,
+fire(0.35, {
+  spread: 100,
+  decay: 0.91,
+  scalar: 0.8,
+});
+
+fire(0.1, {
+  spread: 120,
+  startVelocity: 25,
+  decay: 0.92,
+  scalar: 1.2,
+});
+
+fire(0.1, {
+  spread: 120,
+  startVelocity: 45,
 });
     
     randomR()
