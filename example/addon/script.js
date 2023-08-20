@@ -31,6 +31,8 @@ function sliderMouseMove(event) {
     sliderImgWrapper.style.width = '100%';
     sliderHandle.style.left = `calc(${((mouseX / sliderWidth) * 100).toFixed(4)}% - ${sliderHandleWidth / 2}px)`;
 
+    randomR()
+    
 const count = 200,
   defaults = {
     origin: { y: 0.7 },
@@ -71,7 +73,7 @@ fire(0.1, {
   startVelocity: 45,
 });
     
-    randomR()
+
 
     
     //changePattern()
