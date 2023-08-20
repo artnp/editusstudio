@@ -25,7 +25,7 @@ function sliderMouseMove(event) {
   sliderImgWrapper.style.width = `${((1 - mouseX / sliderWidth) * 100).toFixed(4)}%`;
   sliderHandle.style.left = `calc(${((mouseX / sliderWidth) * 100).toFixed(4)}% - ${sliderHandleWidth / 2}px)`;
 
-  <script src="https://cdn.jsdelivr.net/npm/party-js@latest/bundle/party.min.js"></script>
+
   if (mouseX === sliderWidth) {
     mouseX = 20; // Set mouseX to 0 to move the mouse to the left
     sliderImgWrapper.style.width = '100%';
