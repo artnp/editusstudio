@@ -1,7 +1,7 @@
 <html>
     <head>
       <meta charset="UTF-8">
-      <title>Showcase(X)) -อัพเดตราคา[งาน]</title>
+      <title>Showcase(X)) -อัพเดตราคางาน</title>
         <style>
             body {
     background-color: rgb(32, 32, 32);
@@ -16,7 +16,6 @@ a {
   text-decoration: none;
   color: white;
 }
-
           table {
             width: 100%;
             max-width: 100%;
@@ -28,11 +27,6 @@ a {
             width: 100%;
             height: 100%;
             overflow: hidden;
-          }
-      
-          iframe {
-            width: 100%;
-            height: 100%;
           }
           footer {
             position: fixed;
@@ -137,28 +131,42 @@ a {
          </script>
     <body>
       <div class="ticker-container"><div class="ticker-content" id="ticker"></div></div>
-        <table>
-            <tr>
-              <td>
-                <iframe src="https://www.youtube.com/embed/uR1iKAFk9Z4" title="Hun$ick feat.K.Aglet, Emboy | เมดเลย์เพลง HIP HOP ที่ฟังแล้วต้องโยกตาม [Wake Session]" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                          </td> 
       
-            </tr>
-          </table>
+  
+                <div id="vdo"></div>
+   
           <div class="ticker-container"><div class="review-content" id="review"></div></div>
           <center>
         <div id="image-comparison-slider"><div id="original"></div><div class="img-wrapper"><div id="retouch"></div></div><div class="handle"></div></div>
           </center>
           
 
-          <footer>Powered by <a href="https://artnp.github.io/guru/x.html" target="_blank"><b style="background-color:black;">Guru</b></a></footer>
-
-          <script src="https://artnp.github.io/editusstudio/example/img_random.js"></script>
+          
+	 	  <footer>Powered by <a href="https://artnp.github.io/guru/x.html" target="_blank"><b style="background-color:black;">Guru</b></a></footer>
+      <script src="https://cdn.jsdelivr.net/npm/tsparticles-confetti@2.12.0/tsparticles.confetti.bundle.min.js"></script>
+		  <script src="https://artnp.github.io/editusstudio/example/img_random.js"></script>
           <script src='https://artnp.github.io/editusstudio/example/addon/vanilla-tilt.min.js'></script>
           <script src="https://artnp.github.io/editusstudio/example/addon/script.js"></script></td>
           <script src="price.js"></script>
           <script src="review.js"></script>
           <script>
+                     function removeUrl(str) {
+                 return str.split('#')[1]
+                }
+                            function GetName(str) {
+                    return str.split('index.html#')[1]
+                }
+
+            url = decodeURIComponent(window.location.href)
+            x = removeUrl(url)
+            
+          Iframex1 = '<iframe style="width: 100%; height: 65%;" src="https://www.youtube.com/embed/'+ x
+          Iframex2 = '" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>'
+          if ((window.location.href.substring(window.location.origin.length)).length <= 21) {
+            window.location="https://www.facebook.com/editusstudio"
+                } else {
+                  document.getElementById('vdo').innerHTML = Iframex1 + Iframex2
+                }
 
 const tickerElement = document.getElementById("ticker");
 function updateTicker() {
