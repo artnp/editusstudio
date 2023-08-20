@@ -27,13 +27,19 @@ function sliderMouseMove(event) {
 
 
   if (mouseX === sliderWidth) {
-    mouseX = 20; // Set mouseX to 0 to move the mouse to the left
-    sliderImgWrapper.style.width = '100%';
-    sliderHandle.style.left = `calc(${((mouseX / sliderWidth) * 100).toFixed(4)}% - ${sliderHandleWidth / 2}px)`;
-    randomR()
+
     party.confetti(runButton, {
     count: party.variation.range(20, 40)
     });
+    
+    mouseX = 20; // Set mouseX to 0 to move the mouse to the left
+    sliderImgWrapper.style.width = '100%';
+    sliderHandle.style.left = `calc(${((mouseX / sliderWidth) * 100).toFixed(4)}% - ${sliderHandleWidth / 2}px)`;
+
+    
+    
+    randomR()
+
     
     //changePattern()
     
