@@ -30,19 +30,6 @@ function sliderMouseMove(event) {
     mouseX = 20; // Set mouseX to 0 to move the mouse to the left
     sliderImgWrapper.style.width = '100%';
     sliderHandle.style.left = `calc(${((mouseX / sliderWidth) * 100).toFixed(4)}% - ${sliderHandleWidth / 2}px)`;
-
-
-
-function randomInRange(min, max) {
-  return Math.random() * (max - min) + min;
-}
-
-confetti({
-  angle: randomInRange(55, 125),
-  spread: randomInRange(50, 70),
-  particleCount: randomInRange(50, 100),
-  origin: { y: 0.6 },
-});
     
 
     randomR()
