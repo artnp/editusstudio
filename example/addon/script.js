@@ -1,3 +1,6 @@
+//party
+<script src="https://cdn.jsdelivr.net/npm/tsparticles-confetti@2.12.0/tsparticles.confetti.bundle.min.js"></script>
+
 VanillaTilt.init(document.querySelector("#image-comparison-slider"), {
   max: 5,
   speed: 800,
@@ -31,10 +34,32 @@ function sliderMouseMove(event) {
     sliderImgWrapper.style.width = '100%';
     sliderHandle.style.left = `calc(${((mouseX / sliderWidth) * 100).toFixed(4)}% - ${sliderHandleWidth / 2}px)`;
 
+const defaults = {
+  spread: 360,
+  ticks: 100,
+  gravity: 0,
+  decay: 0.94,
+  startVelocity: 30,
+  shapes: ["heart"],
+  colors: ["FFC0CB", "FF69B4", "FF1493", "C71585"],
+};
+
 confetti({
-  particleCount: 100,
-  spread: 70,
-  origin: { y: 0.6 },
+  ...defaults,
+  particleCount: 50,
+  scalar: 2,
+});
+
+confetti({
+  ...defaults,
+  particleCount: 25,
+  scalar: 3,
+});
+
+confetti({
+  ...defaults,
+  particleCount: 10,
+  scalar: 4,
 });
     
     randomR()
