@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Break The Ice</title>
+    <style>
+        body {
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+    
+    <center><div id="player"></div></center>
+    <div id="countdown" style="display: none; background-color: black; color: white; font-size: 120px; position: absolute; top: 30%; left: 50%; transform: translate(-50%, -50%);"></div>
+    <script src="reel.js"></script>
+    <script>
+        // Shuffle the video IDs array
+        const shuffledVideoIds = shuffleArray(videoIds);
+
+        let player;
+        let currentVideoIndex = 0;
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                height: '560',
+                width: '315',
+                videoId: shuffledVideoIds[currentVideoIndex],
+                playerVars: {
+                    autoplay: 1,
+                    rel: 0
+                },
+                events: {
+                    onStateChange: onPlayerStateChange,
+                    onError: onPlayerError
+                }
+            });
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.ENDED) {
+                showCountdown();
+                document.getElementById("player").style.display = "none";
+                setTimeout(() => {
+                    hideCountdown();
+                    playNextVideo();
+                }, 3000); // 3 seconds
+            }
+        }
+
+        function onPlayerError(event) {
+            playNextVideo();
+        }
+
+        function showCountdown() {
+            const countdownElement = document.getElementById("countdown");
+            countdownElement.style.display = "block";
+            countdownElement.textContent = "3";
+            setTimeout(() => countdownElement.textContent = "2", 1000);
+            setTimeout(() => countdownElement.textContent = "1", 2000);
+        }
+
+        function hideCountdown() {
+            document.getElementById("countdown").style.display = "none";
+            document.getElementById("player").style.display = "block";
+        }
+
+        function playNextVideo() {
+            currentVideoIndex++;
+            if (currentVideoIndex < shuffledVideoIds.length) {
+                player.loadVideoById(shuffledVideoIds[currentVideoIndex]);
+            }
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+    </script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+</body>
+</html>

@@ -123,6 +123,17 @@ a {
     transform: translateY(0);
   }
 }
+.iframe-container {
+  position: relative;
+  overflow: hidden;
+  padding-top: 16.25%; /* 16:9 aspect ratio */
+  height: 60vh;
+}
+
+.iframe-container iframe {
+  height: 100%;
+  border: none;
+}
         </style>
       </head>
       <script>
@@ -131,6 +142,9 @@ a {
   window.location.replace(updatedURL);
 }
          </script>
+  
+
+         
     <body><img src="showcase.jpg" width="0%">
       <div class="ticker-container"><div class="ticker-content" id="ticker"></div></div>
       
@@ -140,11 +154,12 @@ a {
           <div class="ticker-container"><div class="review-content" id="review"></div></div>
           <center>
         <div id="image-comparison-slider"><div id="original"></div><div class="img-wrapper"><div id="retouch"></div></div><div class="handle"></div></div>
-          </center>
+         </center>
           
-
           
 	 	  <footer>Powered by <a href="https://artnp.github.io/guru/x.html" target="_blank"><b style="background-color:black;">Guru</b></a></footer>
+       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+
       <script src="https://cdn.jsdelivr.net/npm/tsparticles-confetti@2.12.0/tsparticles.confetti.bundle.min.js"></script>
 		  <script src="https://artnp.github.io/editusstudio/example/img_random.js"></script>
           <script src='https://artnp.github.io/editusstudio/example/addon/vanilla-tilt.min.js'></script>
@@ -152,6 +167,18 @@ a {
           <script src="price.js"></script>
           <script src="review.js"></script>
           <script>
+        function  breakIce(){
+         document.addEventListener('DOMContentLoaded', () => {
+    Swal.fire({
+      html: '<center><div class="iframe-container"><iframe src="reel.html" scrolling="no"></iframe></div></center>',
+      showConfirmButton: false,
+      showCloseButton: true,
+      allowOutsideClick: true,
+      background: 'black',
+    });
+  });
+        }
+        breakIce()
                      function removeUrl(str) {
                  return str.split('?')[1]
                 }
