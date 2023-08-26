@@ -6,7 +6,6 @@ const videoIds = [
   "OXxJm3Y_mTM",
   "WOts4t_eTj8",
   "KzXi1hjou_4",
-  "dk6tJihXHLo",
   "qoeLLngdSpc",
   "NoRiElJfhMw",
   "0nqjDqIwuM4",
