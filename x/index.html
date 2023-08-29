@@ -91,14 +91,14 @@ a {
     overflow: hidden;
     white-space: nowrap;
   }
-  .ticker-content {
+   .ticker-content {
     display: inline-block;
     animation: marquee 50s linear infinite;
   }
-  .review-content {
+  /* .review-content {
     display: inline-block;
     animation: marquee2 90s linear infinite;
-  }
+  } */
   @keyframes marquee {
     0% {
       transform: translateX(-100%);
@@ -290,6 +290,7 @@ a {
                 }
 
 const tickerElement = document.getElementById("ticker");
+
 function updateTicker() {
   const formattedStockData = stockData.map(data => {
     const parts = data.split(" ");
@@ -319,7 +320,7 @@ function updateReview() {
   reviewElement.innerHTML = formattedreviewData.join(" | ");
 }
 
-setInterval(updateReview, 10000);
+setInterval(updateReview, 3000);
 
 updateReview(); 
 
