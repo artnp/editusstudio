@@ -91,10 +91,10 @@ a {
     overflow: hidden;
     white-space: nowrap;
   }
-   .ticker-content {
+   /* .ticker-content {
     display: inline-block;
     animation: marquee 50s linear infinite;
-  }
+  } */
   /* .review-content {
     display: inline-block;
     animation: marquee2 90s linear infinite;
@@ -289,9 +289,16 @@ a {
                   document.getElementById('vdo').innerHTML = Iframex1 + Iframex2
                 }
 
+                function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
 const tickerElement = document.getElementById("ticker");
 
 function updateTicker() {
+  shuffleArray(stockData);
   const formattedStockData = stockData.map(data => {
     const parts = data.split(" ");
     const price = parts[1];
@@ -299,19 +306,14 @@ function updateTicker() {
   });
   tickerElement.innerHTML = formattedStockData.join(" | ");
 }
-updateTicker();
+setInterval(updateTicker, 1500);
+updateTicker(); 
 
 
 const reviewElement = document.getElementById("review");
 
-function shuffleArray(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-}
 function updateReview() {
-  shuffleArray(reviewData); // สับเปลี่ยนลำดับข้อมูลสต็อก
+  shuffleArray(reviewData); 
   const formattedreviewData = reviewData.map(data => {
     const parts = data.split(" ");
     
