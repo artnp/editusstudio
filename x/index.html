@@ -3,6 +3,9 @@
       <meta charset="UTF-8">
       <title>Showcase(X)) -ห้องรับรอง</title>
         <style>
+
+
+
             body {
     background-color: rgb(32, 32, 32);
     color: rgb(255, 255, 255);
@@ -151,6 +154,51 @@ a {
   height: 100%;
   width: 14%;
 }
+.menu {
+ position: fixed;
+  border: 1px solid #333;
+  border-radius: 10px; /* แก้ไขให้ระบุหน่วย px */
+  color: #333;
+  bottom: -10;
+  left: 280px; 
+  width: 150px;
+  background-color: #333;
+  padding: 10px;
+  float: left;
+  transform: rotate(-3deg); 
+}
+.menu a ,
+.menu li{
+  color: #efecec;
+  text-decoration: none; /* ถ้าคุณต้องการลบเส้นใต้ลิงก์ */
+}
+.menu a:hover,
+.menu li:hover {
+  font-size: 20px; /* ขนาดตัวอักษรเมื่อ hover */
+}
+.menu2 {
+ position: fixed;
+  border: 1px solid #efecec;
+  border-radius: 10px; /* แก้ไขให้ระบุหน่วย px */
+  bottom: -10;
+  right: 270px; 
+  width: 150px;
+  background-color: #efecec;
+  padding: 10px;
+  float: right;
+  transform: rotate(3deg); 
+}
+.menu2 a ,
+.menu2 li {
+  color: #333;
+  text-decoration: none; /* ถ้าคุณต้องการลบเส้นใต้ลิงก์ */
+}
+.menu2 a:hover,
+.menu2 li:hover {
+  font-size: 20px; /* ขนาดตัวอักษรเมื่อ hover */
+}
+
+
         </style>
       </head>
       <script>
@@ -176,6 +224,20 @@ a {
   <img src="blackpole.png" class="blackpole">
   <img src="whitepole.png" class="whitepole">
 
+
+  <div class="menu">
+    <ul>
+      <li><del><a href="#">ห้องเกม</a></del></li>
+      <li><del><a href="#">เสนอขาย</a></del></li>
+    </ul>
+</div>
+<div class="menu2">
+  <ul>
+	<li><del><a href="#">ห้องสมาธิ</a></del></li>
+    <li><a href="#" onclick="coding()">Super_App</a></li>
+  </ul>
+</div>
+
 	 	  <footer>Powered by <a href="https://artnp.github.io/guru/x.html" target="_blank"><b style="background-color:black;">Guru</b></a></footer>
        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
 
@@ -198,6 +260,17 @@ a {
   });
         }
         breakIce()
+        function coding(){
+          Swal.fire({
+      html: '<center><iframe src="house_proj.html" height="600" width="100%" scrolling="yes"></iframe></center>',
+      width: '60%',
+      height: '100%',
+      showConfirmButton: false,
+      showCloseButton: true,
+      allowOutsideClick: true,
+      backdrop: false,
+    });
+        }
                      function removeUrl(str) {
                  return str.split('?')[1]
                 }
