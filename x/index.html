@@ -227,7 +227,7 @@ a {
 
   <div class="menu">
     <ul>
-      <li><del><a href="#">ห้องเกม</a></del></li>
+      <li><a href="#" onclick="game()">ห้องเกม</a></li>
       <li><del><a href="#">เสนอขาย</a></del></li>
     </ul>
 </div>
@@ -263,6 +263,17 @@ a {
         function coding(){
           Swal.fire({
       html: '<center><iframe src="house_proj.html" height="600" width="100%" scrolling="yes"></iframe></center>',
+      width: '60%',
+      height: '100%',
+      showConfirmButton: false,
+      showCloseButton: true,
+      allowOutsideClick: true,
+      backdrop: false,
+    });
+        }
+		        function game(){
+          Swal.fire({
+      html: '<center><iframe src="game/quiz/index.html" height="600" width="100%" scrolling="yes"></iframe></center>',
       width: '60%',
       height: '100%',
       showConfirmButton: false,
