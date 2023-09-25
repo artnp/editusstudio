@@ -48,7 +48,7 @@
     <h1><div style="border: 5px dotted black; background-color: white;" id="question"></div></h1>
     <input type="number" id="answer" placeholder="ตอบกด [Enter]" onkeyup="checkAutoSubmit(event)">
     <h1><font color="white"><div id="result"></div></font></h1>
-    <img src="pencil.png" width="5%"><br>
+    <div id="img"><img src="pencil.png" width="5%"></div><br>
     <canvas id="theCanvas"></canvas>
     
   </div>
@@ -144,6 +144,7 @@
       document.getElementById("answer").style.display = "none";
       document.getElementById("theCanvas").style.display = "none";
       document.getElementById("tea").style.display = "none";
+      document.getElementById("img").style.display = "none";
     }
 
     document.addEventListener('DOMContentLoaded', () => {
