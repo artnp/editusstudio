@@ -44,7 +44,7 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
 <body>
   <div class="container">
-    <button onclick="teach()"><b>สอนหน่อย!</b></button><br><hr><br><br>
+    <div id="tea"><button onclick="teach()"><b>สอนหน่อย!</b></button><br><hr></div><br><br>
     <h1><div style="border: 5px dotted black; background-color: white;" id="question"></div></h1>
     <input type="number" id="answer" placeholder="ตอบกด [Enter]" onkeyup="checkAutoSubmit(event)">
     <h1><font color="white"><div id="result"></div></font></h1> 
@@ -62,7 +62,7 @@
       showCloseButton: true,
       allowOutsideClick: true,
       background: 'black',
-      width: '50%',
+      width: '60%',
       height: '100%',
     });
   };
@@ -119,7 +119,7 @@
       }
 
       questionCount++;
-      if (questionCount < 22) {
+      if (questionCount < 11) {
         setTimeout(() => {
           const nextQuestion = generateQuestion();
           questionElement.innerText = nextQuestion;
@@ -135,12 +135,14 @@
     function showResults() {
       const resultElement = document.getElementById('result');
       resultElement.innerHTML = `
-        <p>Total questions: ${questionCount}</p>
-        <p>Correct answers: ${correctCount}</p>
-        <p>Wrong answers: ${wrongCount}</p>
+        <p>จำนวนคำถาม: ${questionCount}</p>
+        <p>ตอบถูก: ${correctCount}</p>
+        <p>ตอบผิด: ${wrongCount}</p>
       `;
       document.getElementById("question").style.display = "none";
       document.getElementById("answer").style.display = "none";
+      document.getElementById("theCanvas").style.display = "none";
+      document.getElementById("tea").style.display = "none";
     }
 
     document.addEventListener('DOMContentLoaded', () => {
