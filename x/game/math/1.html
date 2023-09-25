@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Math Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      text-align: center;
+    }
+
+    input[type="number"] {
+  font-size: 1.5em;
+  text-align: center;
+  padding: 15px;
+  margin-top: 20px;
+}
+    button {
+      padding: 10px 20px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    #result {
+      font-weight: bold;
+      margin-top: 20px;
+    }
+    #theCanvas {
+  height: 200px;
+  width: 600px;
+  background: rgb(214, 214, 214);
+}
+  </style>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+<body>
+  <div class="container">
+    <button onclick="teach()"><b>สอนหน่อย!</b></button><br><hr><br><br>
+    <h1><div style="border: 5px dotted black; background-color: white;" id="question"></div></h1>
+    <input type="number" id="answer" placeholder="ตอบกด [Enter]" onkeyup="checkAutoSubmit(event)">
+    <h1><font color="white"><div id="result"></div></font></h1> 
+    <canvas id="theCanvas"></canvas><br>
+    
+  </div>
+
+  <script>
+    
+    function teach(){
+
+    Swal.fire({
+      html: '<iframe width="560" height="315" src="https://www.youtube.com/embed/DpBd3mj35Ms?start=1&end=39" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>',
+      showConfirmButton: false,
+      showCloseButton: true,
+      allowOutsideClick: true,
+      background: 'black',
+      width: '50%',
+      height: '100%',
+    });
+  };
+
+    let questionCount = 0;
+    let correctCount = 0;
+    let wrongCount = 0;
+
+    function generateRandomNumber() {
+      return Math.floor(Math.random() * 100) + 1;
+    }
+
+    function generateRandomMultiplier() {
+      const multipliers = [11];
+      const randomIndex = Math.floor(Math.random() * multipliers.length);
+      return multipliers[randomIndex];
+    }
+
+    function generateQuestion() {
+      const randomNumber = generateRandomNumber();
+      const randomMultiplier = generateRandomMultiplier();
+      return `${randomNumber} * ${randomMultiplier}`;
+    }
+
+    function checkAutoSubmit(event) {
+      if (event.key === 'Enter') {
+        checkAnswer();
+      }
+    }
+
+    function checkAnswer() {
+      const questionElement = document.getElementById('question');
+      const answerElement = document.getElementById('answer');
+      const resultElement = document.getElementById('result');
+      clearCanvas(theContext)
+
+      const question = questionElement.innerText;
+      const [randomNumber, multiplier] = question.split('*').map(str => parseInt(str));
+
+      const correctAnswer = randomNumber * multiplier;
+      const userAnswer = parseInt(answerElement.value);
+
+      if (userAnswer === correctAnswer) {
+        resultElement.innerText = 'ถูกต้อง';
+        resultElement.style.backgroundColor = 'green';
+        document.body.style.backgroundColor = "#5EDC16";
+
+        correctCount++;
+      } else {
+        resultElement.innerText = `ผิด`;
+        resultElement.style.backgroundColor = 'red';
+        document.body.style.backgroundColor = '#DF080F';
+        wrongCount++;
+      }
+
+      questionCount++;
+      if (questionCount < 22) {
+        setTimeout(() => {
+          const nextQuestion = generateQuestion();
+          questionElement.innerText = nextQuestion;
+          answerElement.value = '';
+          resultElement.innerText = '';
+          resultElement.style.backgroundColor = '';
+        }, 1000); // หน่วงเวลา 1 วินาทีก่อนเปลี่ยนคำถามถัดไป
+      } else {
+        showResults();
+      }
+    }
+
+    function showResults() {
+      const resultElement = document.getElementById('result');
+      resultElement.innerHTML = `
+        <p>Total questions: ${questionCount}</p>
+        <p>Correct answers: ${correctCount}</p>
+        <p>Wrong answers: ${wrongCount}</p>
+      `;
+      document.getElementById("question").style.display = "none";
+      document.getElementById("answer").style.display = "none";
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const questionElement = document.getElementById('question');
+      const answerElement = document.getElementById('answer');
+      questionElement.innerText = generateQuestion();
+
+      // คำถามแรกจะเริ่มทำทันทีเมื่อโหลดเสร็จ
+      const nextQuestion = generateQuestion();
+      questionElement.innerText = nextQuestion;
+      answerElement.value = '';
+    });
+
+  //////////กระดาษทด
+  const MAIN_MOUSE_BUTTON = 0;
+
+function prepareContext(canvasElement) {
+  let dpr = window.devicePixelRatio || 1;
+  let rect = canvasElement.getBoundingClientRect();
+  canvasElement.width = rect.width * dpr;
+  canvasElement.height = rect.height * dpr;
+ 
+  let context = canvasElement.getContext("2d");
+  context.scale(dpr, dpr);
+  
+  return context;
+}
+
+function setLineProperties(context) {
+  context.lineWidth = 4;
+  context.lineJoin = "round";
+  context.lineCap = "round";
+  return context;
+}
+
+
+let theCanvas = document.getElementById("theCanvas");
+let theContext = prepareContext(theCanvas);
+let shouldDraw = false;
+
+theCanvas.addEventListener("mousedown", start);
+theCanvas.addEventListener("mouseup", end);
+theCanvas.addEventListener("mousemove", move, false);
+
+
+
+ 
+function clearCanvas(context) {
+  context.clearRect(0, 0, context.canvas.width, context.canvas.height);  
+}
+
+function start(event) {
+  if (event.button === MAIN_MOUSE_BUTTON) {
+    shouldDraw = true;
+    setLineProperties(theContext);
+
+    theContext.beginPath();
+    
+    let elementRect = event.target.getBoundingClientRect();
+    theContext.moveTo(event.clientX - elementRect.left, event.clientY - elementRect.top);
+  }
+}
+
+function end(event) {
+  if (event.button === MAIN_MOUSE_BUTTON) {
+    shouldDraw = false;
+  }
+}
+
+function move(event) {
+  if (shouldDraw) {
+    let elementRect = event.target.getBoundingClientRect();
+    theContext.lineTo(event.clientX - elementRect.left, event.clientY - elementRect.top);
+    theContext.stroke()
+  }
+}
+
+  </script>
+</body>
+</html>
