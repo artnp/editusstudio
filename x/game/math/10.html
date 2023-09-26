@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Math Game</title>
-<link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
 <body>
@@ -19,9 +19,8 @@
   <script>
     
     function teach(){
-
     Swal.fire({
-      html: '<iframe width="560" height="315" src="https://www.youtube.com/embed/DpBd3mj35Ms?start=1&end=39" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>',
+      html: '<iframe width="560" height="315" src="https://www.youtube.com/embed/'+'7jl4BTK2ZIo'+'?start=81&end=287" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>',
       showConfirmButton: false,
       showCloseButton: true,
       allowOutsideClick: true,
@@ -35,22 +34,21 @@
     let correctCount = 0;
     let wrongCount = 0;
 
-    function generateRandomNumber() {
-      return Math.floor(Math.random() * 100) + 1;
-    }
-
+ 
+///////////////////////////////////////////////////////////////////////////โจทย์สอง
     function generateRandomMultiplier() {
-      const multipliers = [11];
+      const multipliers = [90,91,92,93,94,95,96,97,98,99];
       const randomIndex = Math.floor(Math.random() * multipliers.length);
       return multipliers[randomIndex];
     }
-
+///////////////////////////////////////////////////////////////////////////โจทย์แรก
     function generateQuestion() {
-      const randomNumber = generateRandomNumber();
+      const multipliers = [90,91,92,93,94,95,96,97,98,99];
+      const randomNumber = Math.floor(Math.random() * multipliers.length);
       const randomMultiplier = generateRandomMultiplier();
-      return `${randomNumber} * ${randomMultiplier}`;
+      return `${multipliers[randomNumber]} * ${randomMultiplier}`;
     }
-
+///////////////////////////////////////////////////////////////////////////
     function checkAutoSubmit(event) {
       if (event.key === 'Enter') {
         checkAnswer();
@@ -62,13 +60,10 @@
       const answerElement = document.getElementById('answer');
       const resultElement = document.getElementById('result');
       clearCanvas(theContext)
-
       const question = questionElement.innerText
       const [randomNumber, multiplier] = question.split('*').map(str => parseInt(str));
-
       const correctAnswer = randomNumber * multiplier;
       const userAnswer = parseInt(answerElement.value);
-
       if (userAnswer === correctAnswer) {
         resultElement.innerText = 'ถูกต้อง';
         resultElement.style.backgroundColor = 'green';
@@ -81,7 +76,6 @@
         document.body.style.backgroundColor = '#DF080F';
         wrongCount++;
       }
-
       questionCount++;
       if (questionCount < 11) {
         setTimeout(() => {
@@ -109,33 +103,34 @@
       document.getElementById("tea").style.display = "none";
       document.getElementById("img").style.display = "none";
     }
-
     document.addEventListener('DOMContentLoaded', () => {
       const questionElement = document.getElementById('question');
       const answerElement = document.getElementById('answer');
       questionElement.innerText = generateQuestion();
-
-// คำถามแรกจะเริ่มทำทันทีเมื่อโหลดเสร็จ
 const nextQuestion = generateQuestion();
-const questionText = nextQuestion.slice(0, -4) + '<span style="color: red;">' + nextQuestion.slice(-4) + '</span>';
+const questionString = nextQuestion.toString();
+
+
+///////////////////////////////////////////////////////////////////////////แก้สี
+const firstNine = '<span style="color: red;">9</span>';
+const starNine = '<span style="color: red;">* 9</span>';
+///////////////////////////////////////////////////////////////////////////
+
+
+const questionText = firstNine + questionString.slice(1, -1).replace('* 9', starNine) + questionString.slice(-1);
 questionElement.innerHTML = questionText;
 answerElement.value = '';
-
-    //   questionElement.innerText = nextQuestion;
     });
 
   //////////กระดาษทด
   const MAIN_MOUSE_BUTTON = 0;
-
 function prepareContext(canvasElement) {
   let dpr = window.devicePixelRatio || 1;
   let rect = canvasElement.getBoundingClientRect();
   canvasElement.width = rect.width * dpr;
   canvasElement.height = rect.height * dpr;
- 
   let context = canvasElement.getContext("2d");
   context.scale(dpr, dpr);
-  
   return context;
 }
 
@@ -145,19 +140,12 @@ function setLineProperties(context) {
   context.lineCap = "round";
   return context;
 }
-
-
 let theCanvas = document.getElementById("theCanvas");
 let theContext = prepareContext(theCanvas);
 let shouldDraw = false;
-
 theCanvas.addEventListener("mousedown", start);
 theCanvas.addEventListener("mouseup", end);
 theCanvas.addEventListener("mousemove", move, false);
-
-
-
- 
 function clearCanvas(context) {
   context.clearRect(0, 0, context.canvas.width, context.canvas.height);  
 }
@@ -166,20 +154,16 @@ function start(event) {
   if (event.button === MAIN_MOUSE_BUTTON) {
     shouldDraw = true;
     setLineProperties(theContext);
-
     theContext.beginPath();
-    
     let elementRect = event.target.getBoundingClientRect();
     theContext.moveTo(event.clientX - elementRect.left, event.clientY - elementRect.top);
   }
 }
-
 function end(event) {
   if (event.button === MAIN_MOUSE_BUTTON) {
     shouldDraw = false;
   }
 }
-
 function move(event) {
   if (shouldDraw) {
     let elementRect = event.target.getBoundingClientRect();
@@ -187,7 +171,6 @@ function move(event) {
     theContext.stroke()
   }
 }
-
   </script>
 </body>
 </html>
