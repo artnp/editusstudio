@@ -162,9 +162,9 @@
     function showResults() {
       const resultElement = document.getElementById('result');
       resultElement.innerHTML = `
-        <p>จำนวนคำถาม: ${questionCount}</p>
+        <p>เก่งมาก! <u>${correctCount}</u>/${questionCount}</p>
         <p>ตอบถูก: ${correctCount}</p>
-        <p>ตอบผิด: ${wrongCount}</p>
+        <p>ตอบผิด: <font color="red">${wrongCount}</font></p>
       `;
       document.getElementById("question").style.display = "none";
       document.getElementById("answer").style.display = "none";
