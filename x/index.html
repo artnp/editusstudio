@@ -33,22 +33,23 @@
 	  <li><del><a href="#">Metaverse</a></del></li>
       <li><a href="#" onclick="game()">ห้องเกม</a></li>
       <li><del><a href="#">เสนอขาย</a></del></li>
+      <br>
+      <br>
     </ul>
 </div>
 <div class="menu2">
   <ul>
-	<li><div class="tooltip"><del><a href="#">ห้องเชือด</a></del>🔒<div class="tooltiptext"><img src="coin.gif" width="30%">x100</div></div></li>
-	<li><div class="tooltip"><del><a href="#">ห้องสมาธิ</a></del>🔒<div class="tooltiptext"><img src="coin.gif" width="30%">x50</div></div></li>
-    <li><a href="#" onclick="coding()">Super_App</a></li>
+	<li><div id="ห้องเชือด"></div></li>
+	<li><div id="ห้องสมาธิ"></div></li>
+  <li><a href="#" onclick="coding()">Super_App</a></li>
+  <br>
+  <br>
   </ul>
 </div>
 
-  
-
-
-	 	  <footer>Powered by <a href="https://artnp.github.io/guru/x.html" target="_blank"><b style="background-color:black;">Guru</b></a></footer>
-       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
-
+	 	  <footer><div id="point"></div> Powered by <a href="https://artnp.github.io/guru/x.html" target="_blank"><b style="background-color:black;">Guru</b></a> </footer>
+      
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/tsparticles-confetti@2.12.0/tsparticles.confetti.bundle.min.js"></script>
 		  <script src="https://artnp.github.io/editusstudio/example/img_random.js"></script>
           <script src='https://artnp.github.io/editusstudio/example/addon/vanilla-tilt.min.js'></script>
@@ -96,7 +97,6 @@
                             function GetName(str) {
                     return str.split('index.html?')[1]
                 }
-
             url = decodeURIComponent(window.location.href)
             x = removeUrl(url)
             
@@ -140,12 +140,31 @@ function updateReview() {
   });
   reviewElement.innerHTML = formattedreviewData.join(" | ");
 }
-
 setInterval(updateReview, 3000);
-
 updateReview(); 
 
-  
+///point
+
+if (localStorage.getItem("editus_points") == null){
+  localStorage.setItem("editus_points", 0);
+  document.getElementById('point').innerHTML="<img src='coin.png' width='1.1%'><b style='background-color:black;'>x[0]</b>"
+}
+document.getElementById('point').innerHTML="<img src='coin.png' width='1.1%'><b style='background-color:black;'>x"+localStorage.getItem("editus_points")+"</b>"
+
+if (localStorage.getItem("editus_points") <50){
+  document.getElementById('ห้องเชือด').innerHTML="<div class='tooltip'><del><a href='#'>ห้องเชือด</a></del>🔒<div class='tooltiptext'><img src='coin.gif' width='30%'>x100</div></div>"
+  document.getElementById('ห้องสมาธิ').innerHTML="<div class='tooltip'><del><a href='#'>ห้องสมาธิ</a></del>🔒<div class='tooltiptext'><img src='coin.gif' width='30%'>x50</div></div>"
+} 
+else if (localStorage.getItem("editus_points") >= 50 && localStorage.getItem("editus_points") < 100) {
+  document.getElementById('ห้องเชือด').innerHTML="<div class='tooltip'><del><a href='#'>ห้องเชือด</a></del>🔒<div class='tooltiptext'><img src='coin.gif' width='30%'>x100</div></div>"
+  document.getElementById('ห้องสมาธิ').innerHTML="<a href='#'>ห้องสมาธิ</a>🗝️</div>"
+}
+else if (localStorage.getItem("editus_points") >= 100) {
+  document.getElementById('ห้องเชือด').innerHTML="<a href='#'>ห้องเชือด</a>🗝️</div>"
+  document.getElementById('ห้องสมาธิ').innerHTML="<a href='#'>ห้องสมาธิ</a>🗝️</div>"
+}
+
+
           </script>
     </body>
     </html>

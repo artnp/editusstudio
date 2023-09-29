@@ -25,32 +25,101 @@ a {
 a:hover {
   color: red;
 }
+   /* Tooltip container */
+   .tooltip {
+      position: relative;
+      display: inline-block;
+    }
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 80px;
+      background-color: #121212;
+      color: #fff;
+      text-align: center;
+      border-radius: 5px;
+      padding: 7px;
+      position: absolute;
+      z-index: 1;
+      bottom: -125%;
+      left: 150%;
+      margin-left: -100px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }
   </style>
 </head>
 <body>
   <table>
     <tr>
-      <td><a href="https://artnp.github.io/astro-prediction/">โหราศาสตร์สากล</a></td>
-      <td><a href="https://artnp.github.io/predict-future-event/">พยากรณ์เหตุเกิดซ้ำ</a></td>
+      <td><div id="horo"></div></td>
+      <td><div id="predict"></div></td>
       <td><a href="https://artnp.github.io/TH-Random-Donate/app.html">สุ่มทำบุญ</a></td>
     </tr>
     <tr>
-      <td><a href="https://artnp.github.io/opportunity-finder/">แสกนคริปโต</a></td>
-      <td><a href="https://artnp.github.io/btc-support-resistant-exponent/">กำลังบิทคอยน์</a></td>
+      <td><div id="crypto_scan"></div></td>
+      <td><div id="btc_expo"></div></td>
       <td><a href="https://artnp.github.io/guru/x(2).html">สุ่มวิชชา</a></td>
     </tr>
     <tr>
       <td><a href="https://artnp.github.io/guru/engine/">คลังประมวลข้อมูล</a></td>
       <td><a href="https://artnp.github.io/thai-herb/">สมุนไพรรักษาโรค</a></td>
-      <td><a href="https://artnp.github.io/birthforce/">Numerology</a></td>
+      <td><div id="numberlogy"></div></td>
     </tr>
     <tr>
-      <td><a href="https://www.tradingview.com/chart/H5sue6RV/?symbol=BINANCE%3ABTCUSDT" target="_blank">ระบบเฮาส์บิทคอยน์</a></td>
+      <td><div id="house_btc"></div></td>
       <td></td>
       <td></td>
     </tr>
-    
-    
   </table>
+  <script>
+    point = localStorage.getItem("editus_points")
+
+if (point == 0 || point == null){
+  localStorage.setItem("editus_points", 0);
+  document.getElementById('horo').innerHTML="<div class='tooltip'><del>โหราศาสตร์สากล</del>🔒<div class='tooltiptext'><img src='coin.gif' width='30%'>x1</div></div>"
+  document.getElementById('crypto_scan').innerHTML="<div class='tooltip'><del>แสกนคริปโต</del>🔒<div class='tooltiptext'><img src='coin.gif' width='30%'>x5</div></div>"
+  document.getElementById('btc_expo').innerHTML="<div class='tooltip'><del>กำลังบิทคอยน์</del>🔒<div class='tooltiptext'><img src='coin.gif' width='30%'>x5</div></div>"
+  document.getElementById('predict').innerHTML="<div class='tooltip'><del>พยากรณ์เหตุเกิดซ้ำ</del>🔒<div class='tooltiptext'><img src='coin.gif' width='30%'>x10</div></div>"
+  document.getElementById('numberlogy').innerHTML="<div class='tooltip'><del>Numerology</del>🔒<div class='tooltiptext'><img src='coin.gif' width='30%'>x10</div></div>"
+  document.getElementById('house_btc').innerHTML="<div class='tooltip'><del>ระบบเฮาส์บิทคอยน์</del>🔒<div class='tooltiptext'><img src='coin.gif' width='30%'>x50</div></div>"
+} 
+else if (point>=50){
+    document.getElementById('horo').innerHTML="<a href='https://artnp.github.io/astro-prediction'>โหราศาสตร์สากล</a>🗝️"
+    document.getElementById('btc_expo').innerHTML="<a href='https://artnp.github.io/btc-support-resistant-exponent'>กำลังบิทคอยน์</a>🗝️"
+    document.getElementById('crypto_scan').innerHTML="<a href='https://artnp.github.io/opportunity-finder'>แสกนคริปโต</a>🗝️"
+    document.getElementById('predict').innerHTML="<a href='https://artnp.github.io/predict-future-event'>พยากรณ์เหตุเกิดซ้ำ</a>🗝️"
+    document.getElementById('numberlogy').innerHTML="<a href='https://artnp.github.io/birthforce'>Numerology</a>🗝️"
+    document.getElementById('house_btc').innerHTML="<a href='https://www.tradingview.com/chart/H5sue6RV/?symbol=BINANCE%3ABTCUSDT' target='_blank'>ระบบเฮาส์บิทคอยน์</a>🗝️"
+  }
+  else if (point>=10){
+    document.getElementById('horo').innerHTML="<a href='https://artnp.github.io/astro-prediction'>โหราศาสตร์สากล</a>🗝️"
+    document.getElementById('btc_expo').innerHTML="<a href='https://artnp.github.io/btc-support-resistant-exponent'>กำลังบิทคอยน์</a>🗝️"
+    document.getElementById('crypto_scan').innerHTML="<a href='https://artnp.github.io/opportunity-finder'>แสกนคริปโต</a>🗝️"
+    document.getElementById('predict').innerHTML="<a href='https://artnp.github.io/predict-future-event'>พยากรณ์เหตุเกิดซ้ำ</a>🗝️"
+    document.getElementById('numberlogy').innerHTML="<a href='https://artnp.github.io/birthforce'>Numerology</a>🗝️"
+    document.getElementById('house_btc').innerHTML="<div class='tooltip'><del>ระบบเฮาส์บิทคอยน์</del>🔒<div class='tooltiptext'><img src='coin.gif' width='30%'>x50</div></div>"
+  }
+  else if (point>=5){
+    document.getElementById('horo').innerHTML="<a href='https://artnp.github.io/astro-prediction'>โหราศาสตร์สากล</a>🗝️"
+    document.getElementById('btc_expo').innerHTML="<a href='https://artnp.github.io/btc-support-resistant-exponent'>กำลังบิทคอยน์</a>🗝️"
+    document.getElementById('crypto_scan').innerHTML="<a href='https://artnp.github.io/opportunity-finder'>แสกนคริปโต</a>🗝️"
+    document.getElementById('predict').innerHTML="<div class='tooltip'><del>พยากรณ์เหตุเกิดซ้ำ</del>🔒<div class='tooltiptext'><img src='coin.gif' width='30%'>x10</div></div>"
+    document.getElementById('numberlogy').innerHTML="<div class='tooltip'><del>Numerology</del>🔒<div class='tooltiptext'><img src='coin.gif' width='30%'>x10</div></div>"
+}
+  else if (point>=1){
+    document.getElementById('horo').innerHTML="<a href='https://artnp.github.io/astro-prediction'>โหราศาสตร์สากล</a>🗝️"
+
+  document.getElementById('crypto_scan').innerHTML="<div class='tooltip'><del>แสกนคริปโต</del>🔒<div class='tooltiptext'><img src='coin.gif' width='30%'>x5</div></div>"
+  document.getElementById('btc_expo').innerHTML="<div class='tooltip'><del>กำลังบิทคอยน์</del>🔒<div class='tooltiptext'><img src='coin.gif' width='30%'>x5</div></div>"
+  document.getElementById('predict').innerHTML="<div class='tooltip'><del>พยากรณ์เหตุเกิดซ้ำ</del>🔒<div class='tooltiptext'><img src='coin.gif' width='30%'>x10</div></div>"
+  document.getElementById('numberlogy').innerHTML="<div class='tooltip'><del>Numerology</del>🔒<div class='tooltiptext'><img src='coin.gif' width='30%'>x10</div></div>"
+  document.getElementById('house_btc').innerHTML="<div class='tooltip'><del>ระบบเฮาส์บิทคอยน์</del>🔒<div class='tooltiptext'><img src='coin.gif' width='30%'>x50</div></div>"
+  }
+
+  </script>
 </body>
 </html>
