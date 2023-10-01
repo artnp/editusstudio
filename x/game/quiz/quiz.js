@@ -1,4 +1,4 @@
-const maxQuizAttempts = 33; // Set the maximum quiz attempts
+const maxQuizAttempts = 11; // Set the maximum quiz attempts
 var quiz = {
   data: [
     {
@@ -929,10 +929,18 @@ var quiz = {
   },
 
   showResult: () => {
-    quiz.hQn.innerHTML = `สุดยอด! คุณตอบถูกตั้ง ${quiz.score} ข้อจาก 33 คำถาม`;
+    if (quiz.score == 11){
+        localStorage.setItem("editus_points", Number(localStorage.getItem("editus_points")) + 1);
+      quiz.hQn.innerHTML = `<center>สุดยอด! คุณตอบถูกทั้งหมด
+      <br><br>รับไป<br><img src="../../coin.png" width="12%"> x 1</center>
+      `;
     quiz.hAns.innerHTML = "";
     document.querySelector('.flashing-bar').style.display = 'none';
-  }
+    } else{
+    quiz.hQn.innerHTML = `สุดยอด! คุณตอบถูกตั้ง ${quiz.score} ข้อจาก 11 คำถาม`;
+    quiz.hAns.innerHTML = "";
+    document.querySelector('.flashing-bar').style.display = 'none';
+  }}
 };
 
 window.addEventListener("load", quiz.init);
