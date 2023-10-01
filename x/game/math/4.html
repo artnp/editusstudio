@@ -87,11 +87,20 @@
 
     function showResults() {
       const resultElement = document.getElementById('result');
+      if (correctCount === 11){
+        localStorage.setItem("editus_points", Number(localStorage.getItem("editus_points")) + 1);
+        resultElement.innerHTML = `
+        ตอบถูกหมดเลย!
+        <br>รับไป
+        <br><img src="../../coin.png" width="12%"> x 1
+      `;
+      } else {
       resultElement.innerHTML = `
         <p>เก่งมาก! <u>${correctCount}</u>/${questionCount}</p>
         <p>ตอบถูก: ${correctCount}</p>
         <p>ตอบผิด: <font color="pink">${wrongCount}</font></p>
       `;
+    }
       document.getElementById("question").style.display = "none";
       document.getElementById("answer").style.display = "none";
       document.getElementById("theCanvas").style.display = "none";
