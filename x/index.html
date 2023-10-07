@@ -39,8 +39,8 @@
 </div>
 <div class="menu2">
   <ul>
-	<li><a href="#" onclick="hypnopsis()"><div id="ห้องเชือด"></div></a></li>
-	<li><a href="#" onclick="meditation()"><div id="ห้องสมาธิ"></div></a></li>
+	<li><div id="ห้องเชือด"></div></li>
+	<li><div id="ห้องสมาธิ"></div></li>
   <li><a href="#" onclick="AIbot()">AI-แชท🤖</a></li>
   <li><a href="#" onclick="coding()">Super_App📱</a></li>
   <br>
@@ -183,8 +183,8 @@ else if (localStorage.getItem("editus_points") >= 50 && localStorage.getItem("ed
   document.getElementById('ห้องสมาธิ').innerHTML="<a href='#'>ห้องสมาธิ</a>🗝️</div>"
 }
 else if (localStorage.getItem("editus_points") >= 100) {
-  document.getElementById('ห้องเชือด').innerHTML="<a href='#'>ห้องเชือด</a>🗝️</div>"
-  document.getElementById('ห้องสมาธิ').innerHTML="<a href='#'>ห้องสมาธิ</a>🗝️</div>"
+  document.getElementById('ห้องเชือด').innerHTML="<a href='#' onclick='hypnopsis()'>ห้องเชือด</a>🗝️</div>"
+  document.getElementById('ห้องสมาธิ').innerHTML="<a href='#' onclick='meditation()'>ห้องสมาธิ</a>🗝️</div>"
 }
 
 
