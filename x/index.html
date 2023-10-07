@@ -21,7 +21,7 @@
    
           <div class="ticker-container"><div class="review-content" id="review"></div></div>
           <center>
-        <div id="image-comparison-slider"><div id="original"></div><div class="img-wrapper"><div id="retouch"></div></div><div class="handle"></div></div>
+            <div id="image-comparison-slider"><div id="original"></div><div class="img-wrapper"><div id="retouch"></div></div><div class="handle"></div></div>
          </center>
           
   <img src="blackpole.png" class="blackpole">
@@ -39,8 +39,8 @@
 </div>
 <div class="menu2">
   <ul>
-	<li><div id="ห้องเชือด"></div></li>
-	<li><div id="ห้องสมาธิ"></div></li>
+	<li><a href="#" onclick="hypnopsis()"><div id="ห้องเชือด"></div></a></li>
+	<li><a href="#" onclick="meditation()"><div id="ห้องสมาธิ"></div></a></li>
   <li><a href="#" onclick="AIbot()">AI-แชท🤖</a></li>
   <li><a href="#" onclick="coding()">Super_App📱</a></li>
   <br>
@@ -103,6 +103,17 @@
       backdrop: false,
     });
         }
+        function meditation(){
+          document.getElementById('vdo').innerHTML = "<br><br><br><center><h1>Coming Soon...</h1></center>"
+          document.querySelectorAll(".ticker-container").forEach(element => element.style.display = "none");
+          document.getElementById("image-comparison-slider").style.display = "none";
+        }
+        function hypnopsis(){
+          document.getElementById('vdo').innerHTML = "<br><br><br><center><h1>Coming Soon...</h1></center>"
+          document.querySelectorAll(".ticker-container").forEach(element => element.style.display = "none");
+          document.getElementById("image-comparison-slider").style.display = "none";
+        }
+        ////////////////////////////////////
                      function removeUrl(str) {
                  return str.split('?')[1]
                 }
