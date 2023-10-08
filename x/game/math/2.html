@@ -5,13 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Math Game</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 </head>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
 <body>
   <div class="container">
     <div id="tea"><button onclick="teach()">🧙สอนหน่อย!</button><hr></div><br>
-    <h1><div style="border: 5px dotted black; background-color: white;" id="question"></div></h1>
-    <input type="number" id="answer" placeholder="ตอบกด [Enter]" onkeyup="checkAutoSubmit(event)">
+    <h1 class="animate__animated animate__bounceInDown"><div style="border: 5px dotted black; background-color: white;" id="question"></div></h1>
+    <input type="number" id="answer" placeholder="ตอบกด [Enter]" onkeyup="checkAutoSubmit(event)" class="animate__animated animate__bounceInUp">
     <h1><font color="white"><div id="result"></div></font></h1>
     <canvas id="theCanvas"></canvas><div id="img"><img src="pencil.png" width="5%"></div>
   </div>
@@ -96,7 +97,7 @@
         resultElement.innerHTML = `
         ตอบถูกหมดเลย!
         <br>รับไป
-        <br><img src="../../coin.png" width="12%"> x 1
+        <br><img src="../../coin.png" width="12%" class="animate__animated animate__zoomInUp> x 1
       `;
       } else {
       resultElement.innerHTML = `
