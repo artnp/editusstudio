@@ -9,11 +9,13 @@
             background-color: black;
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 </head>
 <body>
     
-    <center><div id="player"></div></center>
+    <center><div id="player" class="animate__animated animate__zoomInRight"></div></center>
     <div id="countdown" style="display: none; background-color: black; color: white; font-size: 120px; position: absolute; top: 30%; left: 50%; transform: translate(-50%, -50%);"></div>
+    <div id="countdown2" style="display: none; background-color: black; color: white; font-size: 50px; position: absolute; top: 30%; left: 50%; transform: translate(-50%, -50%);"></div>
     <script src="reel.js"></script>
     <script>
         // Shuffle the video IDs array
@@ -56,9 +58,9 @@
         function showCountdown() {
             const countdownElement = document.getElementById("countdown");
             countdownElement.style.display = "block";
-            countdownElement.textContent = "III";
-            setTimeout(() => countdownElement.textContent = "II", 1000);
-            setTimeout(() => countdownElement.textContent = "I", 2000);
+            countdownElement.innerHTML = "<br><div class='animate__animated animate__pulse'>III</div>";
+            setTimeout(() => countdownElement.innerHTML = "<br><div class='animate__animated animate__pulse'>II</div>", 1000);
+            setTimeout(() => countdownElement.innerHTML = "<br><div class='animate__animated animate__pulse'>I</div>", 2000);
         }
 
         function hideCountdown() {
@@ -68,9 +70,15 @@
 
         function playNextVideo() {
             currentVideoIndex++;
-            if (currentVideoIndex < shuffledVideoIds.length) {
+            if (currentVideoIndex < 22) {
                 player.loadVideoById(shuffledVideoIds[currentVideoIndex]);
-            }
+            } else {
+        localStorage.setItem("editus_points", Number(localStorage.getItem("editus_points")) + 0.5);
+        document.getElementById("player").style.display = "none";
+        document.getElementById("countdown").style.display = "none";
+        document.getElementById("countdown2").style.display = "block";
+        document.getElementById("countdown2").innerHTML = `<center>ให้<br><img src="coin.png" width="30%" class="animate__animated animate__zoomInUp">x 0.5</center>`
+    }
         }
 
         function shuffleArray(array) {
@@ -80,6 +88,7 @@
             }
             return array;
         }
+        
     </script>
     <script src="https://www.youtube.com/iframe_api"></script>
 </body>
