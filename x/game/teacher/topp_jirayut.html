@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  body {
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    position: relative;
+  }
+  img {
+    max-width: 500px;
+    max-height: 500px;
+    display: block;
+    margin: 0 auto;
+    transition: opacity 0.3s;
+  }
+  .play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .play-button button {
+    width: 100px;
+    height: 100px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: none;
+    border-radius: 50%;
+    color: white;
+    font-size: 2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  .play-button button:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+</head>
+<body>
+  <div id="main" class="animate__animated animate__rotateInDownLeft">
+    <div class='teacher'><img src="img/topp_jirayut.jpg"></div>
+    <div class="play-button" >
+      <button onclick="playVideo()" class="animate__animated animate__slideInRight">
+        ▶ Key
+      </button>
+    </div>
+  </div>
+  <div id="co-main">
+    <div id="player" class="animate__animated animate__bounceInDown"></div>
+    <div id="countdown" style="display: none; background-color: black; color: white; font-size: 50px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></div>
+  </div>
+  <script>
+    document.getElementById("co-main").style.display = "none"
+    const videoIds = [
+    "YDNoWovbVGE",
+      "0hDoBGlJdUI",
+      "mHlAFbsc0mo",
+      "E0f2DRXN2t8",
+      "yj9EkO_A_lw",
+      "oR06_h5EKIo",
+      "wokoKL5fi9Y",
+      "OfqrjwFMK9w",
+      "lovWEL9kOBI",
+      "BZWKBOBTl-E",
+      "Pqf_P4wtSqg",
+      "XLzj8OoTxzg",
+      "ExLrcbgwAEw",
+      "anlW0iytfpE",
+      "8q3ow5OBOgs",
+      "2Ej3aASXJXg",
+      "Keam_LIO8KQ",
+      "4Xv2c2_shxQ",
+      "31OV_hkjjrY",
+      "dLzprxs_xGc",
+      "-43XCjtDuMk",
+      "hWRNDyccsmI",
+      "FFJCJOB53R0",
+      "VYJJOhQLlkg",
+      "3hNB2SaQI7A"
+    ];
+
+    const shuffledVideoIds = shuffleArray(videoIds);
+    let player;
+    let currentVideoIndex = 0;
+
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('player', {
+        height: '560',
+        width: '315',
+        videoId: shuffledVideoIds[currentVideoIndex],
+        playerVars: {
+          autoplay: 0,
+          rel: 0
+        },
+        events: {
+          onStateChange: onPlayerStateChange,
+          onError: onPlayerError
+        }
+      });
+    }
+
+    function onPlayerStateChange(event) {
+      if (event.data === YT.PlayerState.ENDED) {
+        showCountdown();
+        document.getElementById("player").style.display = "none";
+        setTimeout(() => {
+          hideCountdown();
+          playNextVideo();
+        }, 2500); // 3 seconds
+      }
+    }
+
+    function onPlayerError(event) {
+      playNextVideo();
+    }
+
+    function showCountdown() {
+      const countdownElement = document.getElementById("countdown");
+      countdownElement.style.display = "block";
+      countdownElement.innerHTML = "<img src='img/loading.gif'>";
+    }
+
+    function hideCountdown() {
+      document.getElementById("countdown").style.display = "none";
+      document.getElementById("player").style.display = "block";
+    }
+
+    function playNextVideo() {
+      currentVideoIndex++;
+      if (currentVideoIndex < 11) {
+        player.loadVideoById(shuffledVideoIds[currentVideoIndex]);
+      } else {
+        player.stopVideo();
+        localStorage.setItem("editus_points", Number(localStorage.getItem("editus_points")) + 1);
+        document.getElementById("player").style.display = "none";
+        document.getElementById("countdown").style.display = "block";
+        document.getElementById("countdown").innerHTML = `<center>รับรางวัล <img src="../../coin.png" width="12%" class="animate__animated animate__zoomInUp">x 1</center>`
+      }
+    }
+
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    function playVideo() {
+      document.getElementById("main").style.display = "none"
+      document.getElementById("co-main").style.display = "block"
+      // Set autoplay to 1 (true) to make the video autoplay
+      player.setPlaybackRate(1);
+      player.playVideo();
+    }
+  </script>
+  <script src="https://www.youtube.com/iframe_api"></script>
+</body>
+</html>
