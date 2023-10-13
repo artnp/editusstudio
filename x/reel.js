@@ -72,7 +72,6 @@ const videoIds = [
   "66bfFOaYC80",
   "q7o-kv5UBX8",
   "qhxy8pc_Gnk",
-  "ZSjH-fZ4YdI",
   "8mNNZzqRP6c",
   "PBP8vLu5IOs",
   "rqh9pzEd6BM",
