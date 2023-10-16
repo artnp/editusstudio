@@ -226,7 +226,6 @@ const videoIds = [
   "dGxVG1tKmuA",
   "Ca-khdYwthU",
   "jhIWlRk3zKk",
-  "-G-Tj8PiDrk",
   "7sF7dHxX3Uw",
   "d1Gi1V7UlJs",
   "CnI9OR1V9lU",
