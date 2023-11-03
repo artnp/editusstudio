@@ -174,7 +174,6 @@ const videoIds = [
 "9cjfx6gEyhg",
 "EB36ewp6Yuc",
 "jXAqJOh-AMc",
-"CFhfPf4DT7U",
 "JxUJikUlIiA",
 "rlGVFEJG_N4",
 "GMxLGhBVptY",
