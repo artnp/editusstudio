@@ -40,7 +40,6 @@
     100% {
       transform: translateX(100%);
     }
-
   }
   .animate {
       animation: bounceEverySecond 1s infinite;
@@ -84,7 +83,6 @@ window.location.replace(updatedURL);
 
 <script src="https://artnp.github.io/editusstudio/x/price.js"></script>
 <script>
-
         function removeUrl(str) {
                  return str.split('?')[1]
                 }
@@ -148,7 +146,7 @@ randomR();
   window.location.href = window.location.pathname + '?1'
  }
  if (x == 1){
-  document.getElementById('page').innerHTML = '<a href="' + window.location.pathname + '?' + (x+1) + '"><< งานก่อนหน้า</a>  &nbsp; &nbsp; | &nbsp; &nbsp;  <font color="grey">งานย้อนหลัง >></font>';
+  document.getElementById('page').innerHTML = '<a href="' + window.location.pathname + '?' + (x+1) + '"> งานก่อนหน้า</a>  &nbsp; &nbsp; | &nbsp; &nbsp;  <font color="grey">งานย้อนหลัง >></font>';
  }
 
 function getRandomColor() {
@@ -172,7 +170,7 @@ var countdownElement = document.getElementById('countdown');
 
       if (countdownValue <= 0) {
         localStorage.setItem("editus_points", Number(localStorage.getItem("editus_points")) - 0.5);
-        document.getElementById("point").innerHTML = `<center><h1>ถูกหัก<br><span style="color: red; background-color: black;">- 0.5</a></span><br><img src="../x/coin.png" width="27%" class="animate__animated animate__zoomOutDown"></h1></center>`
+        document.getElementById("point").innerHTML = `<center><h1>ถูกหัก<br><span style="color: red; background-color: black;">- 0.5</a></span><br><img src="../x/coin.png" width="33%" class="animate__animated animate__zoomOutDown"></h1></center>`
         clearInterval(interval);
       }
     }
