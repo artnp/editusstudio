@@ -54,6 +54,26 @@ const updatedURL = window.location.href.replace(/[?&]fbclid=[^&#]+/, '').replace
 window.location.replace(updatedURL);
 }
 </script>
+<script src="https://connect.facebook.net/en_US/sdk.js"></script>
+<script>
+  // Get the image URL
+  var imageURL = "https://artnp.github.io/editusstudio/x/showcase.jpg";
+
+  // Create a new image object
+  var image = new Image();
+
+  // Set the image's source URL
+  image.src = imageURL;
+
+  // Once the image has loaded, set the Facebook thumbnail
+  image.onload = function() {
+    FB.ui({
+      method: "share_link",
+      link: "https://example.com/my-post",
+      picture: image.src
+    });
+  };
+</script>
 <body>
 
 <div id="point">
@@ -85,6 +105,7 @@ window.location.replace(updatedURL);
 
 <script src="https://artnp.github.io/editusstudio/x/price.js"></script>
 <script>
+
         function removeUrl(str) {
                  return str.split('?')[1]
                 }
@@ -132,11 +153,7 @@ imgcheck.src = 'img/' + x + ' (2).jpg'
 imgcheck.onerror = function() {
   window.location.href = window.location.pathname + '?1'
 };
-// const head = document.querySelector('head');
-// const metaTag = document.createElement('meta');
-// metaTag.setAttribute('property', 'og:image');
-// metaTag.setAttribute('content', );
-// head.appendChild(metaTag);
+
 const meta = document.createElement('meta');
 meta.property = 'og:image';
 meta.content = 'https://artnp.github.io/editusstudio/x/showcase.jpg';
