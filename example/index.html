@@ -6,7 +6,7 @@
   <link rel='stylesheet' href='https://unpkg.com/pattern.css@1.0.0/dist/pattern.min.css'>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/tsparticles-confetti@2.12.0/tsparticles.confetti.bundle.min.js"></script>
-  <title>✂️[อัพเดตตัวอย่างงาน⚠️] ซ่อม+ตัดต่อ+รีทัชภาพ | Edit us studio</title>
+  <title>✂️[ตัวอย่างงานล่าสุด⚠️] ซ่อม+ตัดต่อ+รีทัชภาพ | Edit us studio</title>
   <style>
     textarea {
         width: 200;
@@ -54,6 +54,7 @@ window.location.replace(updatedURL);
 }
 </script>
 <body>
+<img src="showcase.jpg" width="0%">
 <div id="point">
   <div id="random-pattern"><h2><div id="header"></div></h2>
     <div id="image-comparison-slider" class="animate"> 
@@ -130,11 +131,6 @@ imgcheck.src = 'img/' + x + ' (2).jpg'
 imgcheck.onerror = function() {
   window.location.href = window.location.pathname + '?1'
 };
-
-const meta = document.createElement('meta');
-meta.property = 'og:image';
-meta.content = 'https://artnp.github.io/editusstudio/x/showcase.jpg';
-document.head.appendChild(meta);
 
 function randomR() {
     document.getElementById('original').innerHTML = '<img src="img/' + x + ' (1).jpg' + '" >';
