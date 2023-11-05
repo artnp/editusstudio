@@ -156,7 +156,7 @@ a:hover {
   background-color: rgb(211, 63, 63);
 }
 #randomword2 {
-  font-size: 50px;
+  font-size: 40px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   animation: wave 1s infinite;
   display: none;
