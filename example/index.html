@@ -2,24 +2,67 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>✂️ [ตัวอย่างงานให้บริการ]</title>
-  <link rel="stylesheet" href="addon/style.css">
+  <link rel="stylesheet" href="addon/style2.css">
   <link rel='stylesheet' href='https://unpkg.com/pattern.css@1.0.0/dist/pattern.min.css'>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script>
-  	   if(/^\?fbclid=/.test(location.search))
-     location.replace(location.href.replace(/\?fbclid.+/, ""));
-	 </script>
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles-confetti@2.12.0/tsparticles.confetti.bundle.min.js"></script>
+  <title>ตัวอย่างงานตัดต่อ-รีทัชภาพ | Edit us studio</title>
+  <style>
+    textarea {
+        width: 200;
+        height: 40;
+        text-align: center;
+        color: white;
+        background-color: red;
+        border: none;
+        padding: 10px;
+        font-size: 140px;
+        font-family: Arial, sans-serif;
+    }
+    .ticker-container {
+    font-size: xx-large;
+    margin: 0;
+    padding: 0;
+    width: 45%;
+    background-color: black; /* Set background color to black */
+    color: white; /* Set text color to white */
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .ticker-content {
+    display: inline-block;
+    animation: marquee 40s linear infinite;
+  }
+  @keyframes marquee {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+
+  }
+  .animate {
+      animation: bounceEverySecond 1s infinite;
+    }
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 </head>
+<script>
+  if (window.location.href.includes('fbclid')) {
+const updatedURL = window.location.href.replace(/[?&]fbclid=[^&#]+/, '').replace(/[&?]$/, '');
+window.location.replace(updatedURL);
+}
+</script>
 <body>
 
-  <div id="video-container"></div>
-  <div id="random-pattern">
-    <h1 id="countdown"></h1>
-    <div id='eye'></div>
-    <div id="image-comparison-slider">
+<div id="point">
+  <div id="random-pattern"><h2><div id="header"></div></h2>
+    <div id="image-comparison-slider" class="animate"> 
+      ก่อนทำ >>      
       <div id="original"></div>
       <div class="img-wrapper">
+        หลังทำ
         <div id="retouch"></div>
       </div>
       <div class="handle">
@@ -31,85 +74,110 @@
         <div class="handle-line"></div>
       </div>
     </div>
-    
-    <div id="foot">
-      <center>
-        <h2><div id='foot_talk'></div></h2>
-      </center>
-    </div>
+    <br><div style="background-color: black; color: white;">
   </div>
-  <script src="img_random.js"></script>
-  <script>
+  <div id="randomword2"></div>
+  <div class="ticker-container"><div class="ticker-content" id="ticker"></div>
+</div>
+<br><br><br><h2><div id="page"></div></h2>
+<br><br><span style="color: yellow; background-color: red;"><h1 id="countdown"></h1></span>
+</div>
 
-    var patterns=["pattern-checks-sm","pattern-checks-md","pattern-checks-lg","pattern-checks-xl","pattern-grid-sm","pattern-grid-md","pattern-grid-lg","pattern-grid-xl","pattern-dots-sm","pattern-dots-md","pattern-dots-lg","pattern-dots-xl","pattern-cross-dots-sm","pattern-cross-dots-md","pattern-cross-dots-lg","pattern-cross-dots-xl","pattern-diagonal-lines-sm","pattern-diagonal-lines-md","pattern-diagonal-lines-lg","pattern-diagonal-lines-xl","pattern-horizontal-lines-sm","pattern-horizontal-lines-md","pattern-horizontal-lines-lg","pattern-horizontal-lines-xl","pattern-vertical-lines-sm","pattern-vertical-lines-md","pattern-vertical-lines-lg","pattern-vertical-lines-xl","pattern-diagonal-stripes-sm","pattern-diagonal-stripes-md","pattern-diagonal-stripes-lg","pattern-diagonal-stripes-xl","pattern-horizontal-stripes-sm","pattern-horizontal-stripes-md","pattern-horizontal-stripes-lg","pattern-horizontal-stripes-xl","pattern-vertical-stripes-sm","pattern-vertical-stripes-md","pattern-vertical-stripes-lg","pattern-vertical-stripes-xl","pattern-triangles-sm","pattern-triangles-md","pattern-triangles-lg","pattern-triangles-xl","pattern-zigzag-sm","pattern-zigzag-md","pattern-zigzag-lg","pattern-zigzag-xl"];
-    function getRandomColor() {
-      return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
-    }
+<script src="https://artnp.github.io/editusstudio/x/price.js"></script>
+<script>
+        function removeUrl(str) {
+                 return str.split('?')[1]
+                }
+                            function GetName(str) {
+                    return str.split('index.php?')[1]
+                }
+            url = decodeURIComponent(window.location.href)
+            x = Number(removeUrl(url))
 
-    function changePattern() {
-      const target = document.getElementById("random-pattern");
-      const color = getRandomColor();
-      const bg_color = getRandomColor();
-      const pattern = patterns[Math.floor(Math.random() * patterns.length)];
+document.querySelector('.animate').classList.add('animate__animated', 'animate__bounce');
+const words = ["Edit","Us","❤️"];
+const header = document.getElementById("header");
+function generateRandomWord() {
+  const randomIndex = Math.floor(Math.random() * words.length);
+  return words[randomIndex];
+}
+setInterval(() => {
+  header.textContent = generateRandomWord();
+}, 700);
 
-      target.style.color = color;
-      target.style.backgroundColor = bg_color;
-      target.className = pattern;
-    }
-    changePattern()
+const tickerElement = document.getElementById("ticker");
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
 
-    function eye() {
-      var images = ["addon/eye1.png", "addon/eye2.png", "addon/eye3.png", "addon/eye4.png"];
-      var randomIndex = Math.floor(Math.random() * images.length);
-      var randomImage = images[randomIndex];
-      document.getElementById("eye").innerHTML='<center><img src="'+randomImage+'" width="10%"></center>'
-    }
-	  eye()
+function updateTicker() {
+  shuffleArray(stockData); // สับเปลี่ยนลำดับข้อมูลสต็อก
+  const formattedStockData = stockData.map(data => {
+    const parts = data.split(" ");
+    const price = parts[1];
+    return ` <span style="color: white;">${parts[0]}</span> <span style="color: red;">${price}</span>`;
+  });
+  tickerElement.innerHTML = formattedStockData.join(" | ");
+}
 
-    function getRandomVideo() {
-      var playlistId = 'PL9JPQ2n_J_ypvhyZvt4hzbpzXhzHNsHw8';
-      var apiKey = 'AIzaSyBevF1JioYljjQ-cOBrWW4EWeZ6yQRLdrU';
+// อัปเดต Ticker ทุก 3 วินาที
+setInterval(updateTicker, 3000);
+updateTicker(); 
 
-      $.get(
-        "https://www.googleapis.com/youtube/v3/playlistItems", {
-          part: 'snippet',
-          maxResults: 50,
-          playlistId: playlistId,
-          key: apiKey
-        },
-        function(data) {
-          var items = data.items;
-          var randomIndex = Math.floor(Math.random() * items.length);
-          var videoId = items[randomIndex].snippet.resourceId.videoId;
+imgcheck = new Image();
+imgcheck.src = '/example/img/' + x + ' (2).jpg'
+imgcheck.onerror = function() {
+  window.location.href = window.location.pathname + '?1'
+};
 
-          var videoContainer = document.getElementById('video-container');
-          videoContainer.innerHTML = '<iframe width="460" height="315" src="https://www.youtube.com/embed/' + videoId + '?autoplay=1" frameborder="0" allowfullscreen></iframe><br><center><button style="font-size:14pt;" onclick="getRandomVideo();eye();">🎶ไม่ให้ผ่าน</button></center>';
-        }
-      );
-    }
-    getRandomVideo()
+function randomR() {
+    document.getElementById('original').innerHTML = '<img src="img/' + x + ' (2).jpg' + '" >';
+    document.getElementById('retouch').innerHTML = '<img src="img/' + x + ' (1).jpg' + '">';
+    document.getElementById('page').innerHTML = '<a href="' + window.location.pathname + '?' + (x+1) + '"><< งานก่อนหน้า</a>  &nbsp; &nbsp; | &nbsp; &nbsp;  <a href="' + window.location.pathname + '?' + (x-1) + '">งานย้อนหลัง >>';
+}
+randomR();
+ if (x < 1){
+  window.location.href = window.location.pathname + '?1'
+ }
+ if (x == 1){
+  document.getElementById('page').innerHTML = '<a href="' + window.location.pathname + '?' + (x+1) + '"><< งานก่อนหน้า</a>  &nbsp; &nbsp; | &nbsp; &nbsp;  <font color="grey">งานย้อนหลัง >></font>';
+ }
 
-          // Set the countdown duration in milliseconds (3 minutes = 180,000 milliseconds)
-    var countdownDuration = 180000;
-    var countdownElement = document.getElementById('countdown');
-    countdown();
+function getRandomColor() {
+  const letters = '0123456789ABCDEF';
+  let color = '#';
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
+const randomStock = stockData[Math.floor(Math.random() * stockData.length)];
+const randomDiv = document.getElementById("randomword2");
+randomDiv.style.backgroundColor = getRandomColor();
 
+// Get the countdown element
+var countdownElement = document.getElementById('countdown');
+    var countdownValue = 39.9;
     function countdown() {
-      var minutes = Math.floor(countdownDuration / 60000);
-      var seconds = Math.floor((countdownDuration % 60000) / 1000);
-      countdownElement.textContent = minutes + ' : ' + (seconds < 10 ? '0' : '') + seconds;
-      countdownDuration -= 1000;
-      
-      if (countdownDuration < 0) {
-        window.location.href = 'https://www.facebook.com/editusstudio';
-      } else {
-        setTimeout(countdown, 1000);
+      countdownValue -= 0.1;
+      countdownElement.innerHTML = '💀'+countdownValue.toFixed(1)+'💥'
+
+      if (countdownValue <= 0) {
+        localStorage.setItem("editus_points", Number(localStorage.getItem("editus_points")) - 0.5);
+        document.getElementById("point").innerHTML = `<center><h1>ถูกหัก<br><span style="color: red; background-color: black;">- 0.5</a></span><br><img src="x/coin.png" width="27%" class="animate__animated animate__zoomOutDown"></h1></center>`
+        clearInterval(interval);
       }
     }
+    var interval = setInterval(countdown, 100);
 
-  </script>
+</script>
+
+
   <script src='addon/vanilla-tilt.min.js'></script>
-  <script src="addon/script.js"></script>
+  <script src="addon/script2.js"></script>
   <script src="word_random.js"></script>
 </body>
 </html>
