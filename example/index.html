@@ -54,21 +54,9 @@ const updatedURL = window.location.href.replace(/[?&]fbclid=[^&#]+/, '').replace
 window.location.replace(updatedURL);
 }
 </script>
-<script>
-  // Get the image element
-  const image = document.querySelector('img');
+<meta property="og:image" content="https://artnp.github.io/editusstudio/x/showcase.jpg">
 
-  // Set the image source
-  image.src = 'https://artnp.github.io/editusstudio/x/showcase.jpg';
-
-  // Add a listener for the load event
-  image.addEventListener('load', function() {
-    // Once the image has loaded, set its display property to 'block'
-    image.style.display = 'block';
-  });
-</script>
 <body>
-
 <div id="point">
   <div id="random-pattern"><h2><div id="header"></div></h2>
     <div id="image-comparison-slider" class="animate"> 
