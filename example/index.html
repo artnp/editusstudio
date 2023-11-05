@@ -132,14 +132,10 @@ imgcheck.src = 'img/' + x + ' (2).jpg'
 imgcheck.onerror = function() {
   window.location.href = window.location.pathname + '?1'
 };
-// const head = document.querySelector('head');
-// const metaTag = document.createElement('meta');
-// metaTag.setAttribute('property', 'og:image');
-// metaTag.setAttribute('content', 'img/' + x + ' (1).jpg');
-// head.appendChild(metaTag);
+
 const meta = document.createElement('meta');
 meta.property = 'og:image';
-meta.content = 'https://artnp.github.io/editusstudio/x/showcase.jpg';
+meta.content = 'img/' + x + ' (1).jpg';
 document.head.appendChild(meta);
 
 function randomR() {
