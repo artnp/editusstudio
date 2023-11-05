@@ -54,25 +54,18 @@ const updatedURL = window.location.href.replace(/[?&]fbclid=[^&#]+/, '').replace
 window.location.replace(updatedURL);
 }
 </script>
-<script src="https://connect.facebook.net/en_US/sdk.js"></script>
 <script>
-  // Get the image URL
-  var imageURL = "https://artnp.github.io/editusstudio/x/showcase.jpg";
+  // Get the image element
+  const image = document.querySelector('img');
 
-  // Create a new image object
-  var image = new Image();
+  // Set the image source
+  image.src = 'https://artnp.github.io/editusstudio/x/showcase.jpg';
 
-  // Set the image's source URL
-  image.src = imageURL;
-
-  // Once the image has loaded, set the Facebook thumbnail
-  image.onload = function() {
-    FB.ui({
-      method: "share_link",
-      link: "https://example.com/my-post",
-      picture: image.src
-    });
-  };
+  // Add a listener for the load event
+  image.addEventListener('load', function() {
+    // Once the image has loaded, set its display property to 'block'
+    image.style.display = 'block';
+  });
 </script>
 <body>
 
