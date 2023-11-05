@@ -132,6 +132,11 @@ imgcheck.src = 'img/' + x + ' (2).jpg'
 imgcheck.onerror = function() {
   window.location.href = window.location.pathname + '?1'
 };
+const head = document.querySelector('head');
+const metaTag = document.createElement('meta');
+metaTag.setAttribute('property', 'og:image');
+metaTag.setAttribute('content', 'img/' + x + ' (1).jpg');
+head.appendChild(metaTag);
 
 function randomR() {
     document.getElementById('original').innerHTML = '<img src="img/' + x + ' (1).jpg' + '" >';
