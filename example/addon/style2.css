@@ -6,9 +6,20 @@ html, body {
   padding: 0;
   box-sizing: border-box;
 }
+#punish {
+  position: absolute;
+  top: calc(50vh - 320px);
+  left: calc(50vw - 180px);
+  transform: translate(-50%, -50%);
+}
 :root {
   --image-comparison-slider-width: min(80vw, 768px);
   --image-comparison-slider-handle-width: 50px;
+}
+.fade-bg {
+  background-color: red;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
 }
 body {
   font-family: Helvetica, sans-serif;
@@ -50,7 +61,6 @@ a:hover {
   justify-content: center;
   width: 100vw;
   height: 100vh;
- 
 }
 #image-comparison-slider {
   position: relative;
