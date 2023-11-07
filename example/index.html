@@ -146,14 +146,14 @@ imgcheck.onerror = function() {
 function randomR() {
     document.getElementById('original').innerHTML = '<img src="img/' + x + ' (1).jpg' + '" >';
     document.getElementById('retouch').innerHTML = '<img src="img/' + x + ' (2).jpg' + '">';
-    document.getElementById('page').innerHTML = '<a href="' + window.location.pathname + '?' + (x+1) + '"><< งานก่อนหน้า</a>  &nbsp; &nbsp; | &nbsp; &nbsp;  <a href="' + window.location.pathname + '?' + (x-1) + '">งานย้อนหลัง >>';
+    document.getElementById('page').innerHTML = '<div class="animate__animated animate__pulse animate__infinite animate__slow"><a href="' + window.location.pathname + '?' + (x+1) + '" class="animate__animated animate__bounce animate__repeat-2"><< งานก่อนหน้า</a>  &nbsp; &nbsp; | &nbsp; &nbsp;  <a href="' + window.location.pathname + '?' + (x-1) + '">งานย้อนหลัง >></a></div>';
 }
 randomR();
  if (x < 1){
   window.location.href = window.location.pathname + '?1'
  }
  if (x == 1){
-  document.getElementById('page').innerHTML = '<a href="' + window.location.pathname + '?' + (x+1) + '"><< งานก่อนหน้า</a>  &nbsp; &nbsp; | &nbsp; &nbsp;  <font color="grey">งานย้อนหลัง >></font>';
+  document.getElementById('page').innerHTML = '<div class="animate__animated animate__pulse animate__infinite animate__slow"><a href="' + window.location.pathname + '?' + (x+1) + '"><< งานก่อนหน้า</a>  &nbsp; &nbsp; | &nbsp; &nbsp;  <font color="grey">งานย้อนหลัง >></font></div>';
  }
 
 function getRandomColor() {
@@ -217,7 +217,6 @@ function onPlayerStateChange(event) {
     document.body.style.background = 'black';
   }
 }
-
 
 
 // Get the countdown element
