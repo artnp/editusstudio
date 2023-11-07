@@ -1,8 +1,6 @@
 var videoIds = [
   "3sfpvpIywQs",
   "M116BrXIl00",
-  "bZ-mXMjO9h8",
-  "Di9lliE2Cg4",
   "e2pxOjdYaDI",
   "d6Ymxkw0Wkw",
   "p0hWZgGqp5c",
