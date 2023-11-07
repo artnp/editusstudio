@@ -228,7 +228,7 @@ var countdownElement = document.getElementById('countdown');
 
       if (countdownValue <= 0) {
         localStorage.setItem("editus_points", Number(localStorage.getItem("editus_points")) - 1);
-        document.getElementById("point").innerHTML = `<span class="animate__animated animate__fadeOut animate__delay-3s"><center><h1>ถูกหัก<br><span style="color: red; background-color: black;">- 1</span><br><img src="../x/coin.png" width="33%" class="animate__animated animate__zoomOutDown"></h1></center></span>`
+        document.getElementById("point").innerHTML = `<span class="animate__animated animate__fadeOut animate__delay-3s"><center><h1>จ่าย<br><span style="color: red; background-color: black;">- 1</span><br><img src="../x/coin.png" width="33%" class="animate__animated animate__zoomOutDown"></h1></center></span>`
         
         setTimeout(function() {        
           document.body.style.transition = 'background 2s';
