@@ -227,8 +227,8 @@ var countdownElement = document.getElementById('countdown');
       countdownElement.innerHTML = '💀'+countdownValue.toFixed(1)+'💥'
 
       if (countdownValue <= 0) {
-        localStorage.setItem("editus_points", Number(localStorage.getItem("editus_points")) - 0.5);
-        document.getElementById("point").innerHTML = `<span class="animate__animated animate__fadeOut animate__delay-3s"><center><h1>ถูกหัก<br><span style="color: red; background-color: black;">- 0.5</span><br><img src="../x/coin.png" width="33%" class="animate__animated animate__zoomOutDown"></h1></center></span>`
+        localStorage.setItem("editus_points", Number(localStorage.getItem("editus_points")) - 1);
+        document.getElementById("point").innerHTML = `<span class="animate__animated animate__fadeOut animate__delay-3s"><center><h1>ถูกหัก<br><span style="color: red; background-color: black;">- 1</span><br><img src="../x/coin.png" width="33%" class="animate__animated animate__zoomOutDown"></h1></center></span>`
         
         setTimeout(function() {        
           document.body.style.transition = 'background 2s';
