@@ -140,8 +140,12 @@ updateTicker();
 imgcheck = new Image();
 imgcheck.src = 'img/' + x + ' (2).jpg'
 imgcheck.onerror = function() {
-  window.location.href = window.location.pathname + '?1'
+  document.getElementById('original').innerHTML = '<img src="img/' + (x-1) + ' (1).jpg' + '" >';
+  document.getElementById('retouch').innerHTML = '<img src="img/' + (x-1) + ' (2).jpg' + '">';
+  document.getElementById('page').innerHTML = '<div class="animate__animated animate__pulse animate__infinite animate__slow"><font color="grey"><< งานก่อนหน้า</font>  &nbsp; &nbsp; | &nbsp; &nbsp;  <a href="' + window.location.pathname + '?' + (x-1) + '">งานย้อนหลัง >></a></div>';
 };
+
+
 
 function randomR() {
     document.getElementById('original').innerHTML = '<img src="img/' + x + ' (1).jpg' + '" >';
