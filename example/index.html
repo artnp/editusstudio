@@ -19,28 +19,7 @@
         font-size: 140px;
         font-family: Arial, sans-serif;
     }
-    .ticker-container {
-    font-size: xx-large;
-    margin: 0;
-    padding: 0;
-    width: 45%;
-    background-color: black; /* Set background color to black */
-    color: white; /* Set text color to white */
-    overflow: hidden;
-    white-space: nowrap;
-  }
-  .ticker-content {
-    display: inline-block;
-    animation: marquee 40s linear infinite;
-  }
-  @keyframes marquee {
-    0% {
-      transform: translateX(-100%);
-    }
-    100% {
-      transform: translateX(100%);
-    }
-  }
+
   .animate {
       animation: bounceEverySecond 20s infinite;
     }
@@ -77,14 +56,14 @@ window.location.replace(updatedURL);
         <div class="handle-line"></div>
       </div>
     </div>
-<br><div style="background-color: black; color: white;">
+<div style="background-color: black; color: white;">
   </div>
-
-  <div class="animate__animated animate__zoomInUp animate__slow animate__slower">
+  <br>
+  <div class="animate__animated animate__fadeIn animate__slow animate__slower animate__delay-5s">
   <div id="randomword2"></div>
   </div>
   
-  <div class="ticker-container"><div class="ticker-content" id="ticker"></div>
+  <div class="ticker-container">
 
 
 </div>
@@ -102,7 +81,6 @@ window.location.replace(updatedURL);
   <div class="line"></div>
   <div class="line"></div>
 </div>
-<script src="https://artnp.github.io/editusstudio/x/price.js"></script>
 <script src="https://www.youtube.com/iframe_api"></script>
 <script src="punish.js"></script>
 <script>
@@ -132,27 +110,8 @@ setInterval(() => {
   header.textContent = generateRandomWord();
 }, 700);
 
-const tickerElement = document.getElementById("ticker");
-function shuffleArray(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-}
 
-function updateTicker() {
-  shuffleArray(stockData); // สับเปลี่ยนลำดับข้อมูลสต็อก
-  const formattedStockData = stockData.map(data => {
-    const parts = data.split(" ");
-    const price = parts[1];
-    return ` <span style="color: white;">${parts[0]}</span> <span style="color: red;">${price}</span>`;
-  });
-  tickerElement.innerHTML = formattedStockData.join(" | ");
-}
 
-// อัปเดต Ticker ทุก 3 วินาที
-setInterval(updateTicker, 3000);
-updateTicker(); 
 
 imgcheck = new Image();
 imgcheck.src = 'img/' + x + ' (2).jpg'
@@ -185,7 +144,6 @@ function getRandomColor() {
   }
   return color;
 }
-const randomStock = stockData[Math.floor(Math.random() * stockData.length)];
 const randomDiv = document.getElementById("randomword2");
 randomDiv.style.backgroundColor = getRandomColor();
 
