@@ -7,13 +7,13 @@
 		<link rel="stylesheet" href="styles.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 	<body data-aos-easing="ease-out-back" data-aos-duration="1000" data-aos-delay="0">
+		<div id="content" class="fade-in">
 
-		<div class="backgrounds overlay">
-		</div>
+
 		<img src="cover.jpg" width="0%">
 		<header class="hero">
 			<div class="hero-center">
-				<h1 class="hero__logo aos-init aos-animate" data-aos="zoom-in" style="background-color: white;">ระบบ</h1>
+				<h1 class="hero__logo aos-init aos-animate" data-aos="zoom-in" style="background-color: red;">ระบบ</h1>
 				<div class="animate__animated animate__pulse animate__slow animate__infinite">
 				<h2 class="hero__text aos-init aos-animate" data-aos="fade-up" data-aos-easing="ease" data-aos-delay="400">จำลองบทสนทนา</h2>
 				</div>
@@ -208,6 +208,10 @@
 		<script src="aos.js.download"></script>
 
 		<script>
+window.onload = function() {
+            document.body.style.backgroundColor = '#202746';
+        };
+
 			const groupA = {
   1: "<font color='#DB6AFF'>สวัสดีค่ะ</font> <font color='white'>ว่าจั๋งได๋</font>",
   2: "<font color='#DB6AFF'>คุณพี่</font><font color='white'>จะทำอัลไล</font>",
@@ -259,5 +263,5 @@ document.getElementById('9').innerHTML=groupRandom[9]
 				duration: 1000
 			});
 		</script>
-
+</div>
 </body></html>
