@@ -67,7 +67,7 @@ a:hover {
 }
 #image-comparison-slider {
   position: relative;
-  width: 500px;
+  height: 200px;
   /* width: var(--image-comparison-slider-width); */
   overflow: hidden;
   border-radius: 0.5rem;
@@ -76,9 +76,9 @@ a:hover {
 }
 #image-comparison-slider img {
   display: block;
-  width: 500px;
+  height: 200px;
   /* width: var(--image-comparison-slider-width); */
-  height: auto;
+  /* height: auto; */
   max-height: 80vh;
   object-fit: cover;
   pointer-events: none;
