@@ -121,7 +121,6 @@
         function showCountdown() {
             document.querySelector('.svg-wrapper').classList.add('animate__animated', 'animate__bounce');
             const countdownElement = document.getElementById("countdown");
-            
             document.getElementById("Skipbutton").style.display = "none";
             countdownElement.style.display = "block";
             randomWord1 = ['.Edit','Edi_','e.Dit','_Dit','ed.It','ed_t','edi.T','edi_'][Math.floor(Math.random() * 8)];
@@ -142,6 +141,7 @@
             if (currentVideoIndex < 22) {
                 document.getElementById("Skipbutton").style.display = "block";
                 player.loadVideoById(shuffledVideoIds[currentVideoIndex]);
+                setTimeout(() => { document.getElementById("Skipbutton").style.display = "none"; }, 6000);
             } else {
         localStorage.setItem("editus_points", Number(localStorage.getItem("editus_points")) + 0.5);
         document.getElementById("player").style.display = "none";
