@@ -140,8 +140,9 @@
             currentVideoIndex++;
             if (currentVideoIndex < 22) {
                 document.getElementById("Skipbutton").style.display = "block";
-                player.loadVideoById(shuffledVideoIds[currentVideoIndex]);
                 setTimeout(() => { document.getElementById("Skipbutton").style.display = "none"; }, 6000);
+                player.loadVideoById(shuffledVideoIds[currentVideoIndex]);
+                
             } else {
         localStorage.setItem("editus_points", Number(localStorage.getItem("editus_points")) + 0.5);
         document.getElementById("player").style.display = "none";
