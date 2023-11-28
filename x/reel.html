@@ -8,25 +8,88 @@
         body {
             background-color: black;
         }
+        .spot {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+.svg-wrapper {
+  margin-top: 0;
+  position: relative;
+  width: 150px;
+  /*make sure to use same height/width as in the html*/
+  height: 40px;
+  display: inline-block;
+  border-radius: 3px;
+  margin-left: 5px;
+  margin-right: 5px
+}
+#shape {
+  stroke-width: 6px;
+  fill: transparent;
+  stroke: #009FFD;
+  stroke-dasharray: 85 400;
+  stroke-dashoffset: -220;
+  transition: 1s all ease;
+}
+#text {
+  margin-top: -35px;
+  text-align: center;
+}
+#text a {
+  color: white;
+  text-decoration: none;
+  font-weight: 100;
+  font-size: 1.1em;
+}
+.svg-wrapper:hover #shape {
+  stroke-dasharray: 50 0;
+  stroke-width: 3px;
+  stroke-dashoffset: 0;
+  stroke: #06D6A0;
+}
+
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 </head>
 <body>
     
-    <center><div id="player" class="animate__animated animate__zoomInRight"></div></center>
+    <center><div id="player" class="animate__animated animate__zoomInRight"></div>
+    <br>
+    <div id="Skipbutton" class="animate__animated animate__slideInLeft">
+        <div class="svg-wrapper">
+            <svg height="37" width="150" xmlns="http://www.w3.org/2000/svg">
+              <rect id="shape" height="37" width="150" />
+              <div id="text">
+                <a href="#" onclick="skipVideo()"><span class="spot"></span>กดน้อง</a>
+              </div>
+            </svg>
+
+    </div></center>
+    
+
     <div id="countdown" style="display: none; background-color: black; color: white; font-size: 120px; position: absolute; top: 30%; left: 50%; transform: translate(-50%, -50%);"></div>
     <div id="countdown2" style="display: none; background-color: black; color: white; font-size: 50px; position: absolute; top: 30%; left: 50%; transform: translate(-50%, -50%);"></div>
     <script src="reel.js"></script>
     <script>
+   
         // Shuffle the video IDs array
         const shuffledVideoIds = shuffleArray(videoIds);
 
         let player;
         let currentVideoIndex = 0;
 
+        function skipVideo() {
+    const duration = player.getDuration();
+    const skipTime = duration * 100;
+    player.seekTo(skipTime);
+}
+
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('player', {
-                height: '560',
+                height: '500',
                 width: '315',
                 videoId: shuffledVideoIds[currentVideoIndex],
                 playerVars: {
@@ -56,7 +119,10 @@
         }
 
         function showCountdown() {
+            document.querySelector('.svg-wrapper').classList.add('animate__animated', 'animate__bounce');
             const countdownElement = document.getElementById("countdown");
+            
+            document.getElementById("Skipbutton").style.display = "none";
             countdownElement.style.display = "block";
             randomWord1 = ['.Edit','Edi_','e.Dit','_Dit','ed.It','ed_t','edi.T','edi_'][Math.floor(Math.random() * 8)];
             randomWord2 = ['.With','Wit_','w.Ith','_Ith','wi.Th','w_th','wit.H','W_th'][Math.floor(Math.random() * 8)];
@@ -74,11 +140,13 @@
         function playNextVideo() {
             currentVideoIndex++;
             if (currentVideoIndex < 22) {
+                document.getElementById("Skipbutton").style.display = "block";
                 player.loadVideoById(shuffledVideoIds[currentVideoIndex]);
             } else {
         localStorage.setItem("editus_points", Number(localStorage.getItem("editus_points")) + 0.5);
         document.getElementById("player").style.display = "none";
         document.getElementById("countdown").style.display = "none";
+        document.getElementById("Skipbutton").style.display = "none";
         document.getElementById("countdown2").style.display = "block";
         document.getElementById("countdown2").innerHTML = `<center>ให้<br><img src="coin.png" width="30%" class="animate__animated animate__zoomInUp">x 0.5</center>`
     }
