@@ -94,13 +94,19 @@
                 videoId: shuffledVideoIds[currentVideoIndex],
                 playerVars: {
                     autoplay: 0,
-                    rel: 0
+                    rel: 0,
+                    controls: 0,
+                    modestbranding: 1
                 },
                 events: {
+                    onReady: onPlayerReady, 
                     onStateChange: onPlayerStateChange,
                     onError: onPlayerError
                 }
             });
+        }
+        function onPlayerReady(event) {
+        event.target.setVolume(80);
         }
 
         function onPlayerStateChange(event) {
