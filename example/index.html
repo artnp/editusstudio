@@ -232,19 +232,19 @@ shuffle(videoIds);
 var currentVideoIndex = 0;
 var player;
 
-function randomPl() {
-  shuffle(videoIds);
+ function randomPl() {
+      shuffle(videoIds);
 
-  currentVideoIndex++;
-  if (currentVideoIndex < videoIds.length) {
-    player.loadVideoById(videoIds[currentVideoIndex]);
-  } else {
-    // If all videos have been played, reshuffle the array
-    shuffle(videoIds);
-    currentVideoIndex = 0;
-    player.loadVideoById(videoIds[currentVideoIndex]);
-  }
-}
+      currentVideoIndex++;
+      if (currentVideoIndex < videoIds.length) {
+        player.loadVideoById(videoIds[currentVideoIndex]);
+      } else {
+        // If all videos have been played, reshuffle the array
+        shuffle(videoIds);
+        currentVideoIndex = 0;
+        player.loadVideoById(videoIds[currentVideoIndex]);
+      }
+    }
 
 
 function onYouTubeIframeAPIReady() {
@@ -268,14 +268,7 @@ function onPlayerReady(event) {
 
 
 function onPlayerError(event) {
-  currentVideoIndex++;
-  if (currentVideoIndex < videoIds.length) {
-    player.loadVideoById(videoIds[currentVideoIndex]);
-  } else {
-    shuffle(videoIds);
-    currentVideoIndex = 0;
-    player.loadVideoById(videoIds[currentVideoIndex]);
-  }
+  randomPl();
 }
 function onPlayerStateChange(event) {
   if (event.data === YT.PlayerState.ENDED) {
@@ -288,6 +281,9 @@ function onPlayerStateChange(event) {
     }, 3000);
 
   }
+  if (event.data !== YT.PlayerState.PLAYING) {
+        randomPl();
+      }
 }
 
 
