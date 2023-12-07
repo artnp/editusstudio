@@ -23,6 +23,51 @@
   .animate {
       animation: bounceEverySecond 20s infinite;
     }
+    #up, #down {
+  display: inline-block;
+  padding: 10px 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+#up:hover, #down:hover {
+  background-color: #f1f1f1;
+}
+
+#up {
+  animation: jumpLeft 0.5s ease-in-out infinite alternate;
+}
+
+#down {
+  animation: jumpRight 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes jumpLeft {
+  0% {
+    transform: translateX(0px);
+  }
+  50% {
+    transform: translateX(-5px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
+}
+
+@keyframes jumpRight {
+  0% {
+    transform: translateX(0px);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
+}
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 </head>
@@ -39,14 +84,11 @@ window.location.replace(updatedURL);
 <div id="point">
   <div id="random-pattern"><h2><div id="header"></div></h2>
   
-  <!-- <div class="animate__animated animate__zoomInDown animate__slow animate__slower"> -->
     <div id="image-comparison-slider" class="animate">     
       <div id="original"></div>
       <div class="img-wrapper">
         <div id="retouch"></div>
       </div>
-
-      
       <div class="handle">
         <div class="handle-line"></div>
         <div class="handle-circle">
@@ -59,23 +101,18 @@ window.location.replace(updatedURL);
 <div style="background-color: black; color: white;">
   </div>
   <br>
-  <div class="animate__animated animate__fadeIn animate__slow animate__slower animate__delay-5s">
-  <div id="randomword2"></div>
-  </div>
-  
-  <div class="ticker-container">
+  <div class="animate__animated animate__fadeIn animate__slow animate__slower animate__delay-5s"><div id="randomword2"></div></div>
+  <div class="ticker-container"></div>
 
 
+<table>
+
+  <td><button id="up" onclick="up(); randomPl();"><h1>⇦</h1></button> | <button id="down" onclick="down(); randomPl();"><h1>⇨</h1></button></td>
+</table>
+
+
+<br><span id="bomb" style="color: yellow; background-color: red;"><h1 id="countdown"></h1></span>
 </div>
-<div class="animate__animated animate__bounceIn  animate__slower animate__delay-2s">
-<br><h2><div id="page"></div></h2>
-</div>
-
-<br><span style="color: yellow; background-color: red;"><h1 id="countdown"></h1></span>
-
-</div>
-<!-- <div class="animate__animated animate__zoomInDown animate__slow animate__slower"></div> -->
-
 <div class="lines">
   <div class="line"></div>
   <div class="line"></div>
@@ -111,31 +148,67 @@ setInterval(() => {
 }, 700);
 
 
+document.getElementById('bomb').classList.add('animate__animated', 'animate__swing','animate__slower', 'animate__infinite')
 
+function up() {
+        var nextImageSrc = 'img/' + (x + 1) + ' (1).jpg';
+        var img = new Image();
+        img.src = nextImageSrc;
+        img.onload = function() {
+            x++;
+            updateImages();
+           document.getElementById('up').disabled = false;
+        };
+        img.onerror = function() {
+            x-1;
+            updateImages();
+            document.getElementById('up').disabled = true;
+        };
+        raning()
+        document.getElementById("randomword2").style.backgroundColor = getRandomColor();
+              //Reset countdown to 39.9
+              countdownValue = 29.9;
+              countdownElement.innerHTML = '💀' + countdownValue.toFixed(1) + '💥';
+              document.getElementById('countdown').classList.add('animate__animated', 'animate__rubberBand', 'animate__infinite')
 
-imgcheck = new Image();
-imgcheck.src = 'img/' + x + ' (2).jpg'
-imgcheck.onerror = function() {
-  document.getElementById('original').innerHTML = '<img src="img/' + (x-1) + ' (1).jpg' + '" >';
-  document.getElementById('retouch').innerHTML = '<img src="img/' + (x-1) + ' (2).jpg' + '">';
-  document.getElementById('page').innerHTML = '<div class="animate__animated animate__pulse animate__infinite animate__slow"><font color="grey"><< งานก่อนหน้า</font>  &nbsp; &nbsp; | &nbsp; &nbsp;  <a href="' + window.location.pathname + '?' + (x-1) + '">งานย้อนหลัง >></a></div>';
-};
+              clearInterval(interval);
+              interval = setInterval(countdown, 100);
+    }
 
+    function down() {
+        var nextImageSrc = 'img/' + (x - 1) + ' (1).jpg';
+        var img = new Image();
+        img.src = nextImageSrc;
+        img.onload = function() {
+            x--;
+            updateImages();
+           document.getElementById('down').disabled = false;
+        };
+        img.onerror = function() {
+            x+1;
+            updateImages();
+            document.getElementById('down').disabled = true;
+        };
+              //Reset countdown to 39.9
+              countdownValue = 29.9;
+              countdownElement.innerHTML = '💀' + countdownValue.toFixed(1) + '💥';
+              document.getElementById('countdown').classList.add('animate__animated', 'animate__rubberBand', 'animate__infinite')
 
+              clearInterval(interval);
+              interval = setInterval(countdown, 100);
+    }
 
-function randomR() {
-    document.getElementById('original').innerHTML = '<img src="img/' + x + ' (1).jpg' + '" >';
-    document.getElementById('retouch').innerHTML = '<img src="img/' + x + ' (2).jpg' + '">';
-    document.getElementById('page').innerHTML = '<div class="animate__animated animate__pulse animate__infinite animate__slow"><a href="' + window.location.pathname + '?' + (x+1) + '" class="animate__animated animate__bounce animate__repeat-2"><< งานก่อนหน้า</a>  &nbsp; &nbsp; | &nbsp; &nbsp;  <a href="' + window.location.pathname + '?' + (x-1) + '">งานย้อนหลัง >></a></div>';
-}
-randomR();
+    function updateImages() {
+        document.getElementById('original').innerHTML = '<img src="img/' + x + ' (1).jpg' + '" >';
+        document.getElementById('retouch').innerHTML = '<img src="img/' + x + ' (2).jpg' + '">';
+        document.getElementById('down').disabled = false;
+        document.getElementById('up').disabled = false;
+    }
+    updateImages()
+
  if (x < 1){
   window.location.href = window.location.pathname + '?1'
  }
- if (x == 1){
-  document.getElementById('page').innerHTML = '<div class="animate__animated animate__pulse animate__infinite animate__slow"><a href="' + window.location.pathname + '?' + (x+1) + '"><< งานก่อนหน้า</a>  &nbsp; &nbsp; | &nbsp; &nbsp;  <font color="grey">งานย้อนหลัง >></font></div>';
- }
-
 function getRandomColor() {
   const letters = '0123456789ABCDEF';
   let color = '#';
@@ -159,6 +232,21 @@ shuffle(videoIds);
 var currentVideoIndex = 0;
 var player;
 
+function randomPl() {
+  shuffle(videoIds);
+
+  currentVideoIndex++;
+  if (currentVideoIndex < videoIds.length) {
+    player.loadVideoById(videoIds[currentVideoIndex]);
+  } else {
+    // If all videos have been played, reshuffle the array
+    shuffle(videoIds);
+    currentVideoIndex = 0;
+    player.loadVideoById(videoIds[currentVideoIndex]);
+  }
+}
+
+
 function onYouTubeIframeAPIReady() {
   player = new YT.Player("punish", {
     height: "360",
@@ -177,6 +265,7 @@ function onYouTubeIframeAPIReady() {
 function onPlayerReady(event) {
   event.target.playVideo();
 }
+
 
 function onPlayerError(event) {
   currentVideoIndex++;
@@ -204,7 +293,7 @@ function onPlayerStateChange(event) {
 
 // Get the countdown element
 var countdownElement = document.getElementById('countdown');
-    var countdownValue = 39.9;
+    var countdownValue = 29.9;
     function countdown() {
       countdownValue -= 0.1;
       countdownElement.innerHTML = '💀'+countdownValue.toFixed(1)+'💥'
