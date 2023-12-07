@@ -189,7 +189,6 @@ function up() {
             updateImages();
             document.getElementById('down').disabled = true;
         };
-              //Reset countdown to 39.9
               countdownValue = 29.9;
               countdownElement.innerHTML = '💀' + countdownValue.toFixed(1) + '💥';
               document.getElementById('countdown').classList.add('animate__animated', 'animate__rubberBand', 'animate__infinite')
@@ -268,6 +267,7 @@ function onYouTubeIframeAPIReady() {
 }
 function onPlayerReady(event) {
   event.target.playVideo();
+  event.target.setVolume(80);
 }
 
 
@@ -299,11 +299,11 @@ var countdownElement = document.getElementById('countdown');
       if (countdownValue <= 0) {
         localStorage.setItem("editus_points", Number(localStorage.getItem("editus_points")) - 1);
         document.getElementById("point").innerHTML = `<span class="animate__animated animate__fadeOut animate__delay-3s"><center><h1>จ่าย<br><span style="color: red; background-color: black;">- 1</span><br><img src="coin.png" width="33%" class="animate__animated animate__zoomOutDown"></h1></center></span>`
-        
-        setTimeout(function() {        
+
+        setTimeout(function() {    
+    
           document.body.style.transition = 'background 2s';
           document.body.style.background = 'Maroon';
-          
           var punishDiv = document.getElementById("punish").style.display = "block";
           document.querySelector('#punish').classList.add('animate__animated', 'animate__zoomIn');
 
