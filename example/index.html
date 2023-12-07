@@ -107,7 +107,7 @@ window.location.replace(updatedURL);
 
 <table>
 
-  <td><button id="up" onclick="up(); randomPl();"><h1>⇦</h1></button> | <button id="down" onclick="down(); randomPl();"><h1>⇨</h1></button></td>
+  <td><button id="up" onclick="up(); randomPl();"><h1 id="buttonText">⇦</h1></button> | <button id="down" onclick="down(); randomPl();"><h1 id="buttonText2">⇨</h1></button></td>
 </table>
 
 
@@ -121,6 +121,8 @@ window.location.replace(updatedURL);
 <script src="https://www.youtube.com/iframe_api"></script>
 <script src="punish.js"></script>
 <script>
+
+
  document.getElementById("punish").style.display = "none";
  var punish = document.getElementById('punish');
 punish.style.top = Math.floor(Math.random() * window.innerHeight) + 'px';
@@ -170,6 +172,10 @@ function up() {
               countdownValue = 29.9;
               countdownElement.innerHTML = '💀' + countdownValue.toFixed(1) + '💥';
               document.getElementById('countdown').classList.add('animate__animated', 'animate__rubberBand', 'animate__infinite')
+              setTimeout(function() {
+  document.getElementById('buttonText').innerText = '(. )';
+  document.getElementById('buttonText2').innerText = '( .)';
+}, 23000);
 
               clearInterval(interval);
               interval = setInterval(countdown, 100);
@@ -192,7 +198,10 @@ function up() {
               countdownValue = 29.9;
               countdownElement.innerHTML = '💀' + countdownValue.toFixed(1) + '💥';
               document.getElementById('countdown').classList.add('animate__animated', 'animate__rubberBand', 'animate__infinite')
-
+              setTimeout(function() {
+  document.getElementById('buttonText').innerText = '(. )';
+  document.getElementById('buttonText2').innerText = '( .)';
+}, 23000);
               clearInterval(interval);
               interval = setInterval(countdown, 100);
     }
@@ -202,6 +211,9 @@ function up() {
         document.getElementById('retouch').innerHTML = '<img src="img/' + x + ' (2).jpg' + '">';
         document.getElementById('down').disabled = false;
         document.getElementById('up').disabled = false;
+  document.getElementById('buttonText').innerText = '⇦';
+  document.getElementById('buttonText2').innerText = '⇨';
+
     }
     updateImages()
 
