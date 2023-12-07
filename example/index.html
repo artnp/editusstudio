@@ -231,19 +231,21 @@ shuffle(videoIds);
 var currentVideoIndex = 0;
 var player;
 
- function randomPl() {
-      shuffle(videoIds);
+function randomPl() {
+  if (player) {
+    shuffle(videoIds);
 
-      currentVideoIndex++;
-      if (currentVideoIndex < videoIds.length) {
-        player.loadVideoById(videoIds[currentVideoIndex]);
-      } else {
-        // If all videos have been played, reshuffle the array
-        shuffle(videoIds);
-        currentVideoIndex = 0;
-        player.loadVideoById(videoIds[currentVideoIndex]);
-      }
+    currentVideoIndex++;
+    if (currentVideoIndex < videoIds.length) {
+      player.loadVideoById(videoIds[currentVideoIndex]);
+    } else {
+      // If all videos have been played, reshuffle the array
+      shuffle(videoIds);
+      currentVideoIndex = 0;
+      player.loadVideoById(videoIds[currentVideoIndex]);
     }
+  }
+}
 
 
 function onYouTubeIframeAPIReady() {
