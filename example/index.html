@@ -19,7 +19,6 @@
         font-size: 140px;
         font-family: Arial, sans-serif;
     }
-
   .animate {
       animation: bounceEverySecond 20s infinite;
     }
@@ -229,7 +228,7 @@ function checkImageExistence(x) {
         checkImageExistence(x + 1);
     }
     function onError() {
-        document.getElementById("existing").innerText = '[ ' + x + ' ]';
+        document.getElementById("existing").innerText = '[ ' + (x+1) + ' ]';
     }
     testImage.onload = onSuccess;
     testImage.onerror = onError;
