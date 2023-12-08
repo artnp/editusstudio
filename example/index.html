@@ -68,6 +68,12 @@
     transform: translateX(0px);
   }
 }
+#existing {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 1.2em; 
+}
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 </head>
@@ -82,6 +88,7 @@ window.location.replace(updatedURL);
 <div id="punish"></div>
 
 <div id="point">
+  <div id="existing"></div>
   <div id="random-pattern"><h2><div id="header"></div></h2>
   
     <div id="image-comparison-slider" class="animate">     
@@ -103,10 +110,7 @@ window.location.replace(updatedURL);
   <br>
   <div class="animate__animated animate__fadeIn animate__slow animate__slower animate__delay-5s"><div id="randomword2"></div></div>
   <div class="ticker-container"></div>
-
-
 <table>
-
   <td><button id="up" onclick="up(); randomPl();"><h1 id="buttonText">⇦</h1></button> | <button id="down" onclick="down(); randomPl();"><h1 id="buttonText2">⇨</h1></button></td>
 </table>
 
@@ -122,12 +126,10 @@ window.location.replace(updatedURL);
 <script src="punish.js"></script>
 <script>
 
-
- document.getElementById("punish").style.display = "none";
- var punish = document.getElementById('punish');
+document.getElementById("punish").style.display = "none";
+punish = document.getElementById('punish');
 punish.style.top = Math.floor(Math.random() * window.innerHeight) + 'px';
 punish.style.left = Math.floor(Math.random() * window.innerWidth) + 'px';
-
 
         function removeUrl(str) {
                  return str.split('?')[1]
@@ -149,6 +151,20 @@ checkImageExists(testimageUrl, function() {
 }, function() {
     window.location.href = window.location.href.split("?")[0] +'?1';
 });
+function checkImageExistence(x) {
+    var testImageUrl = 'img/' + (x + 1) + ' (1).jpg';
+    var testImage = new Image();
+    testImage.src = testImageUrl;
+    function onSuccess() {
+        checkImageExistence(x + 1);
+    }
+    function onError() {
+        document.getElementById("existing").innerText = '[ ' + x + ' ]';
+    }
+    testImage.onload = onSuccess;
+    testImage.onerror = onError;
+}
+checkImageExistence(0);
 
 document.querySelector('.animate').classList.add('animate__animated', 'animate__bounce');
 const words = ["Edit","Us","❤️"];
