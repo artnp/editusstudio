@@ -133,10 +133,22 @@ punish.style.left = Math.floor(Math.random() * window.innerWidth) + 'px';
                  return str.split('?')[1]
                 }
                             function GetName(str) {
-                    return str.split('index.php?')[1]
+                    return str.split('index.html?')[1]
                 }
             url = decodeURIComponent(window.location.href)
             x = Number(removeUrl(url))
+
+    testimageUrl = 'img/' + (x + 1) + ' (1).jpg';
+    testimg = new Image();
+    testimg.src = testimageUrl;
+function checkImageExists(testimgUrl, successCallback, errorCallback) {
+  testimg.onload = successCallback;
+  testimg.onerror = errorCallback;
+}
+checkImageExists(testimageUrl, function() {
+}, function() {
+    window.location.href = window.location.href.split("?")[0] +'?1';
+});
 
 document.querySelector('.animate').classList.add('animate__animated', 'animate__bounce');
 const words = ["Edit","Us","❤️"];
@@ -181,6 +193,7 @@ function up() {
             ['^', '^'],
             ['\'', '\''],
             [' o', 'o '],
+            ['💍', '👈'],
             ['U', 'U']
         ];
         const randomIndex = Math.floor(Math.random() * sets.length);
@@ -219,6 +232,7 @@ function up() {
             ['^', '^'],
             ['\'', '\''],
             [' o', 'o '],
+            ['💍', '👈'],
             ['U', 'U']
         ];
         const randomIndex = Math.floor(Math.random() * sets.length);
