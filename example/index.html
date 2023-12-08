@@ -132,6 +132,75 @@ punish = document.getElementById('punish');
 punish.style.top = Math.floor(Math.random() * window.innerHeight) + 'px';
 punish.style.left = Math.floor(Math.random() * window.innerWidth) + 'px';
 
+///////// Youtube API
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+shuffle(videoIds);
+
+var currentVideoIndex = 0;
+var player;
+
+function randomPl() {
+  player.playVideo()
+  if (player) {
+    shuffle(videoIds);
+
+    currentVideoIndex++;
+    if (currentVideoIndex < videoIds.length) {
+      player.loadVideoById(videoIds[currentVideoIndex]);
+    } else {
+      // If all videos have been played, reshuffle the array
+      shuffle(videoIds);
+      currentVideoIndex = 0;
+      player.loadVideoById(videoIds[currentVideoIndex]);
+    }
+  }
+}
+
+function onYouTubeIframeAPIReady() {
+  player = new YT.Player("punish", {
+    height: "360",
+    width: "640",
+    videoId: videoIds[currentVideoIndex],
+    playerVars: {
+      autoplay: 1,
+      controls: 0,
+      showinfo: 0,
+      iv_load_policy: 3,
+      modestbranding: 1
+    },
+    events: {
+      onReady: onPlayerReady,
+      onError: onPlayerError,
+      onStateChange: onPlayerStateChange, // Add this event handler
+    },
+  });
+}
+function onPlayerReady(event) {
+  event.target.playVideo();
+  event.target.setVolume(80);
+}
+
+function onPlayerError(event) {
+  randomPl();
+}
+function onPlayerStateChange(event) {
+  if (event.data === YT.PlayerState.ENDED) {
+    // Show an alert when the video ends
+    document.getElementById("punish").style.display = "none";
+    document.body.style.transition = 'background 2s';
+    document.body.style.background = 'black';
+    setTimeout(() => {
+  window.location.href = "https://artnp.github.io/editusstudio/example/simulator";
+    }, 3000);
+  }
+}
+/////////////////// END Youtube
+
         function removeUrl(str) {
                  return str.split('?')[1]
                 }
@@ -178,9 +247,7 @@ setInterval(() => {
   header.textContent = generateRandomWord();
 }, 700);
 
-
 document.getElementById('bomb').classList.add('animate__animated', 'animate__swing','animate__slower', 'animate__infinite')
-
 function up() {
         var nextImageSrc = 'img/' + (x + 1) + ' (1).jpg';
         var img = new Image();
@@ -218,7 +285,6 @@ function up() {
         document.getElementById('buttonText').innerText = randomSet[0];
         document.getElementById('buttonText2').innerText = randomSet[1];
 }, 23000);
-
               clearInterval(interval);
               interval = setInterval(countdown, 100);
     }
@@ -286,78 +352,6 @@ function getRandomColor() {
 const randomDiv = document.getElementById("randomword2");
 randomDiv.style.backgroundColor = getRandomColor();
 
-///////punish tape
-function shuffle(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-}
-shuffle(videoIds);
-
-var currentVideoIndex = 0;
-var player;
-
-function randomPl() {
-  player.playVideo()
-  if (player) {
-    shuffle(videoIds);
-
-    currentVideoIndex++;
-    if (currentVideoIndex < videoIds.length) {
-      player.loadVideoById(videoIds[currentVideoIndex]);
-    } else {
-      // If all videos have been played, reshuffle the array
-      shuffle(videoIds);
-      currentVideoIndex = 0;
-      player.loadVideoById(videoIds[currentVideoIndex]);
-    }
-  }
-}
-
-
-function onYouTubeIframeAPIReady() {
-  player = new YT.Player("punish", {
-    height: "360",
-    width: "640",
-    videoId: videoIds[currentVideoIndex],
-    playerVars: {
-      autoplay: 1,
-      controls: 0,
-      showinfo: 0,
-      iv_load_policy: 3,
-      modestbranding: 1
-    },
-    events: {
-      onReady: onPlayerReady,
-      onError: onPlayerError,
-      onStateChange: onPlayerStateChange, // Add this event handler
-    },
-  });
-}
-function onPlayerReady(event) {
-  event.target.playVideo();
-  event.target.setVolume(80);
-}
-
-
-function onPlayerError(event) {
-  randomPl();
-}
-function onPlayerStateChange(event) {
-  if (event.data === YT.PlayerState.ENDED) {
-    // Show an alert when the video ends
-    document.getElementById("punish").style.display = "none";
-    document.body.style.transition = 'background 2s';
-    document.body.style.background = 'black';
-    setTimeout(() => {
-  window.location.href = "https://artnp.github.io/editusstudio/example/simulator";
-    }, 3000);
-
-  }
-
-}
-
 
 // Get the countdown element
 var countdownElement = document.getElementById('countdown');
@@ -369,7 +363,6 @@ var countdownElement = document.getElementById('countdown');
       if (countdownValue <= 0) {
         localStorage.setItem("editus_points", Number(localStorage.getItem("editus_points")) - 1);
         document.getElementById("point").innerHTML = `<span class="animate__animated animate__fadeOut animate__delay-3s"><center><h1>จ่าย<br><span style="color: red; background-color: black;">- 1</span><br><img src="coin.png" width="33%" class="animate__animated animate__zoomOutDown"></h1></center></span>`
-
         setTimeout(function() {    
     
           document.body.style.transition = 'background 2s';
@@ -384,8 +377,6 @@ var countdownElement = document.getElementById('countdown');
     var interval = setInterval(countdown, 100);
  
 </script>
-
-
   <script src='addon/vanilla-tilt.min.js'></script>
   <script src="addon/script2.js"></script>
   <script src="word_random.js"></script>
