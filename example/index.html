@@ -282,8 +282,8 @@ var currentVideoIndex = 0;
 var player;
 
 function randomPl() {
+  player.playVideo()
   if (player) {
-    player.playVideo()
     shuffle(videoIds);
 
     currentVideoIndex++;
