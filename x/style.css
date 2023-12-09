@@ -7,6 +7,11 @@ body {
     width: 100%;
   overflow: hidden;
 }
+#vdo {
+  height: 70vh;
+  width: 100%;
+}
+
 a {
   text-decoration: none;
   color: white;
@@ -32,8 +37,8 @@ a {
 }
 
 :root {
-  --image-comparison-slider-width: min(350px);
-  --image-comparison-slider-handle-width: 0px;
+  --image-comparison-slider-width: min(250px);
+  --image-comparison-slider-handle-width: 100px;
 }
 
 
