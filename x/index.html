@@ -14,15 +14,15 @@
     <body>
           <img src="showcase.jpg" width="0%">
           <div class="ticker-container"><div class="ticker-content" id="ticker"></div></div>
-          <div id="vdo" class="animate__animated animate__pulse"></div>
+          <div id="vdo"></div>
+          <div id="vdo2"></div>
           <div class="ticker-container"><div class="review-content" id="review"></div></div>
           <center>
-            <div id="image-comparison-slider"><div id="original"></div><div class="img-wrapper"><div id="retouch"></div></div><div class="handle"></div></div>
+            <div id="textQue"></div><div id="heaven"><div id="image-comparison-slider"><div id="original"></div><div class="img-wrapper"><div id="retouch"></div></div><div class="handle"></div></div></div>
          </center>
           
   <img src="blackpole.png" class="blackpole">
   <img src="whitepole.png" class="whitepole">
-
 
   <div class="menu">
     <ul class="animate__animated animate__tada">
@@ -45,7 +45,7 @@
 </div>
 
 	 	  <footer><div id="point" class="animate__animated animate__bounceIn"></div> Powered by <a href="https://artnp.github.io/guru/x.html" target="_blank"><b style="background-color:black;">Guru</b></a> </footer>
-      
+       <script src="https://www.youtube.com/iframe_api"></script>
       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/tsparticles-confetti@2.12.0/tsparticles.confetti.bundle.min.js"></script>
 		  <script src="https://artnp.github.io/editusstudio/example/img_random.js"></script>
@@ -54,6 +54,7 @@
           <script src="price.js"></script>
           <script src="review.js"></script>
           <script>
+
         function  breakIce(){
          document.addEventListener('DOMContentLoaded', () => {
     Swal.fire({
@@ -100,34 +101,97 @@
     });
         }
         function meditation(){
-          document.getElementById('vdo').innerHTML = "<br><br><br><center><h1>Coming Soon...</h1></center>"
+          document.getElementById('vdo').style.display = "none";
           document.querySelectorAll(".ticker-container").forEach(element => element.style.display = "none");
           document.getElementById("image-comparison-slider").style.display = "none";
+          document.getElementById('vdo2').innerHTML = '<div class="animate__animated animate__bounceIn animate__slower"><center><img src="coming.jpg" width="50%"></center></div>';
+
         }
         function hypnopsis(){
-          document.getElementById('vdo').innerHTML = "<br><br><br><center><h1>Coming Soon...</h1></center>"
+          document.getElementById('vdo').style.display = "none";
           document.querySelectorAll(".ticker-container").forEach(element => element.style.display = "none");
           document.getElementById("image-comparison-slider").style.display = "none";
+          document.getElementById('vdo2').innerHTML = '<div class="animate__animated animate__bounceIn animate__slower"><center><img src="coming.jpg" width="50%"></center></div>';
+
         }
         ////////////////////////////////////
-                     function removeUrl(str) {
-                 return str.split('?')[1]
-                }
-                            function GetName(str) {
-                    return str.split('index.html?')[1]
-                }
-            url = decodeURIComponent(window.location.href)
-            x = removeUrl(url)
-            
-          Iframex1 = '<iframe style="width: 100%; height: 65%;" src="https://www.youtube.com/embed/'+ x +'?cc_load_policy=1'
-          Iframex2 = '" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>'
-          if ((window.location.href.substring(window.location.origin.length)).length < 20) {
-            window.location="https://www.facebook.com/editusstudio"
-                } else {
-                  document.getElementById('vdo').innerHTML = Iframex1 + Iframex2
-                }
+        function removeUrl(str) {
+            return str.split('?')[1];
+        }
 
-                function shuffleArray(array) {
+        function GetName(str) {
+            return str.split('index.html?')[1];
+        }
+
+        let player;
+
+        // Load the YouTube API dynamically
+        function loadYouTubeAPI() {
+            const tag = document.createElement('script');
+            tag.src = 'https://www.youtube.com/iframe_api';
+            const firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        }
+
+        function onYouTubeIframeAPIReady() {
+            var url = decodeURIComponent(window.location.href);
+            var videoId = removeUrl(url);
+
+            player = new YT.Player('vdo', {
+                videoId: videoId,
+                playerVars: {
+                    cc_load_policy: 1,
+                    autoplay: 0,
+                    cc_lang_pref: 'th,en'
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            // Player is ready
+			player.setVolume(100);
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data == YT.PlayerState.ENDED) {
+                document.getElementById('vdo').classList.add('animate__animated', 'animate__fadeOut', 'animate__slower');
+                //document.getElementById('image-comparison-slider').classList.add('animate__animated', 'animate__fadeOutUp', 'animate__slower');
+                
+                document.getElementById("image-comparison-slider").style.display = "none";
+                document.getElementById("review").style.display = "none";
+                
+                setTimeout(() => {
+                  document.querySelector('.blackpole').classList.add('animate__animated', 'animate__fadeInDownBig' , 'animate__slower');
+                  document.querySelector('.blackpole').src = 'blackpole2.png';
+
+                    document.getElementById("vdo").style.display = "none";
+                   
+
+                    setTimeout(function() {
+    document.getElementById('vdo2').innerHTML = '<div class="animate__animated animate__fadeIn animate__slower"><center><img src="omega.jpg" width="30%"></center></div>';
+    document.getElementById("image-comparison-slider").style.display = "block";
+    document.getElementById('heaven').classList.add('animate__animated', 'animate__fadeInDown', 'animate__slower')
+    document.getElementById('textQue').innerHTML ='<div class="animate__animated animate__flipInX animate__slower"><h2>-«❮  เนรมิตภาพในฝัน  ❯»-</h2></div>'
+
+    //document.getElementById("image-comparison-slider").innerHTML = "<div class='animate__animated animate__flipInY animate__slow animate__infinite'><h3>x 1</h3><div class='animate__animated animate__rubberBand  animate__slow animate__infinite'><img src='coin.png' width='1%'></div></div>";
+  }, 3000); }, 3000);
+            }
+        }
+
+        // Check if the YT object is defined
+        if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') {
+            loadYouTubeAPI();
+        } else {
+            onYouTubeIframeAPIReady();
+        }
+//////////////End Youtube API
+               
+               
+                  function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [array[i], array[j]] = [array[j], array[i]];
@@ -162,7 +226,7 @@ function updateReview() {
 setInterval(updateReview, 3000);
 updateReview(); 
 
-///point
+//point
 
 if (localStorage.getItem("editus_points") == null){
   localStorage.setItem("editus_points", 0);
