@@ -3,21 +3,50 @@
 		
 		<title>Ask - ระบบจำลองบทสนทนา</title>
 		<meta name="viewport" content="width=device-width">
+		<style>
+.div-round {
+    overflow: hidden;
+    position: relative;
+    z-index: 10;
+    -webkit-border-radius: 20px;
+    border-radius: 20px;
+	
+}
+.div-round::before {
+    display: block;
+    content: "";
+}
+.iframe-round {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+    width: 97%;
+    height: 98%;
+    border: 0;
+    -webkit-border-radius: 20px;
+    border-radius: 20px;
+}
+		</style>
 		<link rel="stylesheet" href="aos.css">
 		<link rel="stylesheet" href="styles.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 	<body data-aos-easing="ease-out-back" data-aos-duration="1000" data-aos-delay="0">
 		<div class="animate__animated animate__fadeIn animate__slower">
-
-
 		<img src="cover.jpg" width="0%">
 		<header class="hero">
 			<div class="hero-center">
-				<h1 class="hero__logo aos-init aos-animate" data-aos="zoom-in" style="background-color: red;">ระบบ</h1>
-				<div class="animate__animated animate__pulse animate__slow animate__infinite">
-				<h2 class="hero__text aos-init aos-animate" data-aos="fade-up" data-aos-easing="ease" data-aos-delay="400">จำลองบทสนทนา</h2>
+					<h2 class="hero__text aos-init aos-animate" data-aos="fade-up" data-aos-easing="ease" data-aos-delay="400">
+						❝ <span id="AItalk"></span> ❞
+					</h2>
+					<center>
+					<div class="div-round" style="width: 640px; height: 360px;">
+						<iframe class="iframe-round" allow="autoplay; encrypted-media; fullscreen" src="https://www.youtube.com/embed/E5-IXHXUBPc?modestbranding=1&autoplay=0"></iframe>
+					</div>
+					</center>
 				</div>
-			</div>
 			
 			<span class="hero__scroll aos-init aos-animate" data-aos="fade-up" data-aos-easing="ease" data-aos-delay="800">
 				เลื่อนลง <br>
@@ -215,7 +244,16 @@
 		<script src="aos.js.download"></script>
 
 		<script>
+const words = ['ว้าว!', 'คุณพี่', 'นะคะ!', 'ดีใจ💓', 'ลุล่วง', 'มีปัญหา', 'ด่วนมาก!!', 'เป็นกำลังใจ💓','ได้ไงเนี่ยย', '>///<', '😘', '😚'];
 
+function setRandomWord() {
+    const randomIndex = Math.floor(Math.random() * words.length);
+    document.getElementById('AItalk').innerText = words[randomIndex];
+	document.getElementById('AItalk').classList.add('animate__animated', 'animate__fadeOutDown', 'animate__slow', 'animate__infinite');
+}
+
+setRandomWord();
+setInterval(setRandomWord, 2000);
 			const groupA = {
   1: "<font color='#DB6AFF'>สวัสดีค่ะ</font> <font color='white'>ว่าจั๋งได๋</font>",
   2: "<font color='#DB6AFF'>คุณพี่</font><font color='white'>จะทำอัลไล</font>",
