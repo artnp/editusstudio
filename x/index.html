@@ -3,6 +3,7 @@
       <meta charset="UTF-8">
       <title>Showcase(X)) -ห้องรับรอง</title>
         <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="style2.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
       </head>
       <script>
@@ -18,7 +19,10 @@
           <div id="vdo2"></div>
           <div class="ticker-container"><div class="review-content" id="review"></div></div>
           <center>
-            <div id="textQue"></div><div id="heaven"><div id="image-comparison-slider"><div id="original"></div><div class="img-wrapper"><div id="retouch"></div></div><div class="handle"></div></div></div>
+            <div id="textQue"></div><div id="heaven">
+
+              <div id="heartclik"><input id="toggle-heart" type="checkbox"><label for="toggle-heart">❤</label></div>
+              <div id="image-comparison-slider"><div id="original"></div><div class="img-wrapper"><div id="retouch"></div></div><div class="handle"></div></div></div>
          </center>
           
   <img src="blackpole.png" class="blackpole">
@@ -53,20 +57,83 @@
           <script src="https://artnp.github.io/editusstudio/example/addon/script_new.js"></script></td>
           <script src="price.js"></script>
           <script src="review.js"></script>
+          <script src="prefixfree.min.js"></script>
           <script>
+        document.getElementById("image-comparison-slider").style.display = "none";
 
-        function  breakIce(){
-         document.addEventListener('DOMContentLoaded', () => {
-    Swal.fire({
-      html: '<center><div class="iframe-container"><iframe src="reel.html" scrolling="no"></iframe></div></center>',
-      showConfirmButton: false,
-      showCloseButton: true,
-      allowOutsideClick: true,
-      background: 'black',
+        
+        const checkbox = document.getElementById('toggle-heart');
+    const heartLabel = document.querySelector('label[for="toggle-heart"]');
+
+
+    checkbox.addEventListener('change', function() {
+      if (this.checked) {
+        localStorage.setItem("editus_points", Number(localStorage.getItem("editus_points")) + 0.001);
+        document.getElementById('point').innerHTML="<div class='animate__animated animate__bounceIn'><img src='coin.png' width='1.1%'><b style='background-color:black;'>x"+Number(localStorage.getItem("editus_points")).toFixed(3)+"</b></div>"
+
+        const count = 200,
+  defaults = {
+    origin: { y: 0.7 },
+  };
+
+function fire(particleRatio, opts) {
+  confetti(
+    Object.assign({}, defaults, opts, {
+      particleCount: Math.floor(count * particleRatio),
+    })
+  );
+}
+
+fire(0.25, {
+  spread: 26,
+  startVelocity: 55,
+});
+
+fire(0.2, {
+  spread: 60,
+});
+
+fire(0.35, {
+  spread: 100,
+  decay: 0.91,
+  scalar: 0.8,
+});
+
+fire(0.1, {
+  spread: 120,
+  startVelocity: 25,
+  decay: 0.92,
+  scalar: 1.2,
+});
+
+fire(0.1, {
+  spread: 120,
+  startVelocity: 45,
+});
+
+      }
     });
-  });
+
+    function breakIce() {
+    document.addEventListener('DOMContentLoaded', () => {
+      const sweetAlert = Swal.fire({
+        html: '<center><div class="iframe-container"><iframe src="reel.html" scrolling="no"></iframe></div></center>',
+        showConfirmButton: false,
+        showCloseButton: true,
+        allowOutsideClick: true,
+        background: 'black',
+      });
+
+      sweetAlert.then((result) => {
+        if (result.dismiss === Swal.DismissReason.close) {
+          document.getElementById('point').innerHTML="<div class='animate__animated animate__bounceIn'><img src='coin.png' width='1.1%'><b style='background-color:black;'>x"+Number(localStorage.getItem("editus_points")).toFixed(3)+"</b></div>"
         }
-        breakIce()
+      });
+    });
+  }
+
+  breakIce();
+
         function coding(){
           Swal.fire({
       html: '<center><iframe src="house_proj.html" height="600" width="100%" scrolling="yes"></iframe></center>',
@@ -78,17 +145,24 @@
       backdrop: false,
     });
         }
-		        function game(){
-          Swal.fire({
-      html: '<center><iframe src="game/index.html" height="600" width="100%" scrolling="yes"></iframe></center>',
-      width: '60%',
-      height: '100%',
-      showConfirmButton: false,
-      showCloseButton: true,
-      allowOutsideClick: true,
-      backdrop: false,
-    });
-        }
+        function game() {
+  const sweetAlert = Swal.fire({
+    html: '<center><iframe src="game/index.html" height="600" width="100%" scrolling="yes"></iframe></center>',
+    width: '60%',
+    height: '100%',
+    showConfirmButton: false,
+    showCloseButton: true,
+    allowOutsideClick: true,
+    backdrop: false,
+  });
+
+  sweetAlert.then((result) => {
+    if (result.dismiss === Swal.DismissReason.close) {
+      document.getElementById('point').innerHTML="<div class='animate__animated animate__bounceIn'><img src='coin.png' width='1.1%'><b style='background-color:black;'>x"+Number(localStorage.getItem("editus_points")).toFixed(3)+"</b></div>"
+    }
+  });
+}
+
         function AIbot(){
           Swal.fire({
       html: '<center><iframe id=OGPSMOSODY loading="eager" src="https://embed.pickaxeproject.com/axe?id=Edit_us_AI_3NBVM&mode=embed_gold&host=beta&theme=dark&opacity=100&font_header=Real+Head+Pro&size_header=30&font_body=Real+Head+Pro&size_body=16&font_labels=Real+Head+Pro&size_labels=14&font_button=Real+Head+Pro&size_button=16&c_fb=08090B&c_ff=08090B&c_fbd=FFFFFF&c_bb=FFFFFF&c_bt=000000&c_t=FFFFFF&s_ffo=100&s_bbo=100&s_f=minimalist&s_b=filled&s_t=2&s_r=2" width="100%" height="500px" onMouseOver="this.style.boxShadow=\'0px 6px 6px -3px rgba(0,0,0,0.1)\'" onMouseOut="this.style.boxShadow=\'none\'" style="border:1px solid rgba(0, 0, 0, 1);transition:.3s;border-radius:4px;" frameBorder="0"></iframe></center>',
@@ -161,13 +235,14 @@
                 document.getElementById('vdo').classList.add('animate__animated', 'animate__fadeOut', 'animate__slower');
                 //document.getElementById('image-comparison-slider').classList.add('animate__animated', 'animate__fadeOutUp', 'animate__slower');
                 
-                document.getElementById("image-comparison-slider").style.display = "none";
+                document.getElementById("heartclik").style.display = "none";
                 document.getElementById("review").style.display = "none";
                 
                 setTimeout(() => {
                   document.querySelector('.blackpole').classList.add('animate__animated', 'animate__fadeInDownBig' , 'animate__slower');
                   document.querySelector('.blackpole').src = 'blackpole2.png';
-
+                  
+                    
                     document.getElementById("vdo").style.display = "none";
                    
 
@@ -175,7 +250,7 @@
     document.getElementById('vdo2').innerHTML = '<div class="animate__animated animate__fadeIn animate__slower animate__delay-5s"><center><img src="omega.jpg" width="30%"></center></div>';
     document.getElementById("image-comparison-slider").style.display = "block";
     document.getElementById('heaven').classList.add('animate__animated', 'animate__fadeInDown', 'animate__slower')
-    document.getElementById('textQue').innerHTML ='<div class="animate__animated animate__pulse animate__slower animate__infinite" animate__delay-5s	><h2>-<font color="grey">«</font>❮  <font color="grey">เนรมิต</font><font color="#6A6262">ภาพ</font><font color="#4F4C4C">ใน</font><font color="#CCC4C4">ฝัน</font>  <font color="grey">❯»</font>-</h2></div>'
+    document.getElementById('textQue').innerHTML ='<div class="animate__animated animate__pulse animate__slower animate__infinite" animate__delay-5s><h2>-<font color="grey">«</font>❮  <font color="grey">เนรมิต</font><font color="#6A6262">ภาพ</font><font color="#4F4C4C">ใน</font><font color="#CCC4C4">ฝัน</font>  <font color="grey">❯»</font>-</h2></div>'
 
     //document.getElementById("image-comparison-slider").innerHTML = "<div class='animate__animated animate__flipInY animate__slow animate__infinite'><h3>x 1</h3><div class='animate__animated animate__rubberBand  animate__slow animate__infinite'><img src='coin.png' width='1%'></div></div>";
   }, 3000); }, 3000);
@@ -232,7 +307,7 @@ if (localStorage.getItem("editus_points") == null){
   localStorage.setItem("editus_points", 0);
   document.getElementById('point').innerHTML="<img src='coin.png' width='1.1%'><b style='background-color:black;'>x[0]</b>"
 }
-document.getElementById('point').innerHTML="<img src='coin.png' width='1.1%'><b style='background-color:black;'>x"+localStorage.getItem("editus_points")+"</b>"
+document.getElementById('point').innerHTML="<img src='coin.png' width='1.1%'><b style='background-color:black;'>x"+Number(localStorage.getItem("editus_points")).toFixed(3)+"</b>"
 
 if (localStorage.getItem("editus_points") <50){
   document.getElementById('ห้องเชือด').innerHTML="<div class='tooltip'><del><a href='#'>ห้องเชือด</a></del>🔒<div class='tooltiptext'><img src='coin.gif' width='30%'>x100</div></div>"
