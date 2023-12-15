@@ -34,6 +34,8 @@ function sliderMouseMove(event) {
 function randomInRange(min, max) {
   return Math.random() * (max - min) + min;
 }
+     localStorage.setItem("editus_points", Number(localStorage.getItem("editus_points")) + 0.01);
+        document.getElementById('point').innerHTML="<div class='animate__animated animate__bounceIn'><img src='coin.png' width='1.1%'><b style='background-color:black;'>x"+Number(localStorage.getItem("editus_points")).toFixed(3)+"</b></div>"
 
 confetti({
   angle: randomInRange(55, 125),
