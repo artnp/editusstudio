@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data_Machine</title>
+  <style>
+    body {
+      background-color: #111;
+      color: #fff;
+      font-family: Arial, sans-serif;
+    }
+         .black-box {
+          background-color: black;
+          color: white;
+          padding: 10px;
+          width: 99%;
+          overflow: hidden;
+          position: relative;
+        }
+        .flashing-bar {
+          width: 10px;
+          height: 15px;
+          background-color: white;
+        position: absolute;
+          animation: flashing 1.5s infinite;
+        }
+      
+        @keyframes flashing {
+          0%, 49% {
+            opacity: 0;
+          }
+          50%, 100% {
+            opacity: 1;
+          }
+        }
+
+    #machineContainer {
+      position: relative;
+      overflow: hidden;
+      width: 350px;
+      height: 350px;
+    }
+
+    #machineJaws {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, #111, transparent 50%, #111);
+      animation: eatAnimation 1s infinite linear;
+    }
+
+    #videoThumbnail {
+      width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+
+    #fileNumber {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    @keyframes eatAnimation {
+      0%, 100% {
+        transform: translateX(-50%) scaleY(1);
+      }
+      50% {
+        transform: translateX(-50%) scaleY(0.1);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="black-box"><center>
+    <div class="flashing-bar"></div> <a href="javascript:history.back()" style="background-color:white;">🡨Go Back</a> &nbsp;&nbsp; <i>ฐานข้อมูลกลั่น YouTube#Shorts</i><br>
+    </center></div>
+<br><br><br><br><br><br><br><br><br><br><br>
+    <center>
+  <div id="machineContainer">
+    <div id="machineJaws"></div>
+    <img id="videoThumbnail" alt="Video Thumbnail">
+    <div id="fileNumber">Deep_Data: <span id="currentFileNumber">1</span></div>
+  </div></center>
+  <script src="reel.js"></script>
+  <script>
+
+    function getRandomVideoId() {
+      return videoIds[Math.floor(Math.random() * videoIds.length)];
+    }
+
+    function fetchVideoDetails(videoId) {
+      const apiUrl = `https://noembed.com/embed?url=https://www.youtube.com/watch?v=${videoId}`;
+
+      fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+          const videoTitle = data.title;
+          const videoThumbnailUrl = data.thumbnail_url;
+          document.getElementById('videoThumbnail').src = videoThumbnailUrl;
+        })
+        .catch(error => console.error('Error fetching video details:', error));
+    }
+
+    function flashImage() {
+      const randomVideoId = getRandomVideoId();
+      fetchVideoDetails(randomVideoId);
+    }
+
+    let currentFileNumber = 1;
+
+    setInterval(() => {
+      flashImage();
+      document.getElementById('currentFileNumber').innerText = currentFileNumber;
+      currentFileNumber = (currentFileNumber % videoIds.length) + 1;
+    }, 100);
+  </script>
+</body>
+</html>
