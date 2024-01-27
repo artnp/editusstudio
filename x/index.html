@@ -13,6 +13,27 @@
 }
          </script>
     <body>
+      <div id="popup-container">
+        <div id="popup">
+          <h2>✍บันทึกข้อตกลงร่วมกัน💪</h2>   
+          <div id="terms-box">
+            <ul>
+            <p><li> นักรีทัชออนไลน์ไม่เป็นเวลา แต่จะตอบกลับแน่ๆภายในวันนี้</li></p>
+            <p><li> หากร้านปิดจะแจ้งโพสให้ทราบไว้ที่หน้าเพจ</li></p>
+            <p><li> เมื่อวางออเดอร์ให้ชำระเงินแล้ว ควรชำระทันที บางทีไม่อยากทำจะข้ามงานนั้นเลย</li></p>
+            <p><li> ทางเพจขอสงวนสิทธิ์ไม่รับงานที่อาจเกี่ยวข้องกับการทำผิดทางกฎหมายหรือกฎระเบียบที่มีความเสี่ยง</li></p>
+            <p><li> ทางเพจเข้าใจว่างานทุกงานเป็นภาพจริงที่ลูกค้าเป็นเจ้าของภาพนั้นๆ นำมาให้ปรับแก้ไขส่วนที่ผิดพลาด </li></p>
+            <p><li> ทางเพจไม่มีส่วนรู้เห็นหรือมีส่วนเกี่ยวข้องใดๆ ในการนำไปใช้หรือเผยแพร่ภาพของลูกค้าไม่ว่าจะด้วยวิธีใดๆทั้งสิ้น</li></p>
+            <p><li> ทางเพจได้ใช้ระบบปิดในการการส่งงาน เพื่อป้องกันการนำเข้าข้อมูลเท็จเข้าสู่ระบบคอมพิวเตอร์</li></p>
+            <p><li> ราคาถูกค่าบริการ เพราะใช้เทคโนโลยีปัญญาประดิษฐ์(AI) ในการช่วยงาน เพื่อปรับสเกลบริการต่างๆที่หลากหลายได้มากขึ้น</li></p>
+            <p><li> ทางเพจเข้มงวดในการคัดกรองและปฏิเสธบริการต่อลูกค้าที่มีพฤติกรรมมารยาทไม่ดีออก</li></p>
+          </div>
+          <input type="checkbox" id="agree-checkbox"><label for="agree-checkbox">เข้าใจ/ยอมรับข้อตกลง</label><br>
+          <button id="agree-btn">ยอมรับ</button>
+        </div>
+      </div>
+
+
           <img src="showcase2.jpg" width="0%">
           <div class="ticker-container"><div class="ticker-content" id="ticker"></div></div>
           <div id="vdo"></div>
@@ -31,8 +52,7 @@
   <div class="menu">
     <ul class="animate__animated animate__tada">
 	  <li><del><a href="#">Metaverse</a></del></li>
-      <li><a href="#" onclick="game()">ห้องเกม🎲</a></li>
-      <li><del><a href="#">เสนอขาย🔴</a></del></li>
+      <li><del><a href="#" onclick="">โมเดล ▞</a></del></li>
       <br>
       <br>
     </ul>
@@ -41,14 +61,14 @@
   <ul class="animate__animated animate__tada">
 	<li ><div id="ห้องเชือด"></div></li>
 	<li><div id="ห้องสมาธิ"></div></li>
-  <li><a href="#" onclick="AIbot()">AI-แชท🤖</a></li>
-  <li><a href="#" onclick="coding()">Super_App📱</a></li>
+  <li><a href="#" onclick="AIbot()">AI▗</a></li>
+  <li><a href="#" onclick="coding()">แอพ▝</a></li>
   <br>
   <br>
   </ul>
 </div>
 
-	 	  <footer><div id="point" class="animate__animated animate__bounceIn"></div> Powered by <a href="https://artnp.github.io/guru/x.html" target="_blank"><b style="background-color:black;">Guru</b></a> </footer>
+	 	  <footer><div id="point" class="animate__animated animate__bounceIn"></div> Powered by <a href="https://artnp.github.io/guru/x.html" target="_blank"><b style="background-color:black;">Guru</b></a> <span id="userAgree"></span></footer>
        <script src="https://www.youtube.com/iframe_api"></script>
       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/tsparticles-confetti@2.12.0/tsparticles.confetti.bundle.min.js"></script>
@@ -59,8 +79,34 @@
           <script src="review.js"></script>
           <script src="prefixfree.min.js"></script>
           <script>
+            //popup
+            var popupContainer = document.getElementById('popup-container');
+            var agreeBtn = document.getElementById('agree-btn');
+            var agreeCheckbox = document.getElementById('agree-checkbox');
+            var agreementAccepted = localStorage.getItem('editus_Agreement') === 'true';
+            if (agreementAccepted) {
+              popupContainer.style.display = 'none';
+              document.getElementById('userAgree').innerHTML="| <img src='agree.png'>"
+            } else {
+              popupContainer.style.display = 'flex';
+            }
+            agreeBtn.style.display = 'none';
+            agreeCheckbox.onchange = function() {
+              if (agreeCheckbox.checked) {
+                agreeBtn.style.display = 'inline-block';
+              } else {
+                agreeBtn.style.display = 'none';
+              }
+            };
+          
+            agreeBtn.onclick = function() {
+              localStorage.setItem('editus_Agreement', 'true');
+              popupContainer.style.display = 'none';
+              location.reload();
+            };
+          </script>
+          <script>
         document.getElementById("image-comparison-slider").style.display = "none";
-
         
         const checkbox = document.getElementById('toggle-heart');
     const heartLabel = document.querySelector('label[for="toggle-heart"]');
@@ -132,7 +178,10 @@ fire(0.1, {
     });
   }
 
-  breakIce();
+  if (localStorage.getItem('editus_Agreement') === 'true'){
+    breakIce()
+  }
+  
 
         function coding(){
           Swal.fire({
