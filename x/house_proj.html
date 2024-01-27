@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>House-project</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
   <style>
     body {
       background-color: black;
@@ -10,10 +11,10 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      border-color: white;
+      border-color: rgb(158, 157, 157);
     }
     th, td {
-      border: 1px solid white;
+      border: 1px solid rgb(134, 134, 134);
       padding: 10px;
       text-align: center;
       color: white;
@@ -25,106 +26,105 @@ a {
 a:hover {
   color: red;
 }
-   /* Tooltip container */
-   .tooltip {
-      position: relative;
-      display: inline-block;
-    }
-    .tooltip .tooltiptext {
-      visibility: hidden;
-      width: 80px;
-      background-color: #121212;
-      color: #fff;
-      text-align: center;
-      border-radius: 5px;
-      padding: 7px;
-      position: absolute;
-      z-index: 1;
-      bottom: -125%;
-      left: 150%;
-      margin-left: -100px;
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-    .tooltip:hover .tooltiptext {
-      visibility: visible;
-      opacity: 1;
-    }
+    #bottone5 {
+ align-items: center;
+ background-color: #FFFFFF;
+ border: 1px solid rgba(0, 0, 0, 0.1);
+ border-radius: .25rem;
+ box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+ box-sizing: border-box;
+ color: rgba(0, 0, 0, 0.85);
+ cursor: pointer;
+ display: inline-flex;
+ font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
+ font-size: 16px;
+ font-weight: 600;
+ justify-content: center;
+ line-height: 0.25;
+ min-height: 1rem;
+ padding: calc(.875rem - 1px) calc(1.5rem - 1px);
+ text-decoration: none;
+ transition: all 250ms;
+ user-select: none;
+ -webkit-user-select: none;
+ touch-action: manipulation;
+ vertical-align: baseline;
+ width: auto;
+}
+
+#bottone5:hover,
+#bottone5:focus {
+ border-color: rgba(0, 0, 0, 0.15);
+ box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+ color: rgba(0, 0, 0, 0.65);
+}
+
+#bottone5:hover {
+ transform: translateY(-1px);
+}
+
+#bottone5:active {
+ background-color: #F0F0F1;
+ border-color: rgba(0, 0, 0, 0.15);
+ box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
+ color: rgba(0, 0, 0, 0.65);
+ transform: translateY(0);
+}
+#point {
+  position: absolute;
+  top: 10%;
+  left: 45%;
+  transform: translate(-10%, -45%)
+}
   </style>
 </head>
 <body>
   <table>
     <tr>
-      <td><div id="horo"></div></td>
-      <td><div id="predict"></div></td>
-      <td><a href="https://artnp.github.io/TH-Random-Donate/app.html">สุ่มทำบุญ</a></td>
+      <td><h3><a>โหราศาสตร์สากล</a></h3><button id="bottone5" onclick="payout1(); setTimeout(() => window.location.href = 'https://artnp.github.io/astro-prediction/', 1500)">1🪙</button></td>
+      <td><h3><a>พยากรณ์เหตุเกิดซ้ำ</a></h3><button id="bottone5" onclick="payout1(); setTimeout(() => window.location.href = 'https://artnp.github.io/predict-future-event/', 1500)">1🪙</button></td>
+      <td><h3><a>สุ่มทำบุญ</a></h3><a href="https://artnp.github.io/TH-Random-Donate/app.html"><button id="bottone5">ฟรี</button></a></td>
     </tr>
     <tr>
-      <td><div id="crypto_scan"></div></td>
-      <td><div id="btc_expo"></div></td>
-      <td><a href="https://artnp.github.io/guru/x(2).html">สุ่มวิชชา</a></td>
+      <td><h3><a>แสกนเหรียญคริปโต</a></h3><button id="bottone5" onclick="payout2(); setTimeout(() => window.location.href = 'https://artnp.github.io/opportunity-finder/', 1500)">2🪙</button></td>
+      <td><h3><a>กำลังบิทคอยน์</a></h3><a href="https://artnp.github.io/btc-support-resistant-exponent/"><button id="bottone5">ฟรี</button></a></td>
+      <td><h3><a>สุ่มวิชชา</a></h3><a href="https://artnp.github.io/guru/x(2).html/"><button id="bottone5">ฟรี</button></a></td>
     </tr>
     <tr>
       <td></td>
-      <td><a href="https://artnp.github.io/thai-herb/">สมุนไพรรักษาโรค</a></td>
-      <td><div id="numberlogy"></div></td>
+      <td><h3><a>สมุนไพรรักษาโรค</h3><a href="https://artnp.github.io/thai-herb/"><button id="bottone5">ฟรี</button></a></td>
+      <td><h3><a>Numerology</a></h3><button id="bottone5" onclick="payout1(); setTimeout(() => window.location.href = 'https://artnp.github.io/birthforce/', 1500)">1🪙</button></td>
+        
     </tr>
     <tr>
       <td><div id="house_btc"></div></td>
-      <td><a href="deep_data.html">Data_set [Pre-AI]</a></td>
-      <td><a href="https://artnp.github.io/BtcDca/">กระปุกออมสิน</a></td>
+      <td><h3><a>Data_set [Pre-AI]</a></h3><a href="deep_data.html"><button id="bottone5">ฟรี</button></a></td>
+      <td><h3><a>กระปุกออมสิน</a></h3><a href="https://artnp.github.io/BtcDca/"><button id="bottone5">ฟรี</button></a></td>
     </tr>
 	    <tr>
-      <td><a href="https://artnp.github.io/Learn-from-the-Master/">Learn-from-the-Master</a></td>
-      <td><a href="https://artnp.github.io/Bullish-magic-eye/">ตาวิเศษ</a></td>
+      <td><h3><a>Learn-from-the-Master</a></h3><button id="bottone5" onclick="payout3(); setTimeout(() => window.location.href = 'https://artnp.github.io/Learn-from-the-Master/', 1500)">3.33🪙</button></td>
+      <td><h3><a>ตาวิเศษ</a></h3><button id="bottone5" onclick="payout05(); setTimeout(() => window.location.href = 'https://artnp.github.io/Bullish-magic-eye/', 1500)">0.5🪙</button></td>
       <td></td>
     </tr>
   </table>
+  <div id="point"></div>
   <script>
-    point = localStorage.getItem("editus_points")
-
-if (point == 0 || point == null){
-  localStorage.setItem("editus_points", 0);
-  document.getElementById('horo').innerHTML="<div class='tooltip'><del>โหราศาสตร์สากล</del>🔒<div class='tooltiptext'><img src='coin.gif' width='30%'>x1</div></div>"
-  document.getElementById('crypto_scan').innerHTML="<div class='tooltip'><del>แสกนคริปโต</del>🔒<div class='tooltiptext'><img src='coin.gif' width='30%'>x5</div></div>"
-  document.getElementById('btc_expo').innerHTML="<div class='tooltip'><del>กำลังบิทคอยน์</del>🔒<div class='tooltiptext'><img src='coin.gif' width='30%'>x5</div></div>"
-  document.getElementById('predict').innerHTML="<div class='tooltip'><del>พยากรณ์เหตุเกิดซ้ำ</del>🔒<div class='tooltiptext'><img src='coin.gif' width='30%'>x10</div></div>"
-  document.getElementById('numberlogy').innerHTML="<div class='tooltip'><del>Numerology</del>🔒<div class='tooltiptext'><img src='coin.gif' width='30%'>x10</div></div>"
-  document.getElementById('house_btc').innerHTML="<div class='tooltip'><del>ระบบเฮาส์บิทคอยน์</del>🔒<div class='tooltiptext'><img src='coin.gif' width='30%'>x50</div></div>"
-} 
-else if (point>=50){
-    document.getElementById('horo').innerHTML="<a href='https://artnp.github.io/astro-prediction'>โหราศาสตร์สากล</a>🗝️"
-    document.getElementById('btc_expo').innerHTML="<a href='https://artnp.github.io/btc-support-resistant-exponent'>กำลังบิทคอยน์</a>🗝️"
-    document.getElementById('crypto_scan').innerHTML="<a href='https://artnp.github.io/opportunity-finder'>แสกนคริปโต</a>🗝️"
-    document.getElementById('predict').innerHTML="<a href='https://artnp.github.io/predict-future-event'>พยากรณ์เหตุเกิดซ้ำ</a>🗝️"
-    document.getElementById('numberlogy').innerHTML="<a href='https://artnp.github.io/birthforce'>Numerology</a>🗝️"
-    document.getElementById('house_btc').innerHTML="<a href='https://www.tradingview.com/chart/H5sue6RV/?symbol=BINANCE%3ABTCUSDT' target='_blank'>ระบบเฮาส์บิทคอยน์</a>🗝️"
-  }
-  else if (point>=10){
-    document.getElementById('horo').innerHTML="<a href='https://artnp.github.io/astro-prediction'>โหราศาสตร์สากล</a>🗝️"
-    document.getElementById('btc_expo').innerHTML="<a href='https://artnp.github.io/btc-support-resistant-exponent'>กำลังบิทคอยน์</a>🗝️"
-    document.getElementById('crypto_scan').innerHTML="<a href='https://artnp.github.io/opportunity-finder'>แสกนคริปโต</a>🗝️"
-    document.getElementById('predict').innerHTML="<a href='https://artnp.github.io/predict-future-event'>พยากรณ์เหตุเกิดซ้ำ</a>🗝️"
-    document.getElementById('numberlogy').innerHTML="<a href='https://artnp.github.io/birthforce'>Numerology</a>🗝️"
-    document.getElementById('house_btc').innerHTML="<div class='tooltip'><del>ระบบเฮาส์บิทคอยน์</del>🔒<div class='tooltiptext'><img src='coin.gif' width='30%'>x50</div></div>"
-  }
-  else if (point>=5){
-    document.getElementById('horo').innerHTML="<a href='https://artnp.github.io/astro-prediction'>โหราศาสตร์สากล</a>🗝️"
-    document.getElementById('btc_expo').innerHTML="<a href='https://artnp.github.io/btc-support-resistant-exponent'>กำลังบิทคอยน์</a>🗝️"
-    document.getElementById('crypto_scan').innerHTML="<a href='https://artnp.github.io/opportunity-finder'>แสกนคริปโต</a>🗝️"
-    document.getElementById('predict').innerHTML="<div class='tooltip'><del>พยากรณ์เหตุเกิดซ้ำ</del>🔒<div class='tooltiptext'><img src='coin.gif' width='30%'>x10</div></div>"
-    document.getElementById('numberlogy').innerHTML="<div class='tooltip'><del>Numerology</del>🔒<div class='tooltiptext'><img src='coin.gif' width='30%'>x10</div></div>"
-    document.getElementById('house_btc').innerHTML="<div class='tooltip'><del>ระบบเฮาส์บิทคอยน์</del>🔒<div class='tooltiptext'><img src='coin.gif' width='30%'>x50</div></div>"
+    function payout05(){
+  localStorage.setItem("editus_points", Number(localStorage.getItem("editus_points")) - 0.5);
+  document.getElementById("point").innerHTML = `<span class="animate__animated animate__fadeOut animate__delay-3s"><img src="coin.png" width="55%" class="animate__animated animate__zoomOutDown"></span>`
 }
-  else if (point>=1){
-    document.getElementById('horo').innerHTML="<a href='https://artnp.github.io/astro-prediction'>โหราศาสตร์สากล</a>🗝️"
-
-  document.getElementById('crypto_scan').innerHTML="<div class='tooltip'><del>แสกนคริปโต</del>🔒<div class='tooltiptext'><img src='coin.gif' width='30%'>x5</div></div>"
-  document.getElementById('btc_expo').innerHTML="<div class='tooltip'><del>กำลังบิทคอยน์</del>🔒<div class='tooltiptext'><img src='coin.gif' width='30%'>x5</div></div>"
-  document.getElementById('predict').innerHTML="<div class='tooltip'><del>พยากรณ์เหตุเกิดซ้ำ</del>🔒<div class='tooltiptext'><img src='coin.gif' width='30%'>x10</div></div>"
-  document.getElementById('numberlogy').innerHTML="<div class='tooltip'><del>Numerology</del>🔒<div class='tooltiptext'><img src='coin.gif' width='30%'>x10</div></div>"
-  document.getElementById('house_btc').innerHTML="<div class='tooltip'><del>ระบบเฮาส์บิทคอยน์</del>🔒<div class='tooltiptext'><img src='coin.gif' width='30%'>x50</div></div>"
-  }
+    function payout1(){
+  localStorage.setItem("editus_points", Number(localStorage.getItem("editus_points")) - 1);
+  document.getElementById("point").innerHTML = `<span class="animate__animated animate__fadeOut animate__delay-3s"><img src="coin.png" width="55%" class="animate__animated animate__zoomOutDown"></span>`
+}
+function payout2(){
+  localStorage.setItem("editus_points", Number(localStorage.getItem("editus_points")) - 2);
+  document.getElementById("point").innerHTML = `<span class="animate__animated animate__fadeOut animate__delay-3s"><img src="coin.png" width="55%" class="animate__animated animate__zoomOutDown"></span>`
+}
+function payout3(){
+  localStorage.setItem("editus_points", Number(localStorage.getItem("editus_points")) - 3.33);
+  document.getElementById("point").innerHTML = `<span class="animate__animated animate__fadeOut animate__delay-3s"><img src="coin.png" width="55%" class="animate__animated animate__zoomOutDown"></span>`
+}
 
   </script>
 </body>

@@ -184,7 +184,8 @@ fire(0.1, {
   
 
         function coding(){
-          Swal.fire({
+          
+      const sweetAlert = Swal.fire({
       html: '<center><iframe src="house_proj.html" height="600" width="100%" scrolling="yes"></iframe></center>',
       width: '60%',
       height: '100%',
@@ -193,7 +194,13 @@ fire(0.1, {
       allowOutsideClick: true,
       backdrop: false,
     });
+    sweetAlert.then((result) => {
+    if (result.dismiss === Swal.DismissReason.close) {
+      document.getElementById('point').innerHTML="<div class='animate__animated animate__bounceIn'><img src='coin.png' width='1.1%'><b style='background-color:black;'>x"+Number(localStorage.getItem("editus_points")).toFixed(3)+"</b></div>"
+    }
+  });
         }
+
         function game() {
   const sweetAlert = Swal.fire({
     html: '<center><iframe src="game/index.html" height="600" width="100%" scrolling="yes"></iframe></center>',
