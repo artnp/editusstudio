@@ -1,6 +1,6 @@
 function randomR() {
     /////////แก้จำนวน////////////////////////////
-    randomNumber = Math.floor(Math.random() * 158) + 1;
+    randomNumber = Math.floor(Math.random() * 175) + 1;
     ////////////////////////////////////////////
     imageName = randomNumber + " (1).jpg";
     document.getElementById('original').innerHTML='<img src="https://artnp.github.io/editusstudio/example/img/' + imageName + '" >'
