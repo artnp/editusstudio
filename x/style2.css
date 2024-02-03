@@ -1,3 +1,18 @@
+#iframeMain {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%
+}
+
+.floating-reward {
+  position: absolute;
+  font-size: 24px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
 #heartclik  {
   position: fixed; /* or absolute */
   bottom: 6%;
