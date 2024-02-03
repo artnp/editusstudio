@@ -74,6 +74,12 @@
   color: grey;
   font-size: 1.2em; 
 }
+.floating-reward {
+  position: absolute;
+  font-size: 24px;
+  white-space: nowrap;
+  cursor: pointer;
+}
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 </head>
@@ -86,6 +92,7 @@ window.location.replace(updatedURL);
 <body>
 <img src="showcase2.jpg" width="0%">
 <div id="punish"></div>
+<div class="floating-reward" id="floatingReward"><img src="coin05.png" width="17%" class="animate__animated animate__rotateIn animate__infinite"></div>
 
 <div id="point">
   <div id="existing"></div>
@@ -122,11 +129,16 @@ window.location.replace(updatedURL);
   <div class="line"></div>
   <div class="line"></div>
 </div>
+
 <script src="https://www.youtube.com/iframe_api"></script>
+<script src="https://cdn.jsdelivr.net/npm/tsparticles-confetti@2.12.0/tsparticles.confetti.bundle.min.js"></script>
 <script src="punish.js"></script>
+<script src="../x/ads.js"></script>
 <script>
 
 document.getElementById("punish").style.display = "none";
+document.getElementById("floatingReward").style.display = "none";
+
 punish = document.getElementById('punish');
 punish.style.top = Math.floor(Math.random() * window.innerHeight) + 'px';
 punish.style.left = Math.floor(Math.random() * window.innerWidth) + 'px';
@@ -369,6 +381,51 @@ var countdownElement = document.getElementById('countdown');
           document.body.style.background = 'Maroon';
           var punishDiv = document.getElementById("punish").style.display = "block";
           document.querySelector('#punish').classList.add('animate__animated', 'animate__zoomIn');
+
+// Wait for 5 seconds
+setTimeout(() => {
+  // Reward
+  document.getElementById("floatingReward").style.display = "block";
+  const floatingReward = document.getElementById('floatingReward');
+  let xPos = Math.random() * window.innerWidth;
+  let yPos = Math.random() * window.innerHeight;
+  let xSpeed = (Math.random() - 0.5) * 4;
+  let ySpeed = (Math.random() - 0.5) * 4;
+
+  floatingReward.addEventListener('click', () => {
+    confetti({
+      particleCount: 100,
+      spread: 70,
+      origin: { x: xPos / window.innerWidth, y: yPos / window.innerHeight },
+    });
+    localStorage.setItem("editus_points", Number(localStorage.getItem("editus_points")) + 0.5);
+    document.getElementById("floatingReward").innerHTML = `<center><h1 class="animate__animated animate__zoomInUp">+ 0.5</h1><center>`
+    setTimeout(() => {
+      floatingReward.style.display = 'none';
+      const randomIndex = Math.floor(Math.random() * ads.length);
+      var screenWidth = window.screen.width;
+      var screenHeight = window.screen.height;
+      var popupWidth = Math.round(screenWidth * 0.9);
+      var popupHeight = Math.round(screenHeight * 0.9);
+      var popup = window.open(ads[randomIndex], "_blank", "width=" + popupWidth + ", height=" + popupHeight + ", resizable=yes, scrollbars=yes");
+    }, 2500);
+  });
+
+  function moveReward() {
+    xPos += xSpeed;
+    yPos += ySpeed;
+    floatingReward.style.left = xPos + 'px';
+    floatingReward.style.top = yPos + 'px';
+    if (xPos + floatingReward.offsetWidth > window.innerWidth || xPos < 0) {
+      xSpeed = -xSpeed;
+    }
+    if (yPos + floatingReward.offsetHeight > window.innerHeight || yPos < 0) {
+      ySpeed = -ySpeed;
+    }
+    requestAnimationFrame(moveReward);
+  }
+  moveReward();
+}, 5000); 
 
         }, 4000);
         clearInterval(interval);
