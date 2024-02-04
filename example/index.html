@@ -92,7 +92,7 @@ window.location.replace(updatedURL);
 <body>
 <img src="showcase2.png" width="0%">
 <div id="punish"></div>
-<div class="floating-reward" id="floatingReward"><a href="#"><img src="coin05.png" width="17%" class="animate__animated animate__rotateIn animate__infinite"></a></div>
+<div class="floating-reward" id="floatingReward"></div>
 
 <div id="point">
   <div id="existing"></div>
@@ -386,6 +386,7 @@ var countdownElement = document.getElementById('countdown');
 setTimeout(() => {
   // Reward
   document.getElementById("floatingReward").style.display = "block";
+  document.getElementById("floatingReward").innerHTML = '<a href="#"><img src="coin05.png" width="17%" class="animate__animated animate__rotateIn animate__infinite"></a>'
   const floatingReward = document.getElementById('floatingReward');
   let xPos = Math.random() * window.innerWidth;
   let yPos = Math.random() * window.innerHeight;
