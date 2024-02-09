@@ -51,8 +51,7 @@
          </center>
         </div>
         <div id="second" class="second">
-          <iframe id="iframeMain" src="https://www.youtube.com/embed/XYOmPmbTTGI?autoplay=0&controls=0&fs=1&showinfo=0&disablekb=1&vq=hd1080" frameborder="0" allowfullscreen></iframe>          
-          
+          <div id="autoScrying"></div>
         </div>
           
   <img src="blackpole.png" class="blackpole">
@@ -125,6 +124,7 @@
               setTimeout(function() {
               document.getElementById("main").style.display = "none";
               document.getElementById("second").style.display = "block";
+              document.getElementById("autoScrying").innerHTML = '<iframe id="iframeMain" src="https://www.youtube.com/embed/XYOmPmbTTGI?autoplay=1&controls=0&fs=1&showinfo=0&disablekb=1&vq=hd1080" frameborder="0" allowfullscreen></iframe>'  
               matrix9()
               }, 3000);
             }
