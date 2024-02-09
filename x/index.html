@@ -32,19 +32,29 @@
           <button id="agree-btn">ยอมรับ</button>
         </div>
       </div>
+      
+      <div id="matrix-container" style="position: absolute; z-index: 9999; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;">
+        <table id="matrix" style="width: 100%; height: 100%; border-collapse: collapse; margin: auto;"></table>
+    </div>
+    
 
-
-          <img src="showcase2.jpg" width="0%">
+          <div id="main" class="main">
+          <img src="showcase2.png" width="0%">
           <div class="ticker-container"><div class="ticker-content" id="ticker"></div></div>
           <div id="vdo"></div>
           <div id="vdo2"></div>
           <div class="ticker-container"><div class="review-content" id="review"></div></div>
           <center>
             <div id="textQue"></div><div id="heaven">
-
               <div id="heartclik"><input id="toggle-heart" type="checkbox"><label for="toggle-heart">❤</label></div>
               <div id="image-comparison-slider"><div id="original"></div><div class="img-wrapper"><div id="retouch"></div></div><div class="handle"></div></div></div>
          </center>
+        </div>
+        <div id="second" class="second">
+          <iframe id="iframeMain" src="https://www.youtube.com/embed/XYOmPmbTTGI?autoplay=1&controls=0&fs=1&showinfo=0&disablekb=1" frameborder="0" allowfullscreen></iframe>
+          
+          
+        </div>
           
   <img src="blackpole.png" class="blackpole">
   <img src="whitepole.png" class="whitepole">
@@ -52,7 +62,9 @@
   <div class="menu">
     <ul class="animate__animated animate__tada">
 	  <li><del><a href="#">Metaverse</a></del></li>
-      <li><del><a href="#" onclick="">โมเดล ▞</a></del></li>
+    <li><del><a href="#" onclick="">โมเดล ▞</a></del></li>
+    <li><a href="#" onclick="scrying()">Scrying </a></li>
+      
       <br>
       <br>
     </ul>
@@ -67,7 +79,7 @@
   <br>
   </ul>
 </div>
-
+<div class="floating-reward" id="floatingReward"></div>
 	 	  <footer><div id="point" class="animate__animated animate__bounceIn"></div> Powered by <a href="https://artnp.github.io/guru/x.html" target="_blank"><b style="background-color:black;">Guru</b></a> <span id="userAgree"></span></footer>
        <script src="https://www.youtube.com/iframe_api"></script>
       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
@@ -78,7 +90,10 @@
           <script src="price.js"></script>
           <script src="review.js"></script>
           <script src="prefixfree.min.js"></script>
+          <script src="ads.js"></script>
           <script>
+          document.getElementById("second").style.display = "none";
+
             //popup
             var popupContainer = document.getElementById('popup-container');
             var agreeBtn = document.getElementById('agree-btn');
@@ -106,11 +121,19 @@
             };
           </script>
           <script>
-        document.getElementById("image-comparison-slider").style.display = "none";
-        
-        const checkbox = document.getElementById('toggle-heart');
-    const heartLabel = document.querySelector('label[for="toggle-heart"]');
+            function scrying(){
+              document.querySelector('.main').classList.add('animate__animated', 'animate__rotateOutDownRight');
+              setTimeout(function() {
+              document.getElementById("main").style.display = "none";
+              document.getElementById("second").style.display = "block";
+              matrix9()
+              }, 3000);
+            }
 
+
+        document.getElementById("image-comparison-slider").style.display = "none";
+        const checkbox = document.getElementById('toggle-heart');
+        const heartLabel = document.querySelector('label[for="toggle-heart"]');
 
     checkbox.addEventListener('change', function() {
       if (this.checked) {
@@ -287,6 +310,57 @@ fire(0.1, {
         }
 
         function onPlayerStateChange(event) {
+          if (event.data == YT.PlayerState.PLAYING) {
+               // Reward
+setTimeout(() => {
+const floatingReward = document.getElementById('floatingReward');
+floatingReward.innerHTML = '<a href="#"><img src="coin09.png" width="17%" class="animate__animated animate__rotateIn animate__infinite"></a>'
+let xPos = Math.random() * window.innerWidth;
+let yPos = Math.random() * window.innerHeight;
+let xSpeed = (Math.random() - 0.5) * 4;
+let ySpeed = (Math.random() - 0.5) * 4;
+
+floatingReward.addEventListener('click', () => {
+
+  confetti({
+    particleCount: 100,
+    spread: 70,
+    origin: { x: xPos / window.innerWidth, y: yPos / window.innerHeight },
+  });
+  localStorage.setItem("editus_points", Number(localStorage.getItem("editus_points")) + 0.9);
+  document.getElementById("floatingReward").innerHTML = `<center><h1 class="animate__animated animate__zoomInUp">+ 0.9</h1><center>`
+  setTimeout(() => {
+  floatingReward.style.display = 'none';
+  document.getElementById('point').innerHTML = "<div class='animate__animated animate__bounceIn'><img src='coin.png' width='1.1%'><b style='background-color:black;'>x" + Number(localStorage.getItem("editus_points")).toFixed(3) + "</b></div>";
+ 
+  const randomIndex = Math.floor(Math.random() * ads.length);
+  var screenWidth = window.screen.width;
+  var screenHeight = window.screen.height;
+  var popupWidth = Math.round(screenWidth * 0.9);
+  var popupHeight = Math.round(screenHeight * 0.9);
+var popup = window.open(ads[randomIndex], "_blank", "width=" + popupWidth + ", height=" + popupHeight + ", resizable=yes, scrollbars=yes");
+
+}, 2500);
+});
+
+function moveReward() {
+  xPos += xSpeed;
+  yPos += ySpeed;
+  floatingReward.style.left = xPos + 'px';
+  floatingReward.style.top = yPos + 'px';
+  if (xPos + floatingReward.offsetWidth > window.innerWidth || xPos < 0) {
+    xSpeed = -xSpeed;
+  }
+  if (yPos + floatingReward.offsetHeight > window.innerHeight || yPos < 0) {
+    ySpeed = -ySpeed;
+  }
+  requestAnimationFrame(moveReward);
+}
+moveReward();
+}, 9 * 60 * 1000); // 9 minutes
+
+    }
+          
             if (event.data == YT.PlayerState.ENDED) {
                 document.getElementById('vdo').classList.add('animate__animated', 'animate__fadeOut', 'animate__slower');
                 //document.getElementById('image-comparison-slider').classList.add('animate__animated', 'animate__fadeOutUp', 'animate__slower');
@@ -407,6 +481,41 @@ confetti({
   particleCount: 10,
   scalar: 4,
 });
+
+
+function matrix9(){
+  function generateRandomMatrix(rows, cols) {
+  const matrix = [];
+  for (let i = 0; i < rows; i++) {
+    matrix.push([]);
+    for (let j = 0; j < cols; j++) {
+      matrix[i].push(Math.floor(Math.random() * 10)); // Generating random numbers from 0 to 99
+    }
+  }
+  return matrix;
+}
+function renderMatrix(matrix) {
+  const table = document.getElementById('matrix');
+  table.innerHTML = ''; // Clearing existing table content
+  matrix.forEach(row => {
+    const tr = document.createElement('tr');
+    row.forEach(cell => {
+      const td = document.createElement('td');
+      td.textContent = cell;
+      tr.appendChild(td);
+    });
+    table.appendChild(tr);
+  });
+}
+function updateMatrix() {
+  const rows = 39; // Number of rows
+  const cols = 39; // Number of columns
+  const randomMatrix = generateRandomMatrix(rows, cols);
+  renderMatrix(randomMatrix);
+}
+ setInterval(updateMatrix, 19000);
+ updateMatrix();
+}
           </script>
     </body>
     </html>
