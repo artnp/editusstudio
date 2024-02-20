@@ -171,7 +171,7 @@ function randomPl() {
     }
   } else {
     // Handle the case where player is undefined
-    location.reload();
+    setTimeout(randomPl, 1000); // Retry after 1 second
   }
 }
 
