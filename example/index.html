@@ -158,10 +158,10 @@ var player;
 function randomPl() {
   if (player) {
     player.playVideo();
-    
-    shuffle(videoIds);
 
+    shuffle(videoIds);
     currentVideoIndex++;
+
     if (currentVideoIndex < videoIds.length) {
       player.loadVideoById(videoIds[currentVideoIndex]);
     } else {
@@ -170,10 +170,11 @@ function randomPl() {
       player.loadVideoById(videoIds[currentVideoIndex]);
     }
   } else {
-    // Handle the case where player is undefined
-    setTimeout(randomPl(), 3000); // Retry after 1 second
+    // Handle player unavailability (e.g., display a message or retry after a delay)
+    console.log("Player not yet available. Please try again later.");
   }
 }
+
 
 
 function onYouTubeIframeAPIReady() {
