@@ -87,6 +87,9 @@
   if (window.location.href.includes('fbclid')) {
 const updatedURL = window.location.href.replace(/[?&]fbclid=[^&#]+/, '').replace(/[&?]$/, '');
 window.location.replace(updatedURL);
+if (window.location.href.includes('=')) {
+    window.location.href = window.location.href.replace('=', '');
+}
 }
 </script>
 <body>
