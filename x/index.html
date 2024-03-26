@@ -72,11 +72,8 @@ if (window.location.href.includes('=')) {
 </div>
 <div class="menu2">
   <ul class="animate__animated animate__tada">
-	<li ><div id="ห้องเชือด"></div></li>
-	<li><div id="ห้องสมาธิ"></div></li>
   <li><a href="#" onclick="AIbot()">AI▗</a></li>
   <li><a href="#" onclick="coding()">แอพ▝</a></li>
-  <br>
   <br>
   </ul>
 </div>
@@ -441,18 +438,18 @@ if (localStorage.getItem("editus_points") == null){
 }
 document.getElementById('point').innerHTML="<img src='coin.png' width='1.1%'><b style='background-color:black;'>x"+Number(localStorage.getItem("editus_points")).toFixed(3)+"</b>"
 
-if (localStorage.getItem("editus_points") <50){
-  document.getElementById('ห้องเชือด').innerHTML="<div class='tooltip'><del><a href='#'>ห้องเชือด</a></del>🔒<div class='tooltiptext'><img src='coin.gif' width='30%'>x100</div></div>"
-  document.getElementById('ห้องสมาธิ').innerHTML="<div class='tooltip'><del><a href='#'>ห้องสมาธิ</a></del>🔒<div class='tooltiptext'><img src='coin.gif' width='30%'>x50</div></div>"
-} 
-else if (localStorage.getItem("editus_points") >= 50 && localStorage.getItem("editus_points") < 100) {
-  document.getElementById('ห้องเชือด').innerHTML="<div class='tooltip'><del><a href='#'>ห้องเชือด</a></del>🔒<div class='tooltiptext'><img src='coin.gif' width='30%'>x100</div></div>"
-  document.getElementById('ห้องสมาธิ').innerHTML="<a href='#'>ห้องสมาธิ</a>🗝️</div>"
-}
-else if (localStorage.getItem("editus_points") >= 100) {
-  document.getElementById('ห้องเชือด').innerHTML="<a href='#' onclick='hypnopsis()'>ห้องเชือด</a>🗝️</div>"
-  document.getElementById('ห้องสมาธิ').innerHTML="<a href='#' onclick='meditation()'>ห้องสมาธิ</a>🗝️</div>"
-}
+// if (localStorage.getItem("editus_points") <50){
+//   document.getElementById('ห้องเชือด').innerHTML="<div class='tooltip'><del><a href='#'>ห้องเชือด</a></del>🔒<div class='tooltiptext'><img src='coin.gif' width='30%'>x100</div></div>"
+//   document.getElementById('ห้องสมาธิ').innerHTML="<div class='tooltip'><del><a href='#'>ห้องสมาธิ</a></del>🔒<div class='tooltiptext'><img src='coin.gif' width='30%'>x50</div></div>"
+// } 
+// else if (localStorage.getItem("editus_points") >= 50 && localStorage.getItem("editus_points") < 100) {
+//   document.getElementById('ห้องเชือด').innerHTML="<div class='tooltip'><del><a href='#'>ห้องเชือด</a></del>🔒<div class='tooltiptext'><img src='coin.gif' width='30%'>x100</div></div>"
+//   document.getElementById('ห้องสมาธิ').innerHTML="<a href='#'>ห้องสมาธิ</a>🗝️</div>"
+// }
+// else if (localStorage.getItem("editus_points") >= 100) {
+//   document.getElementById('ห้องเชือด').innerHTML="<a href='#' onclick='hypnopsis()'>ห้องเชือด</a>🗝️</div>"
+//   document.getElementById('ห้องสมาธิ').innerHTML="<a href='#' onclick='meditation()'>ห้องสมาธิ</a>🗝️</div>"
+// }
 
 
 //////////confetti 
