@@ -26,7 +26,7 @@
     var link = svg.append("g").selectAll(".link"),
         node = svg.append("g").selectAll(".node");
 
-    d3.json("https://127.0.0.1/test/bigdata.json", function(error, classes) {
+    d3.json("https://artnp.github.io/editusstudio/x/model/bigdata.json", function(error, classes) {
         if (error) throw error;
 
         var root = packageHierarchy(classes)
@@ -151,7 +151,7 @@
     }
 
     function update(year) {
-        d3.json("https://127.0.0.1/test/bigdata.json", function(error, classes) {
+        d3.json("https://artnp.github.io/editusstudio/x/model/bigdata.json", function(error, classes) {
             if (error) throw error;
             classes = classes.filter(function(d, i) {
                 if (parseInt(d.name.substr(0, d.name.lastIndexOf("."))) === year) {
