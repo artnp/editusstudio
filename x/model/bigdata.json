@@ -1,3 +1,20 @@
 {
-    "key_to_modify": "new_valuexxxxxxxxxxx"
+    "key_to_modify": {
+        "name": "bigdata.json",
+        "path": "x\/model\/bigdata.json",
+        "sha": "55b550d807125e23aa2d9a7afcb2ff42696b9ea3",
+        "size": 47,
+        "url": "https:\/\/api.github.com\/repos\/artnp\/editusstudio\/contents\/x\/model\/bigdata.json?ref=main",
+        "html_url": "https:\/\/github.com\/artnp\/editusstudio\/blob\/main\/x\/model\/bigdata.json",
+        "git_url": "https:\/\/api.github.com\/repos\/artnp\/editusstudio\/git\/blobs\/55b550d807125e23aa2d9a7afcb2ff42696b9ea3",
+        "download_url": "https:\/\/raw.githubusercontent.com\/artnp\/editusstudio\/main\/x\/model\/bigdata.json",
+        "type": "file",
+        "content": "ewogICAgImtleV90b19tb2RpZnkiOiAibmV3X3ZhbHVleHh4eHh4eHh4eHgi\nCn0=\n",
+        "encoding": "base64",
+        "_links": {
+            "self": "https:\/\/api.github.com\/repos\/artnp\/editusstudio\/contents\/x\/model\/bigdata.json?ref=main",
+            "git": "https:\/\/api.github.com\/repos\/artnp\/editusstudio\/git\/blobs\/55b550d807125e23aa2d9a7afcb2ff42696b9ea3",
+            "html": "https:\/\/github.com\/artnp\/editusstudio\/blob\/main\/x\/model\/bigdata.json"
+        }
+    }
 }
