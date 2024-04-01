@@ -2,18 +2,18 @@
     "key_to_modify": {
         "name": "bigdata.json",
         "path": "x\/model\/bigdata.json",
-        "sha": "55b550d807125e23aa2d9a7afcb2ff42696b9ea3",
-        "size": 47,
+        "sha": "86945f282849b221c115c392a80b59f0f89cc8a5",
+        "size": 1166,
         "url": "https:\/\/api.github.com\/repos\/artnp\/editusstudio\/contents\/x\/model\/bigdata.json?ref=main",
         "html_url": "https:\/\/github.com\/artnp\/editusstudio\/blob\/main\/x\/model\/bigdata.json",
-        "git_url": "https:\/\/api.github.com\/repos\/artnp\/editusstudio\/git\/blobs\/55b550d807125e23aa2d9a7afcb2ff42696b9ea3",
+        "git_url": "https:\/\/api.github.com\/repos\/artnp\/editusstudio\/git\/blobs\/86945f282849b221c115c392a80b59f0f89cc8a5",
         "download_url": "https:\/\/raw.githubusercontent.com\/artnp\/editusstudio\/main\/x\/model\/bigdata.json",
         "type": "file",
-        "content": "ewogICAgImtleV90b19tb2RpZnkiOiAibmV3X3ZhbHVleHh4eHh4eHh4eHgi\nCn0=\n",
+        "content": "ewogICAgImtleV90b19tb2RpZnkiOiB7CiAgICAgICAgIm5hbWUiOiAiYmln\nZGF0YS5qc29uIiwKICAgICAgICAicGF0aCI6ICJ4XC9tb2RlbFwvYmlnZGF0\nYS5qc29uIiwKICAgICAgICAic2hhIjogIjU1YjU1MGQ4MDcxMjVlMjNhYTJk\nOWE3YWZjYjJmZjQyNjk2YjllYTMiLAogICAgICAgICJzaXplIjogNDcsCiAg\nICAgICAgInVybCI6ICJodHRwczpcL1wvYXBpLmdpdGh1Yi5jb21cL3JlcG9z\nXC9hcnRucFwvZWRpdHVzc3R1ZGlvXC9jb250ZW50c1wveFwvbW9kZWxcL2Jp\nZ2RhdGEuanNvbj9yZWY9bWFpbiIsCiAgICAgICAgImh0bWxfdXJsIjogImh0\ndHBzOlwvXC9naXRodWIuY29tXC9hcnRucFwvZWRpdHVzc3R1ZGlvXC9ibG9i\nXC9tYWluXC94XC9tb2RlbFwvYmlnZGF0YS5qc29uIiwKICAgICAgICAiZ2l0\nX3VybCI6ICJodHRwczpcL1wvYXBpLmdpdGh1Yi5jb21cL3JlcG9zXC9hcnRu\ncFwvZWRpdHVzc3R1ZGlvXC9naXRcL2Jsb2JzXC81NWI1NTBkODA3MTI1ZTIz\nYWEyZDlhN2FmY2IyZmY0MjY5NmI5ZWEzIiwKICAgICAgICAiZG93bmxvYWRf\ndXJsIjogImh0dHBzOlwvXC9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tXC9h\ncnRucFwvZWRpdHVzc3R1ZGlvXC9tYWluXC94XC9tb2RlbFwvYmlnZGF0YS5q\nc29uIiwKICAgICAgICAidHlwZSI6ICJmaWxlIiwKICAgICAgICAiY29udGVu\ndCI6ICJld29nSUNBZ0ltdGxlVjkwYjE5dGIyUnBabmtpT2lBaWJtVjNYM1po\nYkhWbGVIaDRlSGg0ZUhoNGVIZ2lcbkNuMD1cbiIsCiAgICAgICAgImVuY29k\naW5nIjogImJhc2U2NCIsCiAgICAgICAgIl9saW5rcyI6IHsKICAgICAgICAg\nICAgInNlbGYiOiAiaHR0cHM6XC9cL2FwaS5naXRodWIuY29tXC9yZXBvc1wv\nYXJ0bnBcL2VkaXR1c3N0dWRpb1wvY29udGVudHNcL3hcL21vZGVsXC9iaWdk\nYXRhLmpzb24\/cmVmPW1haW4iLAogICAgICAgICAgICAiZ2l0IjogImh0dHBz\nOlwvXC9hcGkuZ2l0aHViLmNvbVwvcmVwb3NcL2FydG5wXC9lZGl0dXNzdHVk\naW9cL2dpdFwvYmxvYnNcLzU1YjU1MGQ4MDcxMjVlMjNhYTJkOWE3YWZjYjJm\nZjQyNjk2YjllYTMiLAogICAgICAgICAgICAiaHRtbCI6ICJodHRwczpcL1wv\nZ2l0aHViLmNvbVwvYXJ0bnBcL2VkaXR1c3N0dWRpb1wvYmxvYlwvbWFpblwv\neFwvbW9kZWxcL2JpZ2RhdGEuanNvbiIKICAgICAgICB9CiAgICB9Cn0=\n",
         "encoding": "base64",
         "_links": {
             "self": "https:\/\/api.github.com\/repos\/artnp\/editusstudio\/contents\/x\/model\/bigdata.json?ref=main",
-            "git": "https:\/\/api.github.com\/repos\/artnp\/editusstudio\/git\/blobs\/55b550d807125e23aa2d9a7afcb2ff42696b9ea3",
+            "git": "https:\/\/api.github.com\/repos\/artnp\/editusstudio\/git\/blobs\/86945f282849b221c115c392a80b59f0f89cc8a5",
             "html": "https:\/\/github.com\/artnp\/editusstudio\/blob\/main\/x\/model\/bigdata.json"
         }
     }
