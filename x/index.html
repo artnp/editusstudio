@@ -70,7 +70,7 @@ if (window.location.href.includes('=')) {
 </div>
 <div class="menu2">
   <ul class="animate__animated animate__tada">
-
+  <li><a href="#" onclick="sunspot()">🌞</a></li>
   <li><a href="#" onclick="AIbot()">AI▗</a></li>
   <li><a href="#" onclick="coding()">แอพ▝</a></li>
   <br><br>
@@ -245,12 +245,16 @@ fire(0.1, {
       backdrop: false,
     });
         }
-        function meditation(){
-          document.getElementById('vdo').style.display = "none";
-          document.querySelectorAll(".ticker-container").forEach(element => element.style.display = "none");
-          document.getElementById("image-comparison-slider").style.display = "none";
-          document.getElementById('vdo2').innerHTML = '<div class="animate__animated animate__bounceIn animate__slower"><center><img src="coming.jpg" width="50%"></center></div>';
-
+        function sunspot(){
+          Swal.fire({
+      html: '<img src="https://soho.nascom.nasa.gov/data/synoptic/sunspots_earth/mdi_sunspots.jpg">',
+      width: '40%',
+      height: '100%',
+      showConfirmButton: false,
+      showCloseButton: true,
+      allowOutsideClick: false,
+      backdrop: false,
+    });
         }
         function hypnopsis(){
           document.getElementById('vdo').style.display = "none";
