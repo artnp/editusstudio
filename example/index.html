@@ -2,6 +2,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+  <title>ตัวอย่างงาน</title>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
 <style>
  body {
@@ -168,12 +169,12 @@
 
     function loadImage() {
     var randomNumber = Math.floor(Math.random() * 200);
-    var imageURL = "/img/" + randomNumber + " (2).jpg";
+    var imageURL = "https://artnp.github.io/editusstudio/example/img/" + randomNumber + " (2).jpg";
     document.getElementById('image1').onerror = function() {
         loadImage();
     };
     document.getElementById('image1').src = imageURL;
-    document.getElementById('image2').src = "/img/" + randomNumber + " (1).jpg";
+    document.getElementById('image2').src = "https://artnp.github.io/editusstudio/example/img/" + randomNumber + " (1).jpg";
 }
 loadImage();
 
@@ -183,7 +184,7 @@ function checkLastExistingImage(startIndex) {
     let index = startIndex;
     let lastExistingURL = null;
     const checkNextImage = () => {
-        let imageUrl = `/img/${index} (1).jpg`;
+        let imageUrl = `https://artnp.github.io/editusstudio/example/img/${index} (1).jpg`;
         document.getElementById("existing").innerText = 'Loading...'
         let img = new Image();
         
@@ -195,10 +196,10 @@ function checkLastExistingImage(startIndex) {
         
         img.onerror = function() {
             if (lastExistingURL) {
-                let x = lastExistingURL.replace(/\/img\//, "").replace(" (1).jpg", "");
-                document.getElementById("existing").innerText = 'ไฟล์ล่าสุดเลขที่: ' + x;
-                document.getElementById('image1').src = "/img/" + 201 + " (2).jpg";
-                document.getElementById('image2').src = "/img/" + 201 + " (1).jpg";
+                let x = lastExistingURL.replace(/^https:\/\/artnp\.github\.io\/editusstudio\/example\/img\//, "").replace(/ \(1\).jpg$/, "");
+                document.getElementById("existing").innerHTML = 'ไฟล์ล่าสุดเลขที่: <u>' + x + '</u>';
+                document.getElementById('image1').src = "https://artnp.github.io/editusstudio/example/img/" + x + " (2).jpg";
+                document.getElementById('image2').src = "https://artnp.github.io/editusstudio/example/img/" + x + " (1).jpg";
             } 
         };
 
