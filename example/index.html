@@ -163,7 +163,7 @@
 		<span>
 		  <img id="image1" src="" width="360px" height="200px"></span>
 		  <img id="image2" src="" width="360px" height="200px"></div>
-	    <center><div id="existing"><button onclick="checkLastExistingImage(200)" class="modern-button">เช็คงานล่าสุด</button>
+	    <center><div id="existing"><button onclick="checkLastExistingImage()" class="modern-button">เช็คงานล่าสุด</button>
       </div></center>
 	  <script>
 		document.querySelector('.image-compare').focus();
@@ -187,8 +187,12 @@ loadImage();
 
 
 
-function checkLastExistingImage(startIndex) {
-    let index = startIndex;
+function checkLastExistingImage() {
+    if (localStorage.getItem('lastestUpdate') !== null) {
+        index = Number(localStorage.getItem('lastestUpdate'))
+      } else {
+        index = Number(200);
+      }
     let lastExistingURL = null;
     const checkNextImage = () => {
         let imageUrl = `https://artnp.github.io/editusstudio/example/img/${index} (1).jpg`;
