@@ -168,9 +168,15 @@
 	  <script>
 		document.querySelector('.image-compare').focus();
 
+       if (localStorage.getItem('lastestUpdate') !== null) {
+        xNumber = localStorage.getItem('lastestUpdate');
+      } else {
+        xNumber = Number(200);
+      }
+    
     function loadImage() {
-    var randomNumber = Math.floor(Math.random() * 200);
-    var imageURL = "https://artnp.github.io/editusstudio/example/img/" + randomNumber + " (2).jpg";
+    var imageURL = "https://artnp.github.io/editusstudio/example/img/" + xNumber + " (2).jpg";
+    randomNumber = Math.floor(Math.random() * xNumber);
     document.getElementById('image1').onerror = function() {
         loadImage();
     };
@@ -197,10 +203,11 @@ function checkLastExistingImage(startIndex) {
         
         img.onerror = function() {
             if (lastExistingURL) {
-                let x = lastExistingURL.replace(/^https:\/\/artnp\.github\.io\/editusstudio\/example\/img\//, "").replace(/ \(1\).jpg$/, "");
+                x = lastExistingURL.replace(/^https:\/\/artnp\.github\.io\/editusstudio\/example\/img\//, "").replace(/ \(1\).jpg$/, "");
                 document.getElementById("existing").innerHTML = 'ไฟล์ล่าสุดเลขที่: <u>' + x + '</u>';
                 document.getElementById('image1').src = "https://artnp.github.io/editusstudio/example/img/" + x + " (2).jpg";
                 document.getElementById('image2').src = "https://artnp.github.io/editusstudio/example/img/" + x + " (1).jpg";
+                localStorage.setItem('lastestUpdate', x);
             } 
         };
 
