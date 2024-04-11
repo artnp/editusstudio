@@ -1420,5 +1420,8 @@
     },
     {
         "data": "Ethereum ถูกสร้างขึ้นเพื่อรองรับแอพพลิเคชั่น (dApps) โดยใช้ Smart Contract"
+    },
+    {
+        "data": "Bitcoin ไม่รองรับการสร้าง dApps"
     }
 ]
