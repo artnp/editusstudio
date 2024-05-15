@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Academy Project</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border-color: rgb(158, 157, 157);
+    }
+    th, td {
+      border: 1px solid rgb(134, 134, 134);
+      padding: 10px;
+      text-align: center;
+      color: white;
+    }
+a {
+  color: white;
+  text-decoration: none;
+}
+a:hover {
+  color: red;
+}
+    #bottone5 {
+ align-items: center;
+ background-color: #FFFFFF;
+ border: 1px solid rgba(0, 0, 0, 0.1);
+ border-radius: .25rem;
+ box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+ box-sizing: border-box;
+ color: rgba(0, 0, 0, 0.85);
+ cursor: pointer;
+ display: inline-flex;
+ font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
+ font-size: 16px;
+ font-weight: 600;
+ justify-content: center;
+ line-height: 0.25;
+ min-height: 1rem;
+ padding: calc(.875rem - 1px) calc(1.5rem - 1px);
+ text-decoration: none;
+ transition: all 250ms;
+ user-select: none;
+ -webkit-user-select: none;
+ touch-action: manipulation;
+ vertical-align: baseline;
+ width: auto;
+}
+
+#bottone5:hover,
+#bottone5:focus {
+ border-color: rgba(0, 0, 0, 0.15);
+ box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+ color: rgba(0, 0, 0, 0.65);
+}
+
+#bottone5:hover {
+ transform: translateY(-1px);
+}
+
+#bottone5:active {
+ background-color: #F0F0F1;
+ border-color: rgba(0, 0, 0, 0.15);
+ box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
+ color: rgba(0, 0, 0, 0.65);
+ transform: translateY(0);
+}
+#point {
+  position: absolute;
+  top: 10%;
+  left: 45%;
+  transform: translate(-10%, -45%)
+}
+  </style>
+</head>
+<body>
+  <table>
+    <tr>
+      <td><h3><a>คณิตศาสตร์</a></h3><button id="bottone5" onclick="payout1(); setTimeout(() => window.location.href = 'math.html', 1500)">1🪙</button></td>
+      <td><font color="grey"><h3>เคมี</h3></font></td>
+      <td><font color="grey"><h3>ฟิสิกส์</h3></font></td>
+    </tr>
+    <tr>
+      <td><font color="grey"><h3>ชีววิทยา</h3></font></td>
+      <td><font color="grey"><h3>ดาราศาสตร์</h3></font></td>
+      <td><font color="grey"><h3>การแพทย์</h3></font></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><font color="grey"><h3>วิศวกรรมไฟฟ้า</h3></font></td>
+      <td><font color="grey"><h3>โปรแกรมคอมพิวเตอร์</h3></font></td>
+    </tr>
+    <tr>
+      <td><font color="grey"><h3>ศิลปะ</h3></font></td>
+      <td><font color="grey"><h3>วิทยาการคอมพิวเตอร์</h3></font></td>
+      <td><font color="grey"><h3>ไวยากรณ์</h3></font></td>
+    </tr>
+	    <tr>
+      <td><font color="grey"><h3>ประวัติศาสตร์โลก</h3></font></td>
+      <td><font color="grey"><h3>เศรษฐศาสตร์</h3></font></td>
+      <td></td>
+    </tr>
+  </table>
+  <br>
+  <center><h3>ใช้ร่วมกับผู้ช่วย</h3><img src="https://cdn-icons-png.flaticon.com/128/11865/11865338.png" width="4%" onclick="gpt()"><br>
+  <hr>Powered by <b>Khan Academy</b> <img src="https://cdn-icons-png.flaticon.com/128/3373/3373310.png" width="1%">
+  </center>
+  <div id="point"></div>
+  <script>
+     // Check localStorage value on page load
+     document.addEventListener("DOMContentLoaded", function() {
+      var points = Number(localStorage.getItem("editus_points"));
+      if (points < 0) {
+        var buttons = document.querySelectorAll("#bottone5");
+        buttons.forEach(function(button) {
+          button.disabled = true;
+          button.style.opacity = "0.3";
+        });
+      }
+    });
+
+    function payout1(){
+    localStorage.setItem("editus_points", Number(localStorage.getItem("editus_points")) - 1);
+    document.getElementById("point").innerHTML = `<span class="animate__animated animate__fadeOut animate__delay-3s"><img src="coin.png" width="55%" class="animate__animated animate__zoomOutDown"></span>`
+    }
+
+function gpt(){
+  Swal.fire({
+    html: `<iframe width="560" height="315" src="https://www.youtube.com/embed/IvXZCocyU_M?si=3_bcSTIBWRqrxJF6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`,
+    width: 710,
+    showCloseButton: true,
+    focusConfirm: false,
+    showConfirmButton: false
+  });
+}
+
+  </script>
+</body>
+</html>

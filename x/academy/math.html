@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+<script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
+<title>Academy Project</title>
+<style>
+   body {
+      display: flex;
+      background-color: #F0F0B5;
+      font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      overflow: hidden;
+   }
+   .split {
+      width: 50%;
+      height: 72vh;
+      position: relative;
+   }
+   #player {
+      width: 100%;
+      height: 90%;
+      position: absolute; 
+      top: 11%;
+      border-radius: 19px;
+      overflow: hidden;
+      z-index: 1;
+   }
+   #nextButton {
+      display: block;
+      padding: 20px 40px;
+      font-size: 18px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      margin-top: 10px;
+      position: absolute;
+      top: 81%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      transition: background-color 0.3s ease;
+      z-index: 9999; 
+   }
+
+   #nextButton:hover {
+      color: #000;
+      background-color: #F0F0B5;
+   }
+   #point {
+   position: fixed;
+   bottom: 22%;
+   left: 45%;
+   z-index: 9999; /* Adjust the z-index value as needed */
+}
+   #videoTitle {
+      position: absolute; 
+      top: 2%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+   }
+   #progressBar {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      height: 8px;
+      background-color: #ddd;
+      border-radius: 4px;
+   }
+   #progressLast {
+      height: 100%;
+      background-color: #28a745;
+      border-radius: 4px;
+      transition: width 0.3s ease; /* Adding transition for smoothness */
+   }
+   #progressGoal {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 100%;
+      background-color: #fff;
+      border-radius: 4px;
+      width: 0; /* Initially width is 0 */
+   }
+   #goalFlag {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 20px;
+      height: 20px;
+      background-color: #ffc107;
+      border-radius: 50%;
+      transform: translateY(-50%);
+      animation: pulse 1.5s infinite; /* Adding pulse animation */
+      display: none; /* Initially hidden */
+   }
+   @keyframes pulse {
+      0% {
+         transform: scale(0.8);
+      }
+      50% {
+         transform: scale(1);
+      }
+      100% {
+         transform: scale(0.8);
+      }
+   }
+   #drawFrame {
+    width: 100%; /* Full width of the viewport */
+    height: 100%; /* Full height of the viewport */
+}
+</style>
+</head>
+<body>
+    <h1 id="videoTitle"></h1>
+    <div class="split">
+        <br>
+        <div id="player"></div>
+    </div>
+    <div class="split">
+        <br><br><br>
+        <iframe src="draw.html" id="drawFrame" frameborder="0"></iframe>
+      </div>
+
+    <div id="point"></div>
+    <center><button id="nextButton">>> ไปต่อ >>></button></center>
+
+    <div id="progressBar">
+      <div id="progressLast"></div>
+      <div id="progressGoal"></div>
+      <div id="goalFlag"></div>
+  </div>
+
+<script>
+    const videoIds = [
+    'UWrVntg0mvE',
+'imcoyigzARU',
+'1_K2prG61-Y',
+'4gVWDnuT-sU',
+'QJcLgMTEE4k',
+'beoLEZqtVGI',
+'XfldTHtzifo',
+'lseJFKHN3ek',
+'F0a5lDts8mM',
+'jjhiWOpVEAE',
+'jxLz0jManD4',
+'-pKlPolf-Dg',
+'CM4L3_i5lNI',
+'3UKZzXZ1iRw',
+'sgakFQ3nlN8',
+'WukYePUxaoU',
+'4EEEdQTkWOU',
+'xyfkhZJ2Nss',
+'jusWkzNeZTc',
+'CwxA54OxpVo',
+'0cjyQJh2A_c',
+'B5UEJHleMc0',
+'vWaULi0h_FI',
+'diFmHHQkC4s',
+'RQBKplvNADQ',
+'YxSxUb4i49s',
+'5IDuVXRcjGA',
+'-m-UIhL8Gcs',
+'QSvhcsmOPaQ',
+'8ZsrbflAGoI',
+'fatX4mYfcuk',
+'3-0mhl3zgsM',
+'l4BPP6rLSzc',
+'f-AMfufVcOg',
+'jySutr7NQw4',
+'SYNyOBaZMdU',
+'oE7XfkHD3ko',
+'mEOEIq9BlVQ',
+'wlEXcpZt4a4',
+'0GIEpukUv4k',
+'7WiLvnlRLIQ',
+'Cjy-o7zbH4s',
+'xNMjEI7XXeI',
+'SJTPDbUh6M8',
+'8moPRb4f0hw',
+'3blrY76j45c',
+'1l_lxMVzm0w',
+'l4BPP6rLSzc',
+'f-AMfufVcOg',
+'jySutr7NQw4',
+'SYNyOBaZMdU',
+'oE7XfkHD3ko',
+'mEOEIq9BlVQ',
+'wlEXcpZt4a4',
+'lGh-BHDoDf0',
+'Ev0mPN_uN9E',
+'gG_oOdu3S6g',
+'5StPavZ-V68',
+'BJ4X3xurPYI',
+'aeAo2hNrXAA',
+'qxe55eOXm38',
+'bx-gZHi7RRM',
+'LiMloqv1WiE',
+'SWosvsgfgNQ',
+'vJMvtwBfL90',
+'B7Mx1wunsOc',
+'kogWlCvaedQ',
+'XV8wdv0zxro',
+'yQJFOHRtL2o',
+'4kHE9sQzECE',
+'xhI-Fpvks9E',
+'GhbcCgs3ShQ',
+'LFX-60TdC9U',
+'euPkusqzr78',
+'BkO-BNGeC98',
+'In-7n3B4-XM',
+'EGz0LM9kOcc',
+'Yj-Uz2_8n2U',
+'n98R7uLI8AA',
+'WuNG-8Igy3w',
+'SJZEZ4YMGWM',
+'uLzPAH_ff4k',
+'oOxt7ttTEb0',
+'-m-UIhL8Gcs',
+'QSvhcsmOPaQ',
+'8ZsrbflAGoI',
+'fatX4mYfcuk',
+'3-0mhl3zgsM',
+'l4BPP6rLSzc',
+'f-AMfufVcOg',
+'jySutr7NQw4',
+'SYNyOBaZMdU',
+'oE7XfkHD3ko',
+'mEOEIq9BlVQ',
+'wlEXcpZt4a4',
+'DvWEVXr1saM',
+'apI0MdrNCm4',
+'ZTJxMAyqEQM',
+'5m4Bh-9Ffpo',
+'5DxrhwMmyIk',
+'CyX5DPUrbNI',
+'9zocVnYMPAk',
+'MIzMwOCvqWw',
+'e1e2kIpa5Dg',
+'aWwHUij0BsY',
+'1GBI_nrC0Mg',
+'6-ArG37775c',
+'upFO4Mw57TQ',
+'Lb8rvUwNLGQ',
+'gY3fKz32yKo',
+'faNUOwauwVE',
+'8KhYviyIsoc',
+'lwjHs7Jjmrc',
+'xt3I7nYyDOE',
+'rMvFBK8UkuM',
+'Cmb9XN9rd1g',
+'9QEzQF_rx9w',
+'DYCnM3eTq8k',
+'-d0ELBfLATo',
+'CvAg69KS7JU',
+'ENnqrMIEcfM',
+'oZ7WVx2EGE0',
+'dZbTzFdUWmM',
+'ZNSbB8ghFlA',
+'TOYBmfoIPVY',
+'m4eCWirUVRE',
+'AbkaiCZFJaI',
+'MXjrYeVUk_s',
+'zd4STcERAc8',
+'TOUiQxYDr4A',
+'17Fem_Sf79s',
+'S1s9gWHsnNo',
+'vPXhCdDmDfA',
+'06nf-HsHXmU',
+'a5UCH6J4lnc',
+'IAprlBo3w_U',
+'h_lCa1WdfUA',
+'IBB6ZHAGqDE',
+'MA6WSGsqldY',
+'JDFKX5iLN2s',
+'OV8Ua2genq0',
+'HF0lONK2wAA',
+'kZGeKye0uz8',
+'l7beiG3ZmkM',
+'H16pGnEQSW4',
+'GYDfEJn3XwU',
+'gbDUnw51lYg',
+'c5rCFqLMwNo',
+'fnA3l2ZEUAw',
+'eVOBtNvmp3Y',
+'EKaQLMbpfE0',
+'fsAGQpWILRY',
+'WLIFaPPd7Bw',
+'dVCYA--CesY',
+'pPj41mKvDAM',
+'qwny1qAfkg4',
+'643IyWgT8LU',
+'xIqV2sVf3V4',
+'z_U3q5ctCXM',
+'09uOxPH0i8c',
+'ZCj65nuUrQ4',
+'1XSaoW78GqU',
+'3NCn4X2wXR4',
+'pb4wByaGkeY',
+'ZwlUQ0ZpHbw',
+'ugTNC3_8acI',
+'kbMi4wrPQFo',
+'nGoEWBpdCjU',
+'dIN5CsVDpFM',
+'_sJhx1Dm6vw',
+'EktGkkgpXsw',
+'3y0Gs3uRVb4',
+'VNRpCf2Jquk',
+'CUKCg_2YxBw',
+'QBMWHMKW3n0',
+'GmxbuKtqyNY',
+'mcglfOvGosU',
+'xIRFPm_iHW0',
+'V7gHUhoRdcc',
+'c8kbWvsox7k',
+'bB3TwmE764c',
+'17u3KL7gtkU',
+'pcIIcCFxKwg',
+'17Fem_Sf79s',
+'S1s9gWHsnNo',
+'vPXhCdDmDfA',
+'06nf-HsHXmU',
+'a5UCH6J4lnc',
+'IAprlBo3w_U',
+'h_lCa1WdfUA',
+'IBB6ZHAGqDE',
+'MA6WSGsqldY',
+'JDFKX5iLN2s',
+'OV8Ua2genq0',
+'HF0lONK2wAA',
+'kZGeKye0uz8',
+'l7beiG3ZmkM',
+'H16pGnEQSW4',
+'GYDfEJn3XwU',
+'gbDUnw51lYg',
+'c5rCFqLMwNo',
+'fnA3l2ZEUAw',
+'eVOBtNvmp3Y',
+'EKaQLMbpfE0',
+'fsAGQpWILRY',
+'HlLqCiA7eiY',
+'GwtYLYA-BUk',
+'2g8rTpOrbM0',
+'OCY2Cq2H1XQ',
+'pr6YpXHEAy4',
+'jLnKp9tcU5I',
+'KX7nPJZF-Cs',
+'cbMn1oN0-8I',
+'oESNZuhDS9w',
+'ue8Hea8pJYk',
+'bngdYV7vDNA',
+'FcYIhPKq41c',
+'1QTKCDUmF4U',
+'m7jFZd6D1vU',
+'JbYs4lYGZdg',
+'ktLAcPMYHJs',
+'2cmbSwBT4Ws',
+'_RNtDKWnAfs',
+'3vYlHPjuK-s',
+'L7Z8Q6my-8g',
+'yRQqAww_GVI',
+'z4TKWV6V-fQ',
+'kbKTZrGRyXU',
+'6_mjfJn8R_k',
+'HWQSvkDbrBk',
+'9rEEOthJ5rQ',
+'slXl5LxGoAU',
+'GMNRncbxoZw',
+'LPSEcZQaqlA',
+'0mlyXf1m0DE',
+'ZG7GSUCzjEY',
+'Nfc410ZnJRs',
+'wzL96hQmqxE',
+'s81VnV-O_2o',
+'Mhv7ohlZVm4',
+'NJZI2b-jLqQ',
+'_YzCdCTT-bg',
+'epzcv2WbrLU',
+'Hxqb4ygCxBM',
+'KaXRASnnrQU',
+'M6-0FtKQDgo',
+'cPAzVB0bxn4',
+'GFC5yjjvzq4',
+'YqZCAb8DHu0',
+'K5LF86rULi4',
+'lNcnPbUrz4E',
+'TL3u_gfdlos',
+'q69kEw-uXOw',
+'aOwifXyy5gs',
+'XnEqAzA7ABY',
+'9q2Er3U12xE',
+'aMxvEJqBisY',
+'139PO_sUtdc',
+'gx2Ox-2g0AI',
+'oF1tZekaCzA',
+'glYWncqmhMM',
+'krpaKwWbbno',
+'-ofp9hhGFpQ',
+'rovvv9jliXk',
+'jERwZBcJDZw',
+'UykOBceIZfE',
+'RUvnbQnSr6o',
+'neivAZcuZDA',
+'DKhHtatAfDI',
+'HF-hE7Vcz90',
+'cKZEiWh5iao',
+'qhJCEo1zGLo',
+'tbGsEsrPo94',
+'wGn6Nm4JyMY',
+'dlSb7KxgC5w',
+'gRqO9c1jx-E',
+'LnVic5brSd8',
+'urwen1A82uY',
+'g0EwCsd1NeQ',
+'nYH29xd7J4I',
+'BtzJ9J2ImiE',
+'5FWDzDuqfKk',
+'gb9cxm4E56c',
+'KYPmykiH9J4',
+'w7jF62EIFTs',
+'wvCHowKl7Q8',
+'tVxS5-cOc_M',
+'8nS2vd6IVjo',
+  ];
+    const totalVideos = videoIds.length;
+
+
+  let currentIndex = 0;
+    const player = document.getElementById('player');
+    const videoTitleElement = document.getElementById('videoTitle');
+    const nextButton = document.getElementById('nextButton');
+    const progressLast = document.getElementById('progressLast');
+    const progressGoal = document.getElementById('progressGoal');
+    const goalFlag = document.getElementById('goalFlag');
+
+  // Function to load and play a video
+  function playVideo(videoId) {
+    player.innerHTML = ''; // Clear previous video
+    const iframe = document.createElement('iframe');
+    iframe.width = '100%'; // Fit 100% of its container
+    iframe.height = '100%'; // Fit 100% of its container
+    iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1?cc_load_policy=1`;
+    iframe.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture';
+    player.appendChild(iframe);
+  }
+
+  function preloadNextVideo() {
+    const nextIndex = (currentIndex + 1) % videoIds.length;
+    const img = new Image();
+    img.src = `https://img.youtube.com/vi/${videoIds[nextIndex]}/0.jpg`;
+    img.onload = function() {
+      if (nextIndex === 0) {
+        nextButton.style.display = 'none';
+      } else {
+        nextButton.style.display = 'block';
+      }
+    };
+  }
+
+  function updateProgress() {
+        const progress = (currentIndex + 1) / totalVideos * 100;
+        progressLast.style.width = `${progress}%`;
+
+        if (currentIndex + 1 === totalVideos) { //จำนวนคลิปทั้งหมด
+            progressGoal.style.width = '100%'; // Show goal bar fully
+            goalFlag.style.display = 'block'; // Show goal flag
+        } else {
+            progressGoal.style.width = '0'; // Hide goal bar
+            goalFlag.style.display = 'none'; // Hide goal flag
+        }
+    }
+
+    playVideo(videoIds[currentIndex]);
+    videoTitleElement.textContent = `บทเรียน: ${currentIndex + 1} / ${totalVideos}`;
+    preloadNextVideo();
+    updateProgress();
+
+    nextButton.addEventListener('click', function() {
+        confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 },
+        });
+        localStorage.setItem("editus_points", Number(localStorage.getItem("editus_points")) + 0.5);
+        document.getElementById("point").innerHTML = `<img src="coin+.png" width="30%" class="animate__animated animate__bounceOut animate__slow">`
+        
+
+        currentIndex = (currentIndex + 1) % totalVideos;
+        playVideo(videoIds[currentIndex]);
+        videoTitleElement.textContent = `บทเรียน: ${currentIndex + 1} / ${totalVideos}`;
+        preloadNextVideo();
+        updateProgress();
+        saveLastWatchedVideo();
+    });
+
+    function saveLastWatchedVideo() {
+        localStorage.setItem('Math/lastVideoIndex', currentIndex);
+    }
+
+    window.addEventListener('load', function() {
+        const lastVideoIndex = localStorage.getItem('Math/lastVideoIndex');
+        if (lastVideoIndex !== null) {
+            currentIndex = parseInt(lastVideoIndex);
+            playVideo(videoIds[currentIndex]);
+            videoTitleElement.textContent = `บทเรียน: ${currentIndex + 1} / ${totalVideos}`;
+            preloadNextVideo();
+            updateProgress();
+        }
+    });
+</script>
+</body>
+</html>
