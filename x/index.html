@@ -235,7 +235,7 @@ fire(0.1, {
   });
 }
 function academy() {
-  Swal.fire({
+  const sweetAlert = Swal.fire({
     html: '<center><iframe src="academy/index.html" style="height: 92vh; width: 100%;" scrolling="no" frameBorder="0"></iframe></center>',
     width: '100%',
     height: '100%',
@@ -258,6 +258,11 @@ function academy() {
         closeButton.style.color = 'white'; // Light text color for close button
       }
     });
+    sweetAlert.then((result) => {
+    if (result.dismiss === Swal.DismissReason.close) {
+      document.getElementById('point').innerHTML="<div class='animate__animated animate__bounceIn'><img src='coin.png' width='1.1%'><b style='background-color:black;'>x"+Number(localStorage.getItem("editus_points")).toFixed(3)+"</b></div>"
+    }
+  });
   }
         function AIbot(){
           Swal.fire({
