@@ -26,6 +26,50 @@ a {
 a:hover {
   color: red;
 }
+#bottone4 {
+ align-items: center;
+ background-color: #FFFFFF;
+ border: 1px solid rgba(0, 0, 0, 0.1);
+ border-radius: .25rem;
+ box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+ box-sizing: border-box;
+ color: rgba(0, 0, 0, 0.85);
+ cursor: pointer;
+ display: inline-flex;
+ font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
+ font-size: 16px;
+ font-weight: 600;
+ justify-content: center;
+ line-height: 0.25;
+ min-height: 1rem;
+ padding: calc(.875rem - 1px) calc(1.5rem - 1px);
+ text-decoration: none;
+ transition: all 250ms;
+ user-select: none;
+ -webkit-user-select: none;
+ touch-action: manipulation;
+ vertical-align: baseline;
+ width: auto;
+}
+
+#bottone4:hover,
+#bottone4:focus {
+ border-color: rgba(0, 0, 0, 0.15);
+ box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+ color: rgba(0, 0, 0, 0.65);
+}
+
+#bottone4:hover {
+ transform: translateY(-1px);
+}
+
+#bottone4:active {
+ background-color: #F0F0F1;
+ border-color: rgba(0, 0, 0, 0.15);
+ box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
+ color: rgba(0, 0, 0, 0.65);
+ transform: translateY(0);
+}
     #bottone5 {
  align-items: center;
  background-color: #FFFFFF;
@@ -83,23 +127,23 @@ a:hover {
     <tr>
       <td><h3><a>โหราศาสตร์สากล</a></h3><button id="bottone5" onclick="payout1(); setTimeout(() => window.location.href = 'https://artnp.github.io/astro-prediction/', 1500)">1🪙</button></td>
       <td><h3><a>พยากรณ์เหตุเกิดซ้ำ</a></h3><button id="bottone5" onclick="payout1(); setTimeout(() => window.location.href = 'https://artnp.github.io/predict-future-event/', 1500)">1🪙</button></td>
-      <td><h3><a>สุ่มทำบุญ</a></h3><a href="https://artnp.github.io/TH-Random-Donate/app.html"><button id="bottone5">ฟรี</button></a></td>
+      <td><h3><a>สุ่มทำบุญ</a></h3><a href="https://artnp.github.io/TH-Random-Donate/app.html"><button id="bottone4">ฟรี</button></a></td>
     </tr>
     <tr>
       <td><h3><a>แสกนเหรียญคริปโต</a></h3><button id="bottone5" onclick="payout2(); setTimeout(() => window.location.href = 'https://artnp.github.io/opportunity-finder/', 1500)">2🪙</button></td>
-      <td><h3><a>กำลังบิทคอยน์</a></h3><a href="https://artnp.github.io/btc-support-resistant-exponent/"><button id="bottone5">ฟรี</button></a></td>
-      <td><h3><a>สุ่มวิชชา</a></h3><a href="https://artnp.github.io/guru/x(2).html"><button id="bottone5">ฟรี</button></a></td>
+      <td><h3><a>กำลังบิทคอยน์</a></h3><a href="https://artnp.github.io/btc-support-resistant-exponent/"><button id="bottone4">ฟรี</button></a></td>
+      <td><h3><a>สุ่มวิชชา</a></h3><a href="https://artnp.github.io/guru/x(2).html"><button id="bottone4">ฟรี</button></a></td>
     </tr>
     <tr>
       <td></td>
-      <td><h3><a>สมุนไพรรักษาโรค</h3><a href="https://artnp.github.io/thai-herb/"><button id="bottone5">ฟรี</button></a></td>
+      <td><h3><a>สมุนไพรรักษาโรค</h3><a href="https://artnp.github.io/thai-herb/"><button id="bottone4">ฟรี</button></a></td>
       <td><h3><a>Numerology</a></h3><button id="bottone5" onclick="payout1(); setTimeout(() => window.location.href = 'https://artnp.github.io/birthforce/', 1500)">1🪙</button></td>
         
     </tr>
     <tr>
       <td><div id="house_btc"></div></td>
-      <td><h3><a>Data_set [Pre-AI]</a></h3><a href="deep_data.html"><button id="bottone5">ฟรี</button></a></td>
-      <td><h3><a>กระปุกออมสิน</a></h3><a href="https://artnp.github.io/BtcDca/"><button id="bottone5">ฟรี</button></a></td>
+      <td><h3><a>Data_set [Pre-AI]</a></h3><a href="deep_data.html"><button id="bottone4">ฟรี</button></a></td>
+      <td><h3><a>กระปุกออมสิน</a></h3><a href="https://artnp.github.io/BtcDca/"><button id="bottone4">ฟรี</button></a></td>
     </tr>
 	    <tr>
       <td><h3><a>Learn-from-the-Master</a></h3><button id="bottone5" onclick="payout3(); setTimeout(() => window.location.href = 'https://artnp.github.io/Learn-from-the-Master/', 1500)">3.33🪙</button></td>
@@ -109,6 +153,17 @@ a:hover {
   </table>
   <div id="point"></div>
   <script>
+     // Check localStorage value on page load
+     document.addEventListener("DOMContentLoaded", function() {
+      var points = Number(localStorage.getItem("editus_points"));
+      if (points < 0) {
+        var buttons = document.querySelectorAll("#bottone5");
+        buttons.forEach(function(button) {
+          button.disabled = true;
+          button.style.opacity = "0.3";
+        });
+      }
+    });
     function payout05(){
   localStorage.setItem("editus_points", Number(localStorage.getItem("editus_points")) - 0.5);
   document.getElementById("point").innerHTML = `<span class="animate__animated animate__fadeOut animate__delay-3s"><img src="coin.png" width="55%" class="animate__animated animate__zoomOutDown"></span>`
