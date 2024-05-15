@@ -137,7 +137,17 @@ function gpt(){
     width: 710,
     showCloseButton: true,
     focusConfirm: false,
-    showConfirmButton: false
+    showConfirmButton: false,
+    didOpen: () => {
+        // Modify modal elements for dark mode
+        const modalContainer = document.querySelector('.swal2-popup');
+        const modalContent = document.querySelector('.swal2-content');
+        const closeButton = document.querySelector('.swal2-close');
+
+        modalContainer.style.backgroundColor = '#333'; // Dark background color
+        modalContent.style.color = 'white'; // Light text color
+        closeButton.style.color = 'white'; // Light text color for close button
+      }
   });
 }
 
