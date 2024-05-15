@@ -156,7 +156,7 @@ a:hover {
      // Check localStorage value on page load
      document.addEventListener("DOMContentLoaded", function() {
       var points = Number(localStorage.getItem("editus_points"));
-      if (points < 0) {
+      if (points <= 0) {
         var buttons = document.querySelectorAll("#bottone5");
         buttons.forEach(function(button) {
           button.disabled = true;
