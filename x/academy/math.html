@@ -490,6 +490,8 @@
         localStorage.setItem("editus_points", Number(localStorage.getItem("editus_points")) + 0.5);
         document.getElementById("point").innerHTML = `<img src="coin+.png" width="30%" class="animate__animated animate__bounceOut animate__slow">`
         
+        var iframe = document.getElementById('drawFrame');
+            iframe.src = iframe.src;
 
         currentIndex = (currentIndex + 1) % totalVideos;
         playVideo(videoIds[currentIndex]);
