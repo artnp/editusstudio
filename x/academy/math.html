@@ -44,7 +44,7 @@
       left: 50%;
       transform: translate(-50%, -50%);
       transition: background-color 0.3s ease;
-      z-index: 9999; 
+      z-index: 9998; 
    }
 
    #nextButton:hover {
@@ -53,7 +53,7 @@
    }
    #point {
    position: fixed;
-   bottom: 22%;
+   bottom: 0%;
    left: 45%;
    z-index: 9999; /* Adjust the z-index value as needed */
 }
@@ -488,7 +488,7 @@
         origin: { y: 0.6 },
         });
         localStorage.setItem("editus_points", Number(localStorage.getItem("editus_points")) + 0.5);
-        document.getElementById("point").innerHTML = `<img src="coin+.png" width="30%" class="animate__animated animate__bounceOut animate__slow">`
+        document.getElementById("point").innerHTML = `<img src="coin+.png" width="30%" class="animate__animated animate__bounceOutUp animate__slow">`
         
         var iframe = document.getElementById('drawFrame');
             iframe.src = iframe.src;
