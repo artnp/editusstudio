@@ -151,12 +151,12 @@
                 player.loadVideoById(shuffledVideoIds[currentVideoIndex]);
                 
             } else {
-        localStorage.setItem("editus_points", Number(localStorage.getItem("editus_points")) + 0.5);
+        localStorage.setItem("editus_points", Number(localStorage.getItem("editus_points")) + 1);
         document.getElementById("player").style.display = "none";
         document.getElementById("countdown").style.display = "none";
         document.getElementById("Skipbutton").style.display = "none";
         document.getElementById("countdown2").style.display = "block";
-        document.getElementById("countdown2").innerHTML = `<center>ให้<br><img src="coin.png" width="30%" class="animate__animated animate__zoomInUp">x 0.5</center>`
+        document.getElementById("countdown2").innerHTML = `<center>ให้<br><img src="coin.png" width="30%" class="animate__animated animate__zoomInUp">x 1</center>`
     }
         }
 
