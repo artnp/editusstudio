@@ -83,7 +83,7 @@ a:hover {
 <body>
   <table>
     <tr>
-      <td><h3><a>คณิตศาสตร์</a></h3><button id="bottone5" onclick="payout1(); setTimeout(() => window.location.href = 'math.html', 1500)">1🪙</button></td>
+      <td><h3><a>คณิตศาสตร์</a></h3><button id="bottone5" onclick="payout1(); setTimeout(() => window.location.href = 'math.html', 1500)">0.3🪙</button></td>
       <td><font color="grey"><h3>เคมี</h3></font></td>
       <td><font color="grey"><h3>ฟิสิกส์</h3></font></td>
     </tr>
@@ -127,7 +127,7 @@ a:hover {
     });
 
     function payout1(){
-    localStorage.setItem("editus_points", Number(localStorage.getItem("editus_points")) - 1);
+    localStorage.setItem("editus_points", Number(localStorage.getItem("editus_points")) - 0.3);
     document.getElementById("point").innerHTML = `<span class="animate__animated animate__fadeOut animate__delay-3s"><img src="coin.png" width="55%" class="animate__animated animate__zoomOutDown"></span>`
     }
 
