@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+<script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
+<title>Academy Project</title>
+<style>
+   body {
+      display: flex;
+      background-color: #F0F0B5;
+      font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      overflow: hidden;
+   }
+   .split {
+      width: 50%;
+      height: 72vh;
+      position: relative;
+   }
+   #player {
+      width: 100%;
+      height: 90%;
+      position: absolute; 
+      top: 11%;
+      border-radius: 19px;
+      overflow: hidden;
+      z-index: 1;
+   }
+   #nextButton {
+      display: block;
+      padding: 20px 40px;
+      font-size: 18px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      margin-top: 10px;
+      position: absolute;
+      top: 81%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      transition: background-color 0.3s ease;
+      z-index: 9998; 
+   }
+
+   #nextButton:hover {
+      color: #000;
+      background-color: #F0F0B5;
+   }
+   #point {
+   position: fixed;
+   bottom: 0%;
+   left: 45%;
+   z-index: 9999; /* Adjust the z-index value as needed */
+}
+   #videoTitle {
+      position: absolute; 
+      top: 2%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+   }
+   #progressBar {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      height: 8px;
+      background-color: #ddd;
+      border-radius: 4px;
+   }
+   #progressLast {
+      height: 100%;
+      background-color: #28a745;
+      border-radius: 4px;
+      transition: width 0.3s ease; /* Adding transition for smoothness */
+   }
+   #progressGoal {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 100%;
+      background-color: #fff;
+      border-radius: 4px;
+      width: 0; /* Initially width is 0 */
+   }
+   #goalFlag {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 20px;
+      height: 20px;
+      background-color: #ffc107;
+      border-radius: 50%;
+      transform: translateY(-50%);
+      animation: pulse 1.5s infinite; /* Adding pulse animation */
+      display: none; /* Initially hidden */
+   }
+   @keyframes pulse {
+      0% {
+         transform: scale(0.8);
+      }
+      50% {
+         transform: scale(1);
+      }
+      100% {
+         transform: scale(0.8);
+      }
+   }
+   #drawFrame {
+    width: 100%; /* Full width of the viewport */
+    height: 100%; /* Full height of the viewport */
+}
+</style>
+</head>
+<body>
+    <h1 id="videoTitle"></h1>
+    <div class="split">
+        <br>
+        <div id="player"></div>
+    </div>
+    <div class="split">
+        <br><br><br>
+        <iframe src="draw.html" id="drawFrame" frameborder="0"></iframe>
+      </div>
+
+    <div id="point"></div>
+    <center><button id="nextButton">>> ไปต่อ >>></button></center>
+
+    <div id="progressBar">
+      <div id="progressLast"></div>
+      <div id="progressGoal"></div>
+      <div id="goalFlag"></div>
+  </div>
+
+<script>
+    const videoIds = [
+    'gTyRVRkHG1Y',
+'VRTpka6PkLc',
+'ebvjwQRzCNQ',
+'H-M9y-imdD4',
+'uv0uuCoJpzo',
+'02bydz5XZyk',
+'fVZ9XW5uP3U',
+'y-MvdoQ7Ujk',
+'PYds0Z9vKkU',
+'7Gb6mIzI7hM',
+'qXlamZXn-vQ',
+'YA2diaGfP_c',
+'FehkQl8dus0',
+'o9v1P1ZyM_8',
+'altdj55Xfuw',
+'RVUk6C0PWgo',
+'gj1xPDrkZ1g',
+'KPdTwOk-frE',
+'YOMbDH7Da-E',
+'kPohLcyRqBk',
+'Ccmcwc5XiXk',
+'r7YHPv4cMZ8',
+'pIR2LfijN2o',
+'FDd7tN6q2xk',
+'FyB20UbQcWs',
+'ILbcFVRCuKg',
+'sjYJmCeDpH8',
+'Nf7kMGaF2Oc',
+'CyaTZ1QOjuI',
+'-Mf2zCGFmYA',
+'oh4hcRJ0TiA',
+'_MHNXieyy-U',
+'l0LXVuxGhpw',
+'FlCe5Fi3nBo',
+'D2yiOW-qDaI',
+'11DCp8fW63U',
+'0m-clxNrzeY',
+'HOzsk5eTN-4',
+'fOTuBMeEHPc',
+'IXoCi2moQJo',
+'Ot-2Wp_i2kM',
+'TlPV-rzwzrk',
+'Gco-vJe5Qio',
+'DMOWvyHV4Ug',
+'509WZ-3If-Q',
+'IMBgR7Jj4Og',
+'FQGyWCZZiDI',
+'VZ-9Cd82cF0',
+'VPNmjElcfDU',
+'Vt-laSfboEY',
+'yqA9D8_-VWM',
+'US4RmWID5RI',
+'3G3Yi56Bw9U',
+  ];
+    const totalVideos = videoIds.length;
+
+
+  let currentIndex = 0;
+    const player = document.getElementById('player');
+    const videoTitleElement = document.getElementById('videoTitle');
+    const nextButton = document.getElementById('nextButton');
+    const progressLast = document.getElementById('progressLast');
+    const progressGoal = document.getElementById('progressGoal');
+    const goalFlag = document.getElementById('goalFlag');
+
+  // Function to load and play a video
+  function playVideo(videoId) {
+    player.innerHTML = ''; // Clear previous video
+    const iframe = document.createElement('iframe');
+    iframe.width = '100%'; // Fit 100% of its container
+    iframe.height = '100%'; // Fit 100% of its container
+    iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1?cc_load_policy=1&cc_lang_pref=th`;
+    iframe.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture';
+    player.appendChild(iframe);
+  }
+
+  function preloadNextVideo() {
+    const nextIndex = (currentIndex + 1) % videoIds.length;
+    const img = new Image();
+    img.src = `https://img.youtube.com/vi/${videoIds[nextIndex]}/0.jpg`;
+    img.onload = function() {
+      if (nextIndex === 0) {
+        nextButton.style.display = 'none';
+      } else {
+        nextButton.style.display = 'block';
+      }
+    };
+  }
+
+  function updateProgress() {
+        const progress = (currentIndex + 1) / totalVideos * 100;
+        progressLast.style.width = `${progress}%`;
+
+        if (currentIndex + 1 === totalVideos) { //จำนวนคลิปทั้งหมด
+            progressGoal.style.width = '100%'; // Show goal bar fully
+            goalFlag.style.display = 'block'; // Show goal flag
+        } else {
+            progressGoal.style.width = '0'; // Hide goal bar
+            goalFlag.style.display = 'none'; // Hide goal flag
+        }
+    }
+
+    playVideo(videoIds[currentIndex]);
+    videoTitleElement.textContent = `บทเรียน: ${currentIndex + 1} / ${totalVideos}`;
+    preloadNextVideo();
+    updateProgress();
+
+    nextButton.addEventListener('click', function() {
+        confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 },
+        });
+        localStorage.setItem("editus_points", Number(localStorage.getItem("editus_points")) + 0.1);
+        document.getElementById("point").innerHTML = `<img src="coin+.png" width="30%" class="animate__animated animate__bounceOutUp animate__slow">`
+        
+        var iframe = document.getElementById('drawFrame');
+            iframe.src = iframe.src;
+
+        currentIndex = (currentIndex + 1) % totalVideos;
+        playVideo(videoIds[currentIndex]);
+        videoTitleElement.textContent = `บทเรียน: ${currentIndex + 1} / ${totalVideos}`;
+        preloadNextVideo();
+        updateProgress();
+        saveLastWatchedVideo();
+    });
+
+    function saveLastWatchedVideo() {
+        localStorage.setItem('biology/lastVideoIndex', currentIndex);
+    }
+
+    window.addEventListener('load', function() {
+        const lastVideoIndex = localStorage.getItem('biology/lastVideoIndex');
+        if (lastVideoIndex !== null) {
+            currentIndex = parseInt(lastVideoIndex);
+            playVideo(videoIds[currentIndex]);
+            videoTitleElement.textContent = `บทเรียน: ${currentIndex + 1} / ${totalVideos}`;
+            preloadNextVideo();
+            updateProgress();
+        }
+    });
+</script>
+</body>
+</html>
