@@ -130,7 +130,41 @@
 
     <div id="point"></div>
     <center><button id="nextButton">>> ไปต่อ >>></button></center>
-
+    <!-- ///////////////////////////////////////////AI -->
+    <link rel="stylesheet" href="ai.css">
+    <div class="spinner">Ai</div><div class="ai"></div>
+    <script type="importmap">{"imports": { "@google/generative-ai": "https://esm.run/@google/generative-ai"}}</script>
+       <script type="module">
+       import { GoogleGenerativeAI } from "@google/generative-ai";
+       function fetchDataAndDisplayContent() {
+       document.querySelector('.spinner').style.display = 'block';
+       document.querySelector('.ai').style.display = 'none'; 
+       fetch('https://yt.lemnoslife.com/noKey/videos?part=snippet&id=' + videoIds[currentIndex])
+          .then(response => response.json())
+          .then(data => {
+              const title = data.items[0].snippet.title;
+              const API_KEY = atob('QUl6YVN5RGVrNW9MNVQwdzBZSWd2Y3ZQV0RabWhNdnhmbzg0aUxB');
+              const genAI = new GoogleGenerativeAI(API_KEY);
+              const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+              const prompt = "สรุปประเด็นสำคัญเป็นข้อๆ ไม่เกิน 4 บรรทัด  " + title;
+              return model.generateContent(prompt);
+          })
+          .then(result => result.response.text())
+          .then(text => {
+              const aiContainer = document.querySelector('.ai');
+              aiContainer.innerHTML = ''; // Clear previous content
+              const responseDiv = document.createElement('div');
+              responseDiv.innerHTML = text;
+              aiContainer.appendChild(responseDiv);
+              document.querySelector('.ai').style.display = 'block';
+              document.querySelector('.spinner').style.display = 'none'; 
+          })
+          .catch(error => console.error('Error:', error));
+  }
+  fetchDataAndDisplayContent();
+  document.getElementById('nextButton').addEventListener('click', () => {
+      fetchDataAndDisplayContent();});</script>
+  <!-- ///////////////////////////////////////////AI -->
     <div id="progressBar">
       <div id="progressLast"></div>
       <div id="progressGoal"></div>
