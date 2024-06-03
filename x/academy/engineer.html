@@ -139,7 +139,7 @@
        function fetchDataAndDisplayContent() {
        document.querySelector('.spinner').style.display = 'block';
        document.querySelector('.ai').style.display = 'none'; 
-       fetch('https://yt.lemnoslife.com/noKey/videos?part=snippet&id=' + videoIds[currentIndex])
+       fetch('https://yt.lemnoslife.com/noKey/videos?part=snippet&id=' + videoIds[localStorage.getItem('engineer/lastVideoIndex')])
           .then(response => response.json())
           .then(data => {
               const title = data.items[0].snippet.title;
