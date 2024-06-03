@@ -156,7 +156,7 @@
                 const aiContainer = document.querySelector('.ai');
                 aiContainer.innerHTML = ''; // Clear previous content
                 const responseDiv = document.createElement('div');
-                responseDiv.innerHTML = text;
+                responseDiv.innerHTML = text.replace(/[*#]/g, '');
                 aiContainer.appendChild(responseDiv);
                 document.querySelector('.ai').style.display = 'block';
                 document.querySelector('.spinner').style.display = 'none'; 
