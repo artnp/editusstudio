@@ -6,6 +6,9 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
 <title>Academy Project</title>
+<script>
+   subject = 'math'
+ </script>
 <style>
    body {
       display: flex;
@@ -139,7 +142,7 @@
        function fetchDataAndDisplayContent() {
        document.querySelector('.spinner').style.display = 'block';
        document.querySelector('.ai').style.display = 'none'; 
-       fetch('https://yt.lemnoslife.com/noKey/videos?part=snippet&id=' + videoIds[localStorage.getItem('math/lastVideoIndex')])
+       fetch('https://yt.lemnoslife.com/noKey/videos?part=snippet&id=' + videoIds[localStorage.getItem(subject+'/lastVideoIndex')])
           .then(response => response.json())
           .then(data => {
               const title = data.items[0].snippet.title;
@@ -1372,11 +1375,11 @@
     });
 
     function saveLastWatchedVideo() {
-        localStorage.setItem('math/lastVideoIndex', currentIndex);
+        localStorage.setItem(subject+'/lastVideoIndex', currentIndex);
     }
 
     window.addEventListener('load', function() {
-        const lastVideoIndex = localStorage.getItem('math/lastVideoIndex');
+        const lastVideoIndex = localStorage.getItem(subject+'/lastVideoIndex');
         if (lastVideoIndex !== null) {
             currentIndex = parseInt(lastVideoIndex);
             playVideo(videoIds[currentIndex]);
