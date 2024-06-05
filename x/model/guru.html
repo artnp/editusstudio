@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Covers</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .book-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .book {
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+        .more {
+            border: 0px solid #ddd;
+            padding: 10px;
+            width: 150px;
+        }
+        .thumbnail {
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <center>
+    <table><tr><td><div class="book-container"></div></td><td class="more"><center>GURUmodel<p><img src="https://cdn-icons-png.flaticon.com/128/16640/16640989.png" width="30%"></center></td></tr></table>
+    </center>
+    <script src="isbn.js"></script>
+    <script>
+        $(document).ready(function() {
+            var books = new Array(isbns.length);
+            isbns.forEach(function(isbn, index) {
+                $.ajax({
+                    dataType: 'json',
+                    url: 'https://www.googleapis.com/books/v1/volumes?q=isbn:' + isbn,
+                    success: function(response) {
+                        if (response.items) {
+                            var item = response.items[0];
+                            var thumb = item.volumeInfo.imageLinks ? item.volumeInfo.imageLinks.thumbnail : 'no_cover.jpg';
+                            books[index] = { thumb: thumb };  // Store the thumbnail at the correct index
+                            if (books.filter(book => book !== undefined).length === isbns.length) {
+                                displayBooks();
+                            }}},});});
+
+            function displayBooks() {
+                var lastThreeBooks = books.slice(-5).reverse(); 
+                lastThreeBooks.forEach(function(book) {
+                    var bookHtml = '<div class="book">';
+                    bookHtml += '<img class="thumbnail" src="' + book.thumb + '"></div>';
+                    $('.book-container').append(bookHtml);
+                });}});
+    </script>
+</body>
+</html>
