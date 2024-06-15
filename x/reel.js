@@ -5335,6 +5335,5 @@ const videoIds = [
 "AjIpbpQTIoA",
 "Xhih1H69TLM",
 "1Yioa7JDjF8",
-"XJCtBH3tGPU",
-"HwHOqzzJI5E"
+"XJCtBH3tGPU"
 ];
