@@ -64,7 +64,6 @@ if (window.location.href.includes('=')) {
     <ul class="animate__animated animate__tada">
 	  <li><del><a href="#">Metaverse</a></del></li>
     <li><a href="#" onclick="model()">โมเดล ▞</a></li>
-    <li><a href="#" onclick="scrying()">Scrying </a></li>
       <br><br>
     </ul>
 </div>
@@ -72,7 +71,7 @@ if (window.location.href.includes('=')) {
   <ul class="animate__animated animate__tada">
   <li><a href="#" onclick="sunspot()">🌞</a></li>
   <!-- <li><a href="#" onclick="AIbot()">AI▗</a></li> -->
-  <li><a href="#" onclick="academy()">Academy👨‍🎓</a></li>
+  <li><a href="#" onclick="academy()">आकाश🤢</a></li>
   <li><a href="#" onclick="coding()">แอพ▝</a></li>
   <br><br>
   </ul>
@@ -119,16 +118,6 @@ if (window.location.href.includes('=')) {
             };
           </script>
           <script>
-            function scrying(){
-              document.querySelector('.main').classList.add('animate__animated', 'animate__rotateOutDownRight');
-              setTimeout(function() {
-              document.getElementById("main").style.display = "none";
-              document.getElementById("second").style.display = "block";
-              document.getElementById("autoScrying").innerHTML = '<iframe id="iframeMain" src="https://www.youtube.com/embed/XYOmPmbTTGI?autoplay=1&controls=0&fs=1&showinfo=0&disablekb=1&vq=hd1080" frameborder="0" allowfullscreen></iframe>'
-              matrix9()
-              }, 3000);
-            }
-
 
         document.getElementById("image-comparison-slider").style.display = "none";
         const checkbox = document.getElementById('toggle-heart');
@@ -185,7 +174,7 @@ fire(0.1, {
     function breakIce() {
     document.addEventListener('DOMContentLoaded', () => {
       const sweetAlert = Swal.fire({
-        html: '<center><div class="iframe-container"><iframe src="reel.html" scrolling="no"></iframe></div></center>',
+        html: '<center><div class="iframe-container"><iframe src="reel.html" scrolling="no"></iframe></div><img src="https://cdn-icons-png.flaticon.com/128/4180/4180439.png" width="6%" class="animate__animated animate__pulse animate__infinite animate__slow"></center>',
         showConfirmButton: false,
         showCloseButton: true,
         allowOutsideClick: true,
@@ -264,17 +253,7 @@ function academy() {
     }
   });
   }
-        function AIbot(){
-          Swal.fire({
-      html: '<center><iframe id=OGPSMOSODY loading="eager" src="https://embed.pickaxeproject.com/axe?id=Edit_us_AI_3NBVM&mode=embed_gold&host=beta&theme=dark&opacity=100&font_header=Real+Head+Pro&size_header=30&font_body=Real+Head+Pro&size_body=16&font_labels=Real+Head+Pro&size_labels=14&font_button=Real+Head+Pro&size_button=16&c_fb=08090B&c_ff=08090B&c_fbd=FFFFFF&c_bb=FFFFFF&c_bt=000000&c_t=FFFFFF&s_ffo=100&s_bbo=100&s_f=minimalist&s_b=filled&s_t=2&s_r=2" width="100%" height="500px" onMouseOver="this.style.boxShadow=\'0px 6px 6px -3px rgba(0,0,0,0.1)\'" onMouseOut="this.style.boxShadow=\'none\'" style="border:1px solid rgba(0, 0, 0, 1);transition:.3s;border-radius:4px;" frameBorder="0"></iframe></center>',
-      width: '60%',
-      height: '100%',
-      showConfirmButton: false,
-      showCloseButton: true,
-      allowOutsideClick: false,
-      backdrop: false,
-    });
-        }
+
         function sunspot(){
           Swal.fire({
       html: '<img src="https://soho.nascom.nasa.gov/data/synoptic/sunspots_earth/mdi_sunspots.jpg">',
@@ -337,53 +316,6 @@ function academy() {
 
         function onPlayerStateChange(event) {
           if (event.data == YT.PlayerState.PLAYING) {
-//                // Reward
-// setTimeout(() => {
-// const floatingReward = document.getElementById('floatingReward');
-// floatingReward.innerHTML = '<a href="#"><img src="coin09.png" width="17%" class="animate__animated animate__rotateIn animate__infinite"></a>'
-// let xPos = Math.random() * window.innerWidth;
-// let yPos = Math.random() * window.innerHeight;
-// let xSpeed = (Math.random() - 0.5) * 4;
-// let ySpeed = (Math.random() - 0.5) * 4;
-
-// floatingReward.addEventListener('click', () => {
-
-//   confetti({
-//     particleCount: 100,
-//     spread: 70,
-//     origin: { x: xPos / window.innerWidth, y: yPos / window.innerHeight },
-//   });
-//   localStorage.setItem("editus_points", Number(localStorage.getItem("editus_points")) + 0.9);
-//   document.getElementById("floatingReward").innerHTML = `<center><h1 class="animate__animated animate__zoomInUp">+ 0.9</h1><center>`
-//   setTimeout(() => {
-//   floatingReward.style.display = 'none';
-//   document.getElementById('point').innerHTML = "<div class='animate__animated animate__bounceIn'><img src='coin.png' width='1.1%'><b style='background-color:black;'>x" + Number(localStorage.getItem("editus_points")).toFixed(3) + "</b></div>";
- 
-//   const randomIndex = Math.floor(Math.random() * ads.length);
-//   var screenWidth = window.screen.width;
-//   var screenHeight = window.screen.height;
-//   var popupWidth = Math.round(screenWidth * 0.9);
-//   var popupHeight = Math.round(screenHeight * 0.9);
-// var popup = window.open(ads[randomIndex], "_blank", "width=" + popupWidth + ", height=" + popupHeight + ", resizable=yes, scrollbars=yes");
-
-// }, 2500);
-// });
-
-// function moveReward() {
-//   xPos += xSpeed;
-//   yPos += ySpeed;
-//   floatingReward.style.left = xPos + 'px';
-//   floatingReward.style.top = yPos + 'px';
-//   if (xPos + floatingReward.offsetWidth > window.innerWidth || xPos < 0) {
-//     xSpeed = -xSpeed;
-//   }
-//   if (yPos + floatingReward.offsetHeight > window.innerHeight || yPos < 0) {
-//     ySpeed = -ySpeed;
-//   }
-//   requestAnimationFrame(moveReward);
-// }
-// moveReward();
-// }, 9 * 60 * 1000); // 9 minutes
 
     }
           
@@ -407,8 +339,6 @@ function academy() {
     document.getElementById("image-comparison-slider").style.display = "block";
     document.getElementById('heaven').classList.add('animate__animated', 'animate__fadeInDown', 'animate__slower')
     document.getElementById('textQue').innerHTML ='<div class="animate__animated animate__pulse animate__slower animate__infinite" animate__delay-5s><h2>-<font color="grey">«</font>❮  <font color="grey">เนรมิต</font><font color="#6A6262">ภาพ</font><font color="#4F4C4C">ใน</font><font color="#CCC4C4">ฝัน</font>  <font color="grey">❯»</font>-</h2></div>'
-
-    //document.getElementById("image-comparison-slider").innerHTML = "<div class='animate__animated animate__flipInY animate__slow animate__infinite'><h3>x 1</h3><div class='animate__animated animate__rubberBand  animate__slow animate__infinite'><img src='coin.png' width='1%'></div></div>";
   }, 3000); }, 3000);
             }
         }
