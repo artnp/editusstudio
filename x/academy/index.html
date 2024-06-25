@@ -10,41 +10,45 @@ body { background-color: black; color: white; } table { width: 100%; border-coll
   </style>
 </head>
 <body>
+  <script>
+  </script>
+  <center>
+    <h2>⨻<br>2nd Edition</h2>
+<img src="t+6.png" width="11%"></center>
   <table>
     <tr>
-      <td><font color="grey"><h3><a>คณิตศาสตร์</a></h3><button id="bottone5" onclick="payout1(); setTimeout(() => window.location.href = 'math.html', 1500)">0.3🪙</button></font></td>
-      <td><font color="grey"><h3><a>วิทยาศาสตร์</a></h3><button id="bottone5" onclick="payout1(); setTimeout(() => window.location.href = 'science.html', 1500)">0.3🪙</button></font></td>
-	  <td><font color="grey"><h3><a>เคมี</a></h3><button id="bottone5" onclick="payout1(); setTimeout(() => window.location.href = 'chemistry.html', 1500)">0.3🪙</button></font></td>
+      <td><font color="grey"><h3><a>ไฟฟ้า</a></h3><button id="bottone5" onclick="payout1(); setTimeout(() => window.location.href = 'ไฟฟ้า.html', 1500)">0.369🪙</button></font></td>
+      <td></td>
+      <td></td>
     </tr>
     <tr>
-      <td><font color="grey"><h3><a>ชีววิทยา</a></h3><button id="bottone5" onclick="payout1(); setTimeout(() => window.location.href = 'chemistry.html', 1500)">0.3🪙</button></font></font></td>
-      <td><font color="grey"><h3><a>ธรณีวิทยา</a></h3><button id="bottone5" onclick="payout1(); setTimeout(() => window.location.href = 'astronomy.html', 1500)">0.3🪙</button></font></font></td>
-      <td><font color="grey"><h3><a>การแพทย์</h3></font></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    
     </tr>
     <tr>
-	  <td><font color="grey"><h3><a>ฟิสิกส์</a></h3><button id="bottone5" onclick="payout1(); setTimeout(() => window.location.href = 'physic.html', 1500)">0.3🪙</button></font></font></td>
-      <td><font color="grey"><h3><a>วิศวกรรม</a></h3><button id="bottone5" onclick="payout1(); setTimeout(() => window.location.href = 'engineer.html', 1500)">0.3🪙</button></font></td>
-      <td><font color="grey"><h3><a>เวทคณิต</a></h3><button id="bottone5" onclick="payout1(); setTimeout(() => window.location.href = 'vedic.html', 1500)">0.3🪙</button></font></td>
+	  <td></td>
+    <td></td>
+    <td></td>
     </tr>
     <tr>
-      <td><font color="grey"><h3><a>ศิลปะ</h3></font></td>
-      <td><font color="grey"><h3><a>คอมพิวเตอร์</a></h3><button id="bottone5" onclick="payout1(); setTimeout(() => window.location.href = 'computer.html', 1500)">0.3🪙</button></font></td>
-      <td><font color="grey"><h3><a>ไวยากรณ์</a></h3><button id="bottone5" onclick="payout1(); setTimeout(() => window.location.href = 'english.html', 1500)">0.3🪙</button></font></td>
+      <td></td>
+      <td></td>
+      <td></td>
     </tr>
 	    <tr>
-      <td><font color="grey"><h3><a>ประวัติศาสตร์โลก</h3></font></td>
-      <td><font color="grey"><h3><a>เศรษฐศาสตร์</h3></font></td>
-        <td><font color="grey"><h3><a>มวยไทย</a></h3><button id="bottone5" onclick="payout1(); setTimeout(() => window.location.href = 'muaythai.html', 1500)">0.3🪙</button></font></td>
+      <td></td>
+      <td></td>
+      <td></td>
       </tr>
       <tr>
-        <td><font color="grey"><h3><a>โหราศาสตร์</a></h3><button id="bottone5" onclick="payout1(); setTimeout(() => window.location.href = 'horoscope.html', 1500)">0.3🪙</button></font></td>
-        <td><font color="grey"><h3><a></h3></font></td>
-        <td><font color="grey"><h3><a></h3></font></td>
-        </tr>
+        <td></td>
+         <td>Visions for AGI<br><img src="https://cdn-icons-png.flaticon.com/128/11865/11865338.png" width="6%"></td>
+         <td></td>
+      </tr>
   </table>
   <br>
-  <center><h3>ใช้ร่วมกับผู้ช่วย</h3><img src="https://cdn-icons-png.flaticon.com/128/11865/11865338.png" width="4%" onclick="gpt()"><br>
-  </center>
   <div id="point"></div>
   <script>
      // Check localStorage value on page load
@@ -60,30 +64,9 @@ body { background-color: black; color: white; } table { width: 100%; border-coll
     });
 
     function payout1(){
-    localStorage.setItem("editus_points", Number(localStorage.getItem("editus_points")) - 0.3);
+    localStorage.setItem("editus_points", Number(localStorage.getItem("editus_points")) - 0.369);
     document.getElementById("point").innerHTML = `<span class="animate__animated animate__fadeOut animate__delay-3s"><img src="coin.png" width="55%" class="animate__animated animate__zoomOutDown"></span>`
     }
-
-function gpt(){
-  Swal.fire({
-    html: `<iframe width="560" height="315" src="https://www.youtube.com/embed/IvXZCocyU_M?si=3_bcSTIBWRqrxJF6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`,
-    width: 710,
-    showCloseButton: true,
-    focusConfirm: false,
-    showConfirmButton: false,
-    didOpen: () => {
-        // Modify modal elements for dark mode
-        const modalContainer = document.querySelector('.swal2-popup');
-        const modalContent = document.querySelector('.swal2-content');
-        const closeButton = document.querySelector('.swal2-close');
-
-        modalContainer.style.backgroundColor = '#333'; // Dark background color
-        modalContent.style.color = 'white'; // Light text color
-        closeButton.style.color = 'white'; // Light text color for close button
-      }
-  });
-}
-
   </script>
 </body>
 </html>
