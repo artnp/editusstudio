@@ -76,8 +76,9 @@
     <script>
    
         // Shuffle the video IDs array
-        const shuffledVideoIds = shuffleArray(videoIds);
-
+        const extractedVideoIds = videoIds.map(entry => entry.split(',')[0]);
+        const shuffledVideoIds = shuffleArray(extractedVideoIds);
+        //const shuffledVideoIds = shuffleArray(videoIds);
         let player;
         let currentVideoIndex = 0;
 
