@@ -5382,12 +5382,5 @@ const videoIds = [
 "5WMtGcrWAqE",
 "9I6auPbvJpc",
 "plL1eodGYiQ,กดแขนเปิดการ์ด",
-"aeIfWam4FUI,กอดล็อคข้างลำตัว",
-",คิคิ",
-",ควยไรโยม",
-",ยอดหน้ามึงสิ",
-"XPmQu8_jrD4,ฟหกฟหกฟห",
-"l-MPhgIGS9o,อะไรมึง",
-"b2hSx_E-FhA,ตัวๆได้",
-"Lg4a28sR5s0,อย่าเงี่ยน"
+"aeIfWam4FUI,กอดล็อคข้างลำตัว"
 ];
