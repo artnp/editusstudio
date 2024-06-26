@@ -5403,7 +5403,4 @@ const videoIds = [
 "ABZmvRbthWQ,ถุงดักแมลงวัน",
 "CQJDflq8NLs,คลิปตะขอเกี่ยวยึดไม้ระแนง",
 "7tyhV1BDW_U,ผังสร้างเส้นเรื่อง",
-"qKVtc6xeZNw,ฟฟฟ",
-"UfcnSLHP-mY,ฟหก",
-"Z4bGUhj6Bt0,ก็มาดิคร้าบ"
 ];
