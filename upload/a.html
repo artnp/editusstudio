@@ -212,8 +212,6 @@ function adjustCanvasSize() {
     editCanvas.height = editCanvas.width * (img.height / img.width);
 }
 
-// Call adjustCanvasSize on window resize
-window.addEventListener('resize', adjustCanvasSize);
 
 function howto() {
   Swal.fire({
@@ -324,6 +322,7 @@ function howto() {
 
             document.getElementById("one").innerHTML = '<h1>[✅1] เลือกภาพที่จะแก้ไข</h1>'
             document.getElementById("one").style.opacity = 0.3;
+            document.getElementById("two").innerHTML = '<h3>[2] วงจุดที่จะแก้ <font color="red">⇙</font></h3></font>'
             document.getElementById("two").style.color = "black";
             document.querySelector('.two').classList.add('animate__animated', 'animate__pulse');
             document.getElementById('mergeButton').style.display = 'block';
