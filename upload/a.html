@@ -77,27 +77,38 @@
     background-color: #0779fc;
     color: rgb(255, 255, 255);
 }
-        #mergeButton {
+#mergeButton {
     position: fixed;
-    right: 20px;
-    top: 44%;
-    padding: 7px 20px;
-    border: none;
+    bottom: 1%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 20px; /* Increase padding for better touch interaction */
     background-color: #fcc207;
-    color: rgb(0, 0, 0);
+    color: #000;
     cursor: pointer;
+    border: none; /* Remove border for a cleaner look */
     border-radius: 20px;
-    margin: 10px 0;
-    transition: background-color 0.3s, transform 0.2s;
-    font-weight: bold; /* Make the font bold */
-    font-size: 16px; /* Adjust font size as needed */
-    text-transform: uppercase; /* Optional: Convert text to uppercase */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for depth */
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
+    font-weight: bold;
+    font-size: 14px; /* Slightly increase font size for readability */
+    outline: none; /* Remove default focus outline */
 }
 
 #mergeButton:hover {
-    background-color: #45A049;
-    transform: translateY(-2px);
+    background-color: #45a049;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Enhance shadow on hover */
 }
+
+/* Media query for mobile responsiveness */
+@media (max-width: 768px) {
+    #mergeButton {
+        bottom: 2%; /* Adjust bottom positioning for smaller screens */
+        font-size: 12px; /* Reduce font size for smaller screens */
+        padding: 8px 16px; /* Adjust padding for smaller screens */
+    }
+}
+
 
         #textInputPopup {
             position: absolute;
@@ -157,7 +168,7 @@
 </head>
 <body>
     
-    <span id="one"><h1>[1] เลือกภาพที่จะแก้ไข</h1></span>
+    <span id="one" class="one"><h1>[1] เลือกภาพที่จะแก้ไข</h1></span>
     <div class="toolbar">
         <center><img src="https://cdn-icons-png.flaticon.com/128/2353/2353598.png" width="30%">
         <div id="colorPalette">เปลี่ยนสี<br>
@@ -171,14 +182,16 @@
     </div>
     <div id="dropContainer">
     <input type="file" id="imageUpload" accept="image/*">
+
 </div>
+<span id="two" class="two"><h3>[2] วงจุดที่จะแก้ ⇙</h3></span>
     <div class="container">
         <img id="originalImage" src="" alt="Original Image">
         <canvas id="editCanvas"></canvas>
     </div>
-    <button id="mergeButton" onclick="mergeImages()"><h1>💋 <span id="three">[3]</span> <font color="#FF0000">ส่งให้รีทัช</font></h1></button>
+    <button id="mergeButton" onclick="mergeImages()"><h1>💋 <span id="three" class="three">[3]</span> <font color="#FF0000">ส่งให้รีทัช</font></h1></button>
     
-    <span id="two"><h3><img src="https://cdn-icons-png.flaticon.com/128/15712/15712570.png" width="20%"> [2] วงจุดที่จะแก้</h3></font></span>
+
 
 
     <div id="textInputPopup">
@@ -191,7 +204,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <script>
 function adjustCanvasSize() {
     const maxWidth = window.innerWidth * 0.8; // Adjust as needed
@@ -203,18 +216,31 @@ function adjustCanvasSize() {
 window.addEventListener('resize', adjustCanvasSize);
 
 function howto() {
-    Swal.fire({
+  Swal.fire({
     html: `
-      <iframe width="920" height="515" src="https://www.youtube.com/embed/PHarRl9NRBI?si=TzvMSBGcmdpkOVGS" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`,
+      <div style="position:relative;padding-top:56.25%;">
+        <iframe 
+          src="https://www.youtube.com/embed/PHarRl9NRBI?si=TzvMSBGcmdpkOVGS" 
+          title="YouTube video player" 
+          frameborder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+          referrerpolicy="strict-origin-when-cross-origin" 
+          allowfullscreen
+          style="position:absolute;top:0;left:0;width:100%;height:100%;"
+        ></iframe>
+      </div>`,
     showCloseButton: true,
     showCancelButton: false,
     showConfirmButton: false,
-    width: "990",
+    width: "90%", // Adjust this width percentage as needed
   });
-  }
+}
+
 
     document.getElementById("two").style.color = "#D6D6D6";
     document.getElementById("three").style.color = "#D6D6D6";
+    document.querySelector('.one').classList.add('animate__animated', 'animate__lightSpeedInLeft');
+    document.getElementById('mergeButton').style.display = 'none';
 
 
         const accessToken = atob('c2wuQjRBN3FiUGJnQ01UZHdfVnZPLW80MWgwVDdiZGdJSWdjenNhMi01SXJfYVJ3dmxMV1Zqem5ZS05CbTNtX0xhQkhpa3puSHR4dUlRNXkyejJTMk43d2ZYNUE2TFp6OUdGSUtNeVRta04wenQ3Y1VUSS1uWUtodVBmdExrejFnejlrWmJkX0hvaVRQYzJ1eW8=');
@@ -299,6 +325,8 @@ function howto() {
             document.getElementById("one").innerHTML = '<h1>[✅1] เลือกภาพที่จะแก้ไข</h1>'
             document.getElementById("one").style.opacity = 0.3;
             document.getElementById("two").style.color = "black";
+            document.querySelector('.two').classList.add('animate__animated', 'animate__pulse');
+            document.getElementById('mergeButton').style.display = 'block';
 
             const file = e.target.files[0];
             const reader = new FileReader();
@@ -339,7 +367,8 @@ function howto() {
             }
             if (!addingText && !editingText) {
                 recordState();
-                document.getElementById("two").innerHTML = '<h3><img src="https://cdn-icons-png.flaticon.com/128/15712/15712570.png" width="20%"> [✅2] วงจุดที่จะแก้</h3></font>'
+                document.getElementById("two").innerHTML = '<h3>[✅2] วงจุดที่จะแก้ ⇙</h3></font>'
+                document.getElementById("two").style.opacity = 0.3;
             }
         });
 
@@ -501,6 +530,7 @@ function howto() {
 
         // Merge images
         function mergeImages() {
+            document.getElementById('mergeButton').style.display = 'none';
             const originalImg = new Image();
             originalImg.src = img.src;
 
