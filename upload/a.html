@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>upload to Editus</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+        }
+        h1 {
+            margin-top: 20px;
+            font-weight: 500;
+        }
+        img {
+            max-width: 100%;
+            max-height: 80vh;
+        }
+        canvas {
+            border: 1px solid #ccc;
+            margin: 10px;
+            cursor: crosshair;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+        }
+        .toolbar {
+            position: fixed;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+        .toolbar button, .toolbar input[type="range"] {
+            margin-bottom: 8px;
+            padding: 8px;
+            border: none;
+            background-color: #f0f0f0;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .toolbar button.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .toolbar button:hover {
+            background-color: #ddd;
+            transform: translateY(-2px);
+        }
+        .toolbar input[type="range"]:hover {
+            opacity: 1;
+        }
+        #originalImage {
+            display: none; /* Hide the original image */
+        }
+        #howto {
+    background-color: #0779fc;
+    color: rgb(255, 255, 255);
+}
+        #mergeButton {
+    position: fixed;
+    right: 20px;
+    top: 44%;
+    padding: 7px 20px;
+    border: none;
+    background-color: #fcc207;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    border-radius: 25px;
+    margin: 10px 0;
+    transition: background-color 0.3s, transform 0.2s;
+    font-weight: bold; /* Make the font bold */
+    font-size: 16px; /* Adjust font size as needed */
+    text-transform: uppercase; /* Optional: Convert text to uppercase */
+}
+
+#mergeButton:hover {
+    background-color: #45A049;
+    transform: translateY(-2px);
+}
+
+        #textInputPopup {
+            position: absolute;
+            display: none;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 8px;
+            border-radius: 4px;
+            z-index: 1000;
+        }
+        #textInputPopup input[type="text"] {
+            border: 1px solid #ccc;
+            padding: 4px;
+            font-size: 14px;
+            width: 200px;
+        }
+        #textInputPopup button {
+            margin-top: 4px;
+            padding: 4px 8px;
+            border: none;
+            background-color: #ff7f07;
+            color: rgb(0, 0, 0);
+            cursor: pointer;
+            border-radius: 3px;
+            font-size: 14px;
+        }
+        .overlay {
+    position: fixed;
+    top: 100%; /* Start off-screen */
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 128, 0, 0.966); /* Green background with transparency */
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: top 0.5s ease; /* Animation duration and easing */
+    z-index: 9999; /* Ensure it's on top */
+  }
+  .overlay.active {
+    top: 0; /* Slide in from the top */
+  }
+  .message {
+    font-size: 24px;
+    text-align: center;
+  }
+  #dropContainer {
+            border: 2px dashed #ccc;
+            padding: 20px;
+            margin: 20px;
+            text-align: center;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    
+    <span id="one"><h1>[1] เลือกภาพที่จะแก้ไข</h1></span>
+    <div class="toolbar">
+        <center><img src="https://cdn-icons-png.flaticon.com/128/2353/2353598.png" width="30%">
+        <div id="colorPalette">เปลี่ยนสี<br>
+            <button id="redBrush" style="background-color: red; padding: 10px 20px;"></button>
+            <button id="blueBrush" style="background-color: blue; padding: 10px 20px;"></button>
+            <button id="greenBrush" style="background-color: green; padding: 10px 20px;"></button>            
+        </div></center>
+        <button id="undoButton" disabled><img src="https://cdn-icons-png.flaticon.com/128/6993/6993293.png" width="20%">ลบๆ</button>
+        <br><center>- - - - - -</center>
+        <button id="howto" onclick="howto()">สาธิตวิธีใช้งาน</button>
+    </div>
+    <div id="dropContainer">
+    <input type="file" id="imageUpload" accept="image/*">
+</div>
+    <div class="container">
+        <img id="originalImage" src="" alt="Original Image">
+        <canvas id="editCanvas"></canvas>
+    </div>
+    <button id="mergeButton" onclick="mergeImages()"><h1>💋 <span id="three">[3]</span> <font color="#FF0000">ส่งให้รีทัช</font></h1></button>
+    
+    <span id="two"><h3><img src="https://cdn-icons-png.flaticon.com/128/15712/15712570.png" width="20%"> [2] วงจุดที่จะแก้</h3></font></span>
+
+
+    <div id="textInputPopup">
+        <input type="text" id="textInput" placeholder="ตรงนี้จะแก้อะไร">
+        <button id="addTextButton">เพิ่ม</button>
+    </div>
+
+    <div class="overlay" id="successOverlay">
+        <div class="message"><img src="https://cdn-icons-png.flaticon.com/128/12503/12503629.png"><br>อัพโหลดสำเร็จ!<h3>แจ้งหน้าแชทได้เลยว่า</h3><h1>' ส่งงานให้แล้ว '</h1></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+
+function howto() {
+    Swal.fire({
+    html: `
+      <iframe width="920" height="515" src="https://www.youtube.com/embed/PHarRl9NRBI?si=TzvMSBGcmdpkOVGS" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`,
+    showCloseButton: true,
+    showCancelButton: false,
+    showConfirmButton: false,
+    width: "990",
+  });
+  }
+
+    document.getElementById("two").style.color = "#D6D6D6";
+    document.getElementById("three").style.color = "#D6D6D6";
+
+
+        const accessToken = atob('c2wuQjRBN3FiUGJnQ01UZHdfVnZPLW80MWgwVDdiZGdJSWdjenNhMi01SXJfYVJ3dmxMV1Zqem5ZS05CbTNtX0xhQkhpa3puSHR4dUlRNXkyejJTMk43d2ZYNUE2TFp6OUdGSUtNeVRta04wenQ3Y1VUSS1uWUtodVBmdExrejFnejlrWmJkX0hvaVRQYzJ1eW8=');
+
+        function uploadFile(fileData, fileName) {
+            const url = 'https://content.dropboxapi.com/2/files/upload';
+            const headers = {
+                'Authorization': 'Bearer ' + accessToken,
+                'Content-Type': 'application/octet-stream',
+                'Dropbox-API-Arg': JSON.stringify({
+                    'path': '/' + fileName,
+                    'mode': 'add',
+                    'autorename': true,
+                    'mute': false
+                })
+            };
+
+            fetch(url, {
+                method: 'POST',
+                headers: headers,
+                body: fileData
+            })
+            .then(response => response.json())
+            .then(data => {
+                showSuccessMessage();
+            })
+            .catch(error => {
+                alert('อัพโหลดไม่ผ่านนนน ต้องมีอะไรผิดพลาดแน่ๆ.');
+            });
+        }
+
+        // Original code
+        const imageUpload = document.getElementById('imageUpload');
+        const originalImage = document.getElementById('originalImage');
+        const editCanvas = document.getElementById('editCanvas');
+        const mergeButton = document.getElementById('mergeButton');
+        const undoButton = document.getElementById('undoButton');
+        const textInputPopup = document.getElementById('textInputPopup');
+        const textInput = document.getElementById('textInput');
+        const addTextButton = document.getElementById('addTextButton');
+        const editCtx = editCanvas.getContext('2d');
+
+        let img = new Image();
+        let history = [];
+        let currentState = -1;
+        let brushColor = 'red';
+        let brushSize = 5;
+        let painting = false;
+        let addingText = false;
+        let editingText = false;
+        let draggingText = false;
+        let lastX = 0;
+        let lastY = 0;
+        let textX = 0;
+        let textY = 0;
+        let textItems = [];
+
+        // Initialize default brush color and size
+        editCtx.lineWidth = brushSize;
+        editCtx.lineCap = 'round';
+        editCtx.strokeStyle = brushColor;
+
+        // Event listeners for brush color buttons
+        document.getElementById('redBrush').addEventListener('click', () => {
+            brushColor = 'red';
+            editCtx.strokeStyle = brushColor;
+        });
+
+        document.getElementById('blueBrush').addEventListener('click', () => {
+            brushColor = 'blue';
+            editCtx.strokeStyle = brushColor;
+        });
+
+        document.getElementById('greenBrush').addEventListener('click', () => {
+            brushColor = 'green';
+            editCtx.strokeStyle = brushColor;
+        });
+
+        // Handle image upload
+        imageUpload.addEventListener('change', (e) => {
+
+            document.getElementById("one").innerHTML = '<h1>[✅1] เลือกภาพที่จะแก้ไข</h1>'
+            document.getElementById("one").style.opacity = 0.3;
+            document.getElementById("two").style.color = "black";
+
+            const file = e.target.files[0];
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                img.onload = () => {
+                    history = []; // Clear history on new image load
+                    currentState = -1;
+                    undoButton.disabled = true;
+                    editCanvas.width = img.width;
+                    editCanvas.height = img.height;
+                    editCtx.drawImage(img, 0, 0);
+                    recordState();
+                };
+                img.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+
+        // Handle brush painting
+        editCanvas.addEventListener('mousedown', startPainting);
+        editCanvas.addEventListener('mousemove', paint);
+        editCanvas.addEventListener('mouseup', (e) => {
+            document.getElementById("three").style.color = "black";
+            if (painting) {
+                // Show text input popup
+                textInputPopup.style.display = 'block';
+                textInputPopup.style.left = `${e.pageX}px`;
+                textInputPopup.style.top = `${e.pageY}px`;
+                textInput.focus();
+
+                // Record text coordinates
+                const pos = getMousePos(editCanvas, e);
+                textX = pos.x;
+                textY = pos.y;
+
+                // Reset painting state
+                painting = false;
+            }
+            if (!addingText && !editingText) {
+                recordState();
+                document.getElementById("two").innerHTML = '<h3><img src="https://cdn-icons-png.flaticon.com/128/15712/15712570.png" width="20%"> [✅2] วงจุดที่จะแก้</h3></font>'
+            }
+        });
+
+        function startPainting(e) {
+            painting = true;
+            const pos = getMousePos(editCanvas, e);
+            lastX = pos.x;
+            lastY = pos.y;
+            editCtx.beginPath();
+            editCtx.moveTo(lastX, lastY);
+        }
+
+        function paint(e) {
+            if (!painting) return;
+            const pos = getMousePos(editCanvas, e);
+            editCtx.lineWidth = brushSize;
+            editCtx.strokeStyle = brushColor;
+            editCtx.lineTo(pos.x, pos.y);
+            editCtx.stroke();
+            lastX = pos.x;
+            lastY = pos.y;
+        }
+
+        // Utility function to get mouse position relative to canvas
+        function getMousePos(canvas, evt) {
+            const rect = canvas.getBoundingClientRect();
+            return {
+                x: evt.clientX - rect.left,
+                y: evt.clientY - rect.top
+            };
+        }
+
+        // Undo functionality
+        undoButton.addEventListener('click', () => {
+            if (currentState > 0) {
+                currentState--;
+                redraw();
+            }
+            if (currentState === 0) {
+                undoButton.disabled = true;
+            }
+        });
+
+        function recordState() {
+            if (currentState < history.length - 1) {
+                history = history.slice(0, currentState + 1);
+            }
+            currentState++;
+            history.push(editCtx.getImageData(0, 0, editCanvas.width, editCanvas.height));
+            undoButton.disabled = false;
+        }
+
+        function redraw() {
+            editCtx.putImageData(history[currentState], 0, 0);
+            textItems.forEach(item => {
+                editCtx.font = item.font;
+                editCtx.fillStyle = item.color;
+                editCtx.fillText(item.text, item.x, item.y);
+            });
+        }
+
+        textInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                addTextButton.click();
+            }
+        });
+        addTextButton.addEventListener('click', () => {
+            const text = textInput.value;
+            if (text) {
+                const font = '24px Arial';
+                const textColor = 'yellow';
+                const bgColor = 'black';
+                const padding = 5; // Padding around the text
+                const borderWidth = 2; // Width of the yellow border
+
+                // Set font to measure text dimensions accurately
+                editCtx.font = font;
+
+                // Measure text width
+                const textWidth = editCtx.measureText(text).width;
+
+                // Calculate background rectangle dimensions with padding and border width
+                const rectX = textX - padding - borderWidth;
+                const rectY = textY - parseInt(font, 10) - padding - borderWidth; // Adjust for font height, padding, and border width
+                const rectWidth = textWidth + 2 * (padding + borderWidth);
+                const rectHeight = parseInt(font, 10) + 2 * (padding + borderWidth); // Adjust for font height, padding, and border width
+
+                // Draw yellow border
+                editCtx.fillStyle = textColor;
+                editCtx.fillRect(rectX, rectY, rectWidth, rectHeight);
+
+                // Draw black background inside the border
+                editCtx.fillStyle = bgColor;
+                editCtx.fillRect(rectX + borderWidth, rectY + borderWidth, rectWidth - 2 * borderWidth, rectHeight - 2 * borderWidth);
+
+                // Draw yellow text
+                editCtx.font = font;
+                editCtx.fillStyle = textColor;
+                editCtx.fillText(text, textX, textY);
+
+                // Save text item to history
+                textItems.push({ text, x: textX, y: textY, font, color: textColor });
+
+                // Record canvas state for undo
+                recordState();
+            }
+            textInput.value = '';
+            textInputPopup.style.display = 'none';
+        });
+
+        // Handle dragging and editing text
+        editCanvas.addEventListener('mousedown', startDraggingText);
+        editCanvas.addEventListener('mousemove', dragText);
+        editCanvas.addEventListener('mouseup', stopDraggingText);
+
+        function startDraggingText(e) {
+            if (!addingText) {
+                const pos = getMousePos(editCanvas, e);
+                textItems.forEach((item, index) => {
+                    if (pos.x >= item.x && pos.x <= item.x + editCtx.measureText(item.text).width &&
+                        pos.y >= item.y - parseInt(item.font) && pos.y <= item.y) {
+                        draggingText = true;
+                        editingText = true;
+                        textItems.splice(index, 1);
+                        textInput.value = item.text;
+                        textX = item.x;
+                        textY = item.y;
+                        textInputPopup.style.left = `${e.pageX}px`;
+                        textInputPopup.style.top = `${e.pageY}px`;
+                        textInputPopup.style.display = 'block';
+                        textInput.focus();
+                    }
+                });
+            }
+        }
+
+        function dragText(e) {
+            if (draggingText) {
+                const pos = getMousePos(editCanvas, e);
+                textX = pos.x;
+                textY = pos.y;
+                redraw();
+                editCtx.font = '24px Arial';
+                editCtx.fillStyle = brushColor;
+                editCtx.fillText(textInput.value, textX, textY);
+            }
+        }
+
+        function stopDraggingText() {
+            draggingText = false;
+            if (editingText) {
+                textItems.push({ text: textInput.value, x: textX, y: textY, font: '24px Arial', color: brushColor });
+                recordState();
+                textInput.value = '';
+                textInputPopup.style.display = 'none';
+                editingText = false;
+            }
+        }
+
+        // Merge images
+        function mergeImages() {
+            const originalImg = new Image();
+            originalImg.src = img.src;
+
+            const editImgData = editCanvas.toDataURL();
+
+            // Create a new image element for merged image display
+            const mergedImg = new Image();
+            mergedImg.onload = () => {
+
+                // Upload merged image to Dropbox
+                mergedImgToBlob(mergedImg.src)
+                    .then(blob => {
+                        uploadFile(blob, 'merged_image.png');
+                    });
+            };
+
+            // Combine images into one
+            const mergedCanvas = document.createElement('canvas');
+            mergedCanvas.width = originalImg.width + editCanvas.width;
+            mergedCanvas.height = Math.max(originalImg.height, editCanvas.height);
+            const mergedCtx = mergedCanvas.getContext('2d');
+            mergedCtx.drawImage(originalImg, 0, 0);
+            const editImg = new Image();
+            editImg.src = editImgData;
+            editImg.onload = () => {
+                mergedCtx.drawImage(editImg, originalImg.width, 0);
+                mergedImg.src = mergedCanvas.toDataURL();
+            };
+        }
+
+        function mergedImgToBlob(dataURL) {
+            return fetch(dataURL)
+                .then(res => res.blob());
+        }
+
+        // Upload success
+        function showSuccessMessage() {
+            var overlay = document.getElementById('successOverlay');
+            overlay.classList.add('active');
+        }
+    </script>
+</body>
+</html>
