@@ -34,6 +34,7 @@
         .container {
             display: flex;
             justify-content: center;
+            text-align: center; /* Center align elements */
         }
         .toolbar {
             position: fixed;
@@ -85,7 +86,7 @@
     background-color: #fcc207;
     color: rgb(0, 0, 0);
     cursor: pointer;
-    border-radius: 25px;
+    border-radius: 20px;
     margin: 10px 0;
     transition: background-color 0.3s, transform 0.2s;
     font-weight: bold; /* Make the font bold */
@@ -148,7 +149,7 @@
   #dropContainer {
             border: 2px dashed #ccc;
             padding: 20px;
-            margin: 20px;
+            margin: 10px auto; /* Center horizontally */
             text-align: center;
             cursor: pointer;
         }
@@ -192,6 +193,14 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
+function adjustCanvasSize() {
+    const maxWidth = window.innerWidth * 0.8; // Adjust as needed
+    editCanvas.width = Math.min(maxWidth, img.width);
+    editCanvas.height = editCanvas.width * (img.height / img.width);
+}
+
+// Call adjustCanvasSize on window resize
+window.addEventListener('resize', adjustCanvasSize);
 
 function howto() {
     Swal.fire({
