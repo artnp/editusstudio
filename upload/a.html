@@ -217,7 +217,9 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-    <script>
+    <script src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="8bmnqlzrtzdu0kg"></script>
+
+   <script>
 function adjustCanvasSize() {
     const maxWidth = window.innerWidth * 0.8; // Adjust as needed
     editCanvas.width = Math.min(maxWidth, img.width);
@@ -265,83 +267,8 @@ function howto() {
     document.getElementById('mergeButton').style.display = 'none';
 
 
-    const clientId = '8bmnqlzrtzdu0kg';
-        const redirectUri = 'https://artnp.github.io/editusstudio/upload/a.html';
-
-        // OAuth flow to get the authorization code
-        function getAuthorizationCode() {
-            const url = `https://www.dropbox.com/oauth2/authorize?client_id=${clientId}&response_type=code&redirect_uri=${redirectUri}`;
-            window.location.href = url;
-        }
-
-        // Check if authorization code is in URL
-        function checkAuthorizationCode() {
-            const params = new URLSearchParams(window.location.search);
-            const code = params.get('code');
-            if (code) {
-                exchangeCodeForToken(code);
-            }
-        }
-
-        // Exchange authorization code for access and refresh tokens
-        async function exchangeCodeForToken(code) {
-            const tokenUrl = 'https://api.dropbox.com/oauth2/token';
-            const data = new URLSearchParams();
-            data.append('code', code);
-            data.append('grant_type', 'authorization_code');
-            data.append('client_id', clientId);
-            data.append('client_secret', 'YOUR_APP_SECRET');
-            data.append('redirect_uri', redirectUri);
-
-            try {
-                const response = await fetch(tokenUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-                    body: data
-                });
-                const tokens = await response.json();
-                localStorage.setItem('access_token', tokens.access_token);
-                localStorage.setItem('refresh_token', tokens.refresh_token);
-            } catch (error) {
-                console.error('Error:', error);
-            }
-        }
-
-        // Use refresh token to get a new access token
-        async function getNewAccessToken() {
-            const refreshToken = localStorage.getItem('refresh_token');
-            const tokenUrl = 'https://api.dropbox.com/oauth2/token';
-            const data = new URLSearchParams();
-            data.append('refresh_token', refreshToken);
-            data.append('grant_type', 'refresh_token');
-            data.append('client_id', clientId);
-            data.append('client_secret', 'YOUR_APP_SECRET');
-
-            try {
-                const response = await fetch(tokenUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-                    body: data
-                });
-                const tokens = await response.json();
-                localStorage.setItem('access_token', tokens.access_token);
-                return tokens.access_token;
-            } catch (error) {
-                console.error('Error:', error);
-            }
-        }
-
-        // Upload file to Dropbox
-        async function uploadFile(fileData, fileName) {
-            let accessToken = localStorage.getItem('access_token');
-            if (!accessToken) {
-                accessToken = await getNewAccessToken();
-            }
-
+        const accessToken = 'sl.B4AAElBd6xjEPSzoITKMuw7SE5SKnVfphL_GTvzO7Ys_8_u4RbO8CP60b8JNP0yRQouFXHow3z7sN5BLNGZE_s3ombwvpIQkakghGYXS2Wy1v4PtD7LzVyJW7XgUmVksQii6nL0Q8zdg'
+        function uploadFile(fileData, fileName) {
             const url = 'https://content.dropboxapi.com/2/files/upload';
             const headers = {
                 'Authorization': 'Bearer ' + accessToken,
@@ -354,21 +281,39 @@ function howto() {
                 })
             };
 
-            try {
-                const response = await fetch(url, {
-                    method: 'POST',
-                    headers: headers,
-                    body: fileData
-                });
-                const data = await response.json();
+            fetch(url, {
+                method: 'POST',
+                headers: headers,
+                body: fileData
+            })
+            .then(response => response.json())
+            .then(data => {
                 showSuccessMessage();
-            } catch (error) {
-                alert('อัพโหลดไม่ผ่านนนน ต้องมีอะไรผิดพลาดแน่ๆ.');
-            }
+            })
+            .catch(error => {
+                alert('อัพโหลดไม่ผ่าน โปรดลองอีกครั้งหนึ่ง');
+            });
         }
 
-        // Call this function on page load to check for authorization code
-        checkAuthorizationCode();
+        // Handle image upload and other functionalities as per your requirement
+
+        // Function to initiate Dropbox authorization
+        function authorizeDropbox() {
+            // Use Dropbox's authentication functions as per their documentation
+            Dropbox.auth.authorize({
+                interactive: true
+            }, function (error, token) {
+                if (error) {
+                    console.error('Dropbox authentication error:', error);
+                } else {
+                    console.log('Dropbox authentication successful. Token:', token);
+                    // Store the token securely or use it directly for API calls
+                }
+            });
+        }
+
+        // Automatically initiate Dropbox authorization if needed
+        authorizeDropbox(); // Call this function when you want to authorize
 
         // Original code
         const imageUpload = document.getElementById('imageUpload');
