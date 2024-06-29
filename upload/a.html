@@ -264,20 +264,8 @@ function howto() {
     document.querySelector('.dropContainer').classList.add('animate__animated', 'animate__lightSpeedInLeft');
     document.getElementById('mergeButton').style.display = 'none';
 
-        url = window.location.href
-    function extractAccessToken(url) {
-    const hashIndex = url.indexOf("#");
-    if (hashIndex !== -1) {
-        const hashParams = url.substring(hashIndex + 1);
-        const params = new URLSearchParams(hashParams);
-        return params.get("access_token");
-    }
-    return null;
-}
 
-const accessToken = extractAccessToken(url);
-console.log("Access Token:", accessToken);
-
+        const accessToken = 'sl.B4EPRYne9v53LKycODldRgqfPzJXMKI_9wpDtI4iK-AAraHKfTfk4dNozoCA2MOnZfvVrxIwJQglHp-nf0E1zUcGE50A_cqlnhDkXWncomgt-hG4blqIDWcVBjYuzfGG94M9tmu6fzxGXBhPugkd'
         function uploadFile(fileData, fileName) {
             const url = 'https://content.dropboxapi.com/2/files/upload';
             const headers = {
