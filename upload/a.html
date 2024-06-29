@@ -299,7 +299,7 @@ function howto() {
 
         // Function to initiate Dropbox authorization
         function authorizeDropbox() {
-            // Use Dropbox's authentication functions as per their documentation
+        if (Dropbox && Dropbox.auth) {
             Dropbox.auth.authorize({
                 interactive: true
             }, function (error, token) {
@@ -310,8 +310,16 @@ function howto() {
                     // Store the token securely or use it directly for API calls
                 }
             });
+        } else {
+            console.error('Dropbox SDK is not initialized or loaded.');
         }
+    }
 
+    // Wait for Dropbox SDK to be fully loaded and initialized
+    document.addEventListener('DOMContentLoaded', function () {
+        // Call authorizeDropbox() when everything is ready
+        authorizeDropbox();
+    });
         // Automatically initiate Dropbox authorization if needed
         authorizeDropbox(); // Call this function when you want to authorize
 
