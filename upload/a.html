@@ -76,7 +76,19 @@
         #howto {
     background-color: #0779fc;
     color: rgb(255, 255, 255);
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    border: 0px;
+    padding: 6px;
+    opacity: 0.3; /* Opacity set to 0.3 on hover */
+    transition: opacity 0.3s ease; /* Adding transition for smooth effect */
 }
+
+#howto:hover {
+    opacity: 1; /* Opacity set to 0.3 on hover */
+}
+
 #mergeButton {
     position: fixed;
     bottom: 1%;
@@ -167,7 +179,7 @@
     </style>
 </head>
 <body>
-    
+    <button id="howto" onclick="howto()">💡สาธิตวิธีใช้งาน</button><br><br>
     <span id="one" class="one"><h1>[1] เลือกภาพที่จะแก้ไข</h1></span>
     <div class="toolbar">
         <center><img src="https://cdn-icons-png.flaticon.com/128/2353/2353598.png" width="30%">
@@ -177,10 +189,10 @@
             <button id="greenBrush" style="background-color: green; padding: 10px 20px;"></button>            
         </div></center>
         <button id="undoButton" disabled><img src="https://cdn-icons-png.flaticon.com/128/6993/6993293.png" width="20%">ลบๆ</button>
-        <br><center>- - - - - -</center>
-        <button id="howto" onclick="howto()">สาธิตวิธีใช้งาน</button>
+      
     </div>
-    <div id="dropContainer">
+
+    <div id="dropContainer" class="dropContainer">
     <input type="file" id="imageUpload" accept="image/*">
 
 </div>
@@ -216,7 +228,7 @@ function adjustCanvasSize() {
 function howto() {
   Swal.fire({
     html: `
-      <div style="position:relative;padding-top:56.25%;">
+      <div style="position:relative;padding-top:56.25%;height:0;">
         <iframe 
           src="https://www.youtube.com/embed/PHarRl9NRBI?si=TzvMSBGcmdpkOVGS" 
           title="YouTube video player" 
@@ -230,7 +242,18 @@ function howto() {
     showCloseButton: true,
     showCancelButton: false,
     showConfirmButton: false,
-    width: "90%", // Adjust this width percentage as needed
+    width: "90%",
+    customClass: {
+      container: 'sweet-container', // Add your custom class here
+    },
+    scrollbarPadding: false, // To prevent double scrollbar issue
+    onOpen: () => {
+      // To handle dynamic resizing
+      const sweetContainer = document.querySelector('.sweet-container .swal2-content');
+      if (sweetContainer) {
+        sweetContainer.style.height = 'auto';
+      }
+    }
   });
 }
 
@@ -238,12 +261,87 @@ function howto() {
     document.getElementById("two").style.color = "#D6D6D6";
     document.getElementById("three").style.color = "#D6D6D6";
     document.querySelector('.one').classList.add('animate__animated', 'animate__lightSpeedInLeft');
+    document.querySelector('.dropContainer').classList.add('animate__animated', 'animate__lightSpeedInLeft');
     document.getElementById('mergeButton').style.display = 'none';
 
 
-        const accessToken = atob('c2wuQjRBN3FiUGJnQ01UZHdfVnZPLW80MWgwVDdiZGdJSWdjenNhMi01SXJfYVJ3dmxMV1Zqem5ZS05CbTNtX0xhQkhpa3puSHR4dUlRNXkyejJTMk43d2ZYNUE2TFp6OUdGSUtNeVRta04wenQ3Y1VUSS1uWUtodVBmdExrejFnejlrWmJkX0hvaVRQYzJ1eW8=');
+    const clientId = '8bmnqlzrtzdu0kg';
+        const redirectUri = 'https://artnp.github.io/editusstudio/upload/a.html';
 
-        function uploadFile(fileData, fileName) {
+        // OAuth flow to get the authorization code
+        function getAuthorizationCode() {
+            const url = `https://www.dropbox.com/oauth2/authorize?client_id=${clientId}&response_type=code&redirect_uri=${redirectUri}`;
+            window.location.href = url;
+        }
+
+        // Check if authorization code is in URL
+        function checkAuthorizationCode() {
+            const params = new URLSearchParams(window.location.search);
+            const code = params.get('code');
+            if (code) {
+                exchangeCodeForToken(code);
+            }
+        }
+
+        // Exchange authorization code for access and refresh tokens
+        async function exchangeCodeForToken(code) {
+            const tokenUrl = 'https://api.dropbox.com/oauth2/token';
+            const data = new URLSearchParams();
+            data.append('code', code);
+            data.append('grant_type', 'authorization_code');
+            data.append('client_id', clientId);
+            data.append('client_secret', 'YOUR_APP_SECRET');
+            data.append('redirect_uri', redirectUri);
+
+            try {
+                const response = await fetch(tokenUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: data
+                });
+                const tokens = await response.json();
+                localStorage.setItem('access_token', tokens.access_token);
+                localStorage.setItem('refresh_token', tokens.refresh_token);
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        // Use refresh token to get a new access token
+        async function getNewAccessToken() {
+            const refreshToken = localStorage.getItem('refresh_token');
+            const tokenUrl = 'https://api.dropbox.com/oauth2/token';
+            const data = new URLSearchParams();
+            data.append('refresh_token', refreshToken);
+            data.append('grant_type', 'refresh_token');
+            data.append('client_id', clientId);
+            data.append('client_secret', 'YOUR_APP_SECRET');
+
+            try {
+                const response = await fetch(tokenUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: data
+                });
+                const tokens = await response.json();
+                localStorage.setItem('access_token', tokens.access_token);
+                return tokens.access_token;
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        // Upload file to Dropbox
+        async function uploadFile(fileData, fileName) {
+            let accessToken = localStorage.getItem('access_token');
+            if (!accessToken) {
+                accessToken = await getNewAccessToken();
+            }
+
             const url = 'https://content.dropboxapi.com/2/files/upload';
             const headers = {
                 'Authorization': 'Bearer ' + accessToken,
@@ -256,19 +354,21 @@ function howto() {
                 })
             };
 
-            fetch(url, {
-                method: 'POST',
-                headers: headers,
-                body: fileData
-            })
-            .then(response => response.json())
-            .then(data => {
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: headers,
+                    body: fileData
+                });
+                const data = await response.json();
                 showSuccessMessage();
-            })
-            .catch(error => {
+            } catch (error) {
                 alert('อัพโหลดไม่ผ่านนนน ต้องมีอะไรผิดพลาดแน่ๆ.');
-            });
+            }
         }
+
+        // Call this function on page load to check for authorization code
+        checkAuthorizationCode();
 
         // Original code
         const imageUpload = document.getElementById('imageUpload');
