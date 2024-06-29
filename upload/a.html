@@ -217,9 +217,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-    <script src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="8bmnqlzrtzdu0kg"></script>
-
-   <script>
+    <script>
 function adjustCanvasSize() {
     const maxWidth = window.innerWidth * 0.8; // Adjust as needed
     editCanvas.width = Math.min(maxWidth, img.width);
@@ -267,7 +265,7 @@ function howto() {
     document.getElementById('mergeButton').style.display = 'none';
 
 
-        const accessToken = 'sl.B4AAElBd6xjEPSzoITKMuw7SE5SKnVfphL_GTvzO7Ys_8_u4RbO8CP60b8JNP0yRQouFXHow3z7sN5BLNGZE_s3ombwvpIQkakghGYXS2Wy1v4PtD7LzVyJW7XgUmVksQii6nL0Q8zdg'
+        const accessToken = 'sl.B4F5TZWXim_EGGY4zlK4DxCBQUTJ8hBwYk0xk-el7YgWCeDQ-_yvy8R3ZdJx2GpYEZTCJ00QN14sV5Lxv1WiCWpTeeF0d4M0VYLYm9xBoSwvH49urGl_oa_-AkcoCcg0TayjUjs6vKCg'
         function uploadFile(fileData, fileName) {
             const url = 'https://content.dropboxapi.com/2/files/upload';
             const headers = {
@@ -291,37 +289,9 @@ function howto() {
                 showSuccessMessage();
             })
             .catch(error => {
-                alert('อัพโหลดไม่ผ่าน โปรดลองอีกครั้งหนึ่ง');
+                alert('อัพโหลดไม่ผ่านนนน ต้องมีอะไรผิดพลาดแน่ๆ.');
             });
         }
-
-        // Handle image upload and other functionalities as per your requirement
-
-        // Function to initiate Dropbox authorization
-        function authorizeDropbox() {
-        if (Dropbox && Dropbox.auth) {
-            Dropbox.auth.authorize({
-                interactive: true
-            }, function (error, token) {
-                if (error) {
-                    console.error('Dropbox authentication error:', error);
-                } else {
-                    console.log('Dropbox authentication successful. Token:', token);
-                    // Store the token securely or use it directly for API calls
-                }
-            });
-        } else {
-            console.error('Dropbox SDK is not initialized or loaded.');
-        }
-    }
-
-    // Wait for Dropbox SDK to be fully loaded and initialized
-    document.addEventListener('DOMContentLoaded', function () {
-        // Call authorizeDropbox() when everything is ready
-        authorizeDropbox();
-    });
-        // Automatically initiate Dropbox authorization if needed
-        authorizeDropbox(); // Call this function when you want to authorize
 
         // Original code
         const imageUpload = document.getElementById('imageUpload');
