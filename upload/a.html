@@ -140,6 +140,23 @@
             text-align: center;
             cursor: pointer;
         }
+        .spinner {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    border: 8px solid #f3f3f3; /* Light grey */
+    border-top: 8px solid #3498db; /* Blue */
+    border-radius: 50%;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
     </style>
 </head>
 <body>
@@ -160,7 +177,7 @@
     
 
 
-
+    <div class="spinner"></div>
     <div id="textInputPopup">
         <input type="text" id="textInput" placeholder="ตรงนี้จะแก้อะไร">
         <button id="addTextButton">เพิ่ม</button>
@@ -173,6 +190,8 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <script>
+          document.querySelector('.spinner').style.display = 'none';
+
 function adjustCanvasSize() {
     const maxWidth = window.innerWidth * 0.8; // Adjust as needed
     editCanvas.width = Math.min(maxWidth, img.width);
@@ -468,6 +487,7 @@ function howto() {
         // Merge images
         function mergeImages() {
             document.getElementById('mergeButton').style.display = 'none';
+            document.querySelector('.spinner').style.display = 'block';
             const originalImg = new Image();
             originalImg.src = img.src;
 
@@ -505,6 +525,7 @@ function howto() {
 
         // Upload success
         function showSuccessMessage() {
+            document.querySelector('.spinner').style.display = 'none';
             var overlay = document.getElementById('successOverlay');
             overlay.classList.add('active');
         }
