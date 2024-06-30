@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>upload to Editus</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+        }
+        h1 {
+            margin-top: 20px;
+            font-weight: 500;
+        }
+        /* img {
+            max-width: 100%;
+            max-height: 80vh;
+        } */
+        #first {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+        }
+        #two{
+            position: fixed;
+            top: 2%;
+            border: 2px dashed #ccc;
+            padding: 6px;
+            margin: 6px auto; /* Center horizontally */
+        }
+        canvas {
+            position: absolute;
+            cursor: crosshair;
+            margin-bottom: 100px;
+        }
+        .container {
+            position: absolute;
+            display: flex;
+            top: 20%;
+            justify-content: center;
+        }
+        #originalImage {
+            display: none; /* Hide the original image */
+        }
+        #howto {
+    background-color: #0779fc;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    border: 0px;
+    padding: 6px;
+    opacity: 0.3; /* Opacity set to 0.3 on hover */
+    transition: opacity 0.3s ease; /* Adding transition for smooth effect */
+}
+#howto:hover {
+    opacity: 1; /* Opacity set to 0.3 on hover */
+}
+
+#mergeButton {
+    position: fixed;
+    bottom: 0%;
+    left: 50%;
+    width: 100%;
+    transform: translateX(-50%);
+    background-color: #fcc207;
+    border: 0;
+    color: #000;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for depth */
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
+    font-weight: bold;
+    font-size: 14px; /* Slightly increase font size for readability */
+    outline: none; /* Remove default focus outline */
+}
+
+#mergeButton:hover {
+    background-color: #dd0e3b;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Enhance shadow on hover */
+}
+
+        #textInputPopup {
+            position: absolute;
+            display: none;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 8px;
+            border-radius: 4px;
+            z-index: 1000;
+        }
+        #textInputPopup input[type="text"] {
+            border: 1px solid #ccc;
+            padding: 4px;
+            font-size: 14px;
+            width: 200px;
+        }
+        #textInputPopup button {
+            margin-top: 4px;
+            padding: 4px 8px;
+            border: none;
+            background-color: #ff7f07;
+            color: rgb(0, 0, 0);
+            cursor: pointer;
+            border-radius: 3px;
+            font-size: 14px;
+        }
+        .overlay {
+    position: fixed;
+    top: 100%; /* Start off-screen */
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 128, 0, 0.966); /* Green background with transparency */
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: top 0.5s ease; /* Animation duration and easing */
+    z-index: 9999; /* Ensure it's on top */
+  }
+  .overlay.active {
+    top: 0; /* Slide in from the top */
+  }
+  .message {
+    font-size: 24px;
+    text-align: center;
+  }
+  #dropContainer {
+            border: 2px dashed #ccc;
+            padding: 20px;
+            margin: 10px auto; /* Center horizontally */
+            text-align: center;
+            cursor: pointer;
+        }
+        #imageUpload {
+            width: 300px; /* Adjust width as needed */
+        height: 60px; /* Adjust height as needed */
+        font-size: 1.2em; /* Adjust font size */
+        cursor: pointer;
+        border: 2.5px solid #ccc; /* Add border for visual distinction */
+        border-radius: 5px; /* Rounded corners */
+        background-color: #f0f0f0; /* Background color */
+        color: #333; /* Text color */
+        padding: 10px; /* Padding inside the button */
+        box-sizing: border-box;
+    }
+        .spinner {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    border: 8px solid #f3f3f3; /* Light grey */
+    border-top: 8px solid #3498db; /* Blue */
+    border-radius: 50%;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+    </style>
+</head>
+<body>
+    <center>
+    <div id="first">
+    <button id="howto" onclick="howto()">💡สาธิตวิธีใช้งาน</button><br><br>
+    <span id="one" class="one"><h1>1). เลือกภาพที่จะแก้ไข</h1></span>
+    <div id="dropContainer" class="dropContainer">
+    <input type="file" id="imageUpload" accept="image/*"></div>
+</div></center>
+
+<span id="two" class="two"></span>
+
+    <div class="container">
+        <!-- <img id="originalImage" src="" alt="Original Image"> -->
+        <canvas id="editCanvas"></canvas>
+    </div>
+    <button id="mergeButton" onclick="mergeImages()"><h1>💋 <span id="three" class="three">3).</span> <font color="#FF0000">ส่งงานให้นักรีทัช</font></h1></button>
+    
+
+    <div class="spinner"></div>
+    <div id="textInputPopup">
+        <input type="text" id="textInput" placeholder="ตรงนี้จะแก้อะไร">
+        <button id="addTextButton">เพิ่ม</button>
+    </div>
+
+    <div class="overlay" id="successOverlay">
+        <div class="message"><img src="https://cdn-icons-png.flaticon.com/128/12503/12503629.png"><br>อัพโหลดสำเร็จ!<h3>แจ้งหน้าแชทได้เลยว่า</h3><h1>' ส่งงานให้แล้ว '</h1></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <script>
+          document.querySelector('.spinner').style.display = 'none';
+
+function adjustCanvasSize() {
+    const maxWidth = window.innerWidth * 0.8; // Adjust as needed
+    editCanvas.width = Math.min(maxWidth, img.width);
+    editCanvas.height = editCanvas.width * (img.height / img.width);
+}
+
+
+function howto() {
+  Swal.fire({
+    html: `
+      <div style="position:relative;padding-top:56.25%;height:0;">
+        <iframe 
+          src="https://www.youtube.com/embed/PHarRl9NRBI?si=TzvMSBGcmdpkOVGS" 
+          title="YouTube video player" 
+          frameborder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+          referrerpolicy="strict-origin-when-cross-origin" 
+          allowfullscreen
+          style="position:absolute;top:0;left:0;width:100%;height:100%;"
+        ></iframe>
+      </div>`,
+    showCloseButton: true,
+    showCancelButton: false,
+    showConfirmButton: false,
+    width: "90%",
+    customClass: {
+      container: 'sweet-container', // Add your custom class here
+    },
+    scrollbarPadding: false, // To prevent double scrollbar issue
+    onOpen: () => {
+      // To handle dynamic resizing
+      const sweetContainer = document.querySelector('.sweet-container .swal2-content');
+      if (sweetContainer) {
+        sweetContainer.style.height = 'auto';
+      }
+    }
+  });
+}
+
+
+    document.getElementById("two").style.color = "#D6D6D6";
+    document.getElementById("three").style.color = "#D6D6D6";
+    document.querySelector('.one').classList.add('animate__animated', 'animate__lightSpeedInLeft');
+    document.querySelector('.dropContainer').classList.add('animate__animated', 'animate__lightSpeedInLeft');
+    document.getElementById('mergeButton').style.display = 'none';
+    document.getElementById('editCanvas').style.display = 'none';
+    document.getElementById('two').style.display = 'none';
+   
+   
+
+
+        const accessToken = atob('c2wudS5BRkZmbUUtdkNoRHZ6UThpUFZRdW0yRl9vM1JnbHdiTFNVVGdIanNIWmtFNEJ5U1M1bXVUMHlkeG5Oa1I2Vmp0cE5tRXVydmJmNjE5QnVGTFJtSWhiRnRWblo4bDZVaXNPVnp0Sk9yRGhlSER6VFVUVkVSRVlEYnRmZkJnekk2TTdYUUloS29MdEl4WnRBZ0xhTGZleC0tX0gzMkdsTzlTTmViU2Qzekh2TjRXb1VZblp2b2d6UUxtUzMtZmt5VGxEMFZxT2JVUFpleklEZEFxSGdkcTNsM2ZtWUVoTW1acm1KdnF4dHhFUXY1eGNPdl8xX3BQX3pHUU0yYk9mNDhNNDVsZmVIVjcycmdYT2JhRlE4YW5ieVBCNXo4YmVWck16YkFnOFJvbWlDR1VMXy1pTXJIRElhRFduTW0tUDN5QUZZU0twbjZPRFRZQXNnbUgyVkVUbHJSd3lwRVh2VnhROE5wVmU3TzJkWnV3UHp0UWVteWJnWW13b1BmcmlwUUxsOTRIY1Y5QUFjYTlOdkp2N3NBSzBCZFVmbjlqYU1XSFgwZ0t3SWdaeDQ0Q0lGam9KRFFsYUptNGhNN2tMa2s2UWFpV2dLcWpJMjZZd2ZCWGt4ZFBhSFpRX3k2WkFWU0xWaFJja0hNc0FMalJtdHp5bmJyZTFNYjdKNU9iRmpMODVSRzFxeFBHVnRTUXhnTV9rTVlzTTUxdV9aNTBBVDVnS0Z1S195VmFwdFFJY09rTUhQYm1PaDY1SmE5aDIzc0lsV0ZXc1BYaEozRWhTalpmWUtCd01ub25ackZMeHVtdzRhdFdreUU3V1p6VWNMeV93MVBPUVFOQ0U1MWc4WHlQSl9HZWpJTzdqdWRqVTBEWVpGMzVPbGZRM1lnWXFSdEpLTVlwdi1UN1RLZVc2QXFnWThtVVpkbmQtZkdTUGxFNmxDNGpBcktKVTh3emhNS085Njg2cG0wYk1zSzZVMEtyMW1zR19DbU9ibGhuYlpxNGpOMWMtWXBWVmVBeXZORGdDLVdES1drOVRTNVZEaFdodFZ1UUJNUnRyakRWNzNFdWsxOXY1eUNzSm0wb2V3c0ppenpCUmExSTJEOWNrSEFFNDNUVTZ2T1hNYXVaN21fbHhHcjVMdEFEWnZnTVFmVWpCQTI2TjN2dHNGZmtQcnV4TXRobXN4TmJPc3VwSTZKUEVaVllfeWxoVGFRelVEeERNSWliZXFmZjlDcldnaFhBWEtyNVJfTkF3eXFVN1R6WC1jN1E3dEpXaHhNQ3RCelFzb19BVWhRMDRtX1IzR2FGVnpTVy04Z1RNVm5paE14dEgtUnAtRU1yMWhLcnM4aDZmY0M5Vm9SclJOZHV4OW9nR3kyay1uRE5pR2dVTVdCdHh4cUNnNDNSU1kyQ2Q3SWl3VU5XVGpqMnYweFZDNEdlTGEyMnU1UWZDR1N3Zmt0UEdvdnNEQ1VwNDdYZzZ4QU1ZVTJhVWNWelFPZzlhZm1iMEVBLVpwRjFhak1sMmcydTNpUXBydEltRkpzWGp5X1VWS1AtOTR5dzdDRG10MFpnOUpkQ0h4ZHpxTXlWNmVBTXF3SmJtUmU0TzVWSTRqenZya2VvR1JhUk9mc2hDQ3RqblVLbVRoR2Z1Z2x6VUpKTF84N2tXZU84Z1JSSzJOblpXeXRxZ1pxSEU1NmQwam9YOHpRU1hCb3lmb2daenBhOUVhOXVKYlB1Nm51UDY0N3Jka0pGQS04OTlaMkZJZHBmMmZyNXFQYzFyOWVxOFE=')
+        function uploadFile(fileData, fileName) {
+            const url = 'https://content.dropboxapi.com/2/files/upload';
+            const headers = {
+                'Authorization': 'Bearer ' + accessToken,
+                'Content-Type': 'application/octet-stream',
+                'Dropbox-API-Arg': JSON.stringify({
+                    'path': '/' + fileName,
+                    'mode': 'add',
+                    'autorename': true,
+                    'mute': false
+                })
+            };
+
+            fetch(url, {
+                method: 'POST',
+                headers: headers,
+                body: fileData
+            })
+            .then(response => response.json())
+            .then(data => {
+                showSuccessMessage();
+            })
+            .catch(error => {
+                alert('อัพโหลดไม่ผ่านนนน ต้องมีอะไรผิดพลาดแน่ๆ.');
+            });
+        }
+
+        // Original code
+        const imageUpload = document.getElementById('imageUpload');
+        const originalImage = document.getElementById('originalImage');
+        const editCanvas = document.getElementById('editCanvas');
+        const mergeButton = document.getElementById('mergeButton');
+        const textInputPopup = document.getElementById('textInputPopup');
+        const textInput = document.getElementById('textInput');
+        const addTextButton = document.getElementById('addTextButton');
+        const editCtx = editCanvas.getContext('2d');
+
+        let img = new Image();
+        let history = [];
+        let currentState = -1;
+        let brushColor = 'red';
+        let brushSize = 5;
+        let painting = false;
+        let addingText = false;
+        let editingText = false;
+        let draggingText = false;
+        let lastX = 0;
+        let lastY = 0;
+        let textX = 0;
+        let textY = 0;
+        let textItems = [];
+
+        // Initialize default brush color and size
+        editCtx.lineWidth = brushSize;
+        editCtx.lineCap = 'round';
+        editCtx.strokeStyle = brushColor;
+
+
+        // Handle image upload
+        imageUpload.addEventListener('change', (e) => {
+            document.getElementById('editCanvas').style.display = 'block';
+            document.getElementById('first').style.display = 'none';
+            document.getElementById('two').style.display = 'block';
+            document.getElementById("one").innerHTML = '<h1>[✅] เลือกภาพที่จะแก้ไข</h1>'
+            document.getElementById("one").style.opacity = 0.3;
+            document.getElementById("two").innerHTML = '<h1>2). วงจุดที่จะแก้ <font color="red">⇙</font></h1></font>'
+            document.getElementById("two").style.color = "black";
+            document.querySelector('.two').classList.add('animate__animated', 'animate__pulse');
+            document.getElementById('mergeButton').style.display = 'block';
+            document.getElementById('mergeButton').scrollIntoView({ behavior: 'smooth' });
+
+
+            const file = e.target.files[0];
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                img.onload = () => {
+                    currentState = -1;
+                    editCanvas.width = img.width;
+                    editCanvas.height = img.height;
+                    editCtx.drawImage(img, 0, 0);
+                };
+                img.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+
+        // Handle brush painting
+        editCanvas.addEventListener('mousedown', startPainting);
+        editCanvas.addEventListener('mousemove', paint);
+        editCanvas.addEventListener('mouseup', (e) => {
+            document.getElementById("three").style.color = "black";
+            if (painting) {
+                // Show text input popup
+                textInputPopup.style.display = 'block';
+                textInputPopup.style.left = `${e.pageX}px`;
+                textInputPopup.style.top = `${e.pageY}px`;
+                textInput.focus();
+
+                // Record text coordinates
+                const pos = getMousePos(editCanvas, e);
+                textX = pos.x;
+                textY = pos.y;
+
+                // Reset painting state
+                painting = false;
+            }
+            if (!addingText && !editingText) {
+                document.getElementById("two").innerHTML = '<h1>[✅] วงจุดที่จะแก้ ⇙</h1></font>'
+                document.getElementById("two").style.opacity = 0.3;
+            }
+        });
+
+        function startPainting(e) {
+            painting = true;
+            const pos = getMousePos(editCanvas, e);
+            lastX = pos.x;
+            lastY = pos.y;
+            editCtx.beginPath();
+            editCtx.moveTo(lastX, lastY);
+        }
+
+        function paint(e) {
+            if (!painting) return;
+            const pos = getMousePos(editCanvas, e);
+            editCtx.lineWidth = brushSize;
+            editCtx.strokeStyle = brushColor;
+            editCtx.lineTo(pos.x, pos.y);
+            editCtx.stroke();
+            lastX = pos.x;
+            lastY = pos.y;
+        }
+
+        // Utility function to get mouse position relative to canvas
+        function getMousePos(canvas, evt) {
+            const rect = canvas.getBoundingClientRect();
+            return {
+                x: evt.clientX - rect.left,
+                y: evt.clientY - rect.top
+            };
+        }
+
+
+
+        function redraw() {
+            editCtx.putImageData(history[currentState], 0, 0);
+            textItems.forEach(item => {
+                editCtx.font = item.font;
+                editCtx.fillStyle = item.color;
+                editCtx.fillText(item.text, item.x, item.y);
+            });
+        }
+
+        textInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                addTextButton.click();
+            }
+        });
+        addTextButton.addEventListener('click', () => {
+            const text = textInput.value;
+            if (text) {
+                const font = '24px Arial';
+                const textColor = 'yellow';
+                const bgColor = 'black';
+                const padding = 5; // Padding around the text
+                const borderWidth = 2; // Width of the yellow border
+
+                // Set font to measure text dimensions accurately
+                editCtx.font = font;
+
+                // Measure text width
+                const textWidth = editCtx.measureText(text).width;
+
+                // Calculate background rectangle dimensions with padding and border width
+                const rectX = textX - padding - borderWidth;
+                const rectY = textY - parseInt(font, 10) - padding - borderWidth; // Adjust for font height, padding, and border width
+                const rectWidth = textWidth + 2 * (padding + borderWidth);
+                const rectHeight = parseInt(font, 10) + 2 * (padding + borderWidth); // Adjust for font height, padding, and border width
+
+                // Draw yellow border
+                editCtx.fillStyle = textColor;
+                editCtx.fillRect(rectX, rectY, rectWidth, rectHeight);
+
+                // Draw black background inside the border
+                editCtx.fillStyle = bgColor;
+                editCtx.fillRect(rectX + borderWidth, rectY + borderWidth, rectWidth - 2 * borderWidth, rectHeight - 2 * borderWidth);
+
+                // Draw yellow text
+                editCtx.font = font;
+                editCtx.fillStyle = textColor;
+                editCtx.fillText(text, textX, textY);
+
+                // Save text item to history
+                textItems.push({ text, x: textX, y: textY, font, color: textColor });
+
+     
+            }
+            textInput.value = '';
+            textInputPopup.style.display = 'none';
+        });
+
+        // Handle dragging and editing text
+        editCanvas.addEventListener('mousedown', startDraggingText);
+        editCanvas.addEventListener('mousemove', dragText);
+        editCanvas.addEventListener('mouseup', stopDraggingText);
+
+        function startDraggingText(e) {
+            if (!addingText) {
+                const pos = getMousePos(editCanvas, e);
+                textItems.forEach((item, index) => {
+                    if (pos.x >= item.x && pos.x <= item.x + editCtx.measureText(item.text).width &&
+                        pos.y >= item.y - parseInt(item.font) && pos.y <= item.y) {
+                        draggingText = true;
+                        editingText = true;
+                        textItems.splice(index, 1);
+                        textInput.value = item.text;
+                        textX = item.x;
+                        textY = item.y;
+                        textInputPopup.style.left = `${e.pageX}px`;
+                        textInputPopup.style.top = `${e.pageY}px`;
+                        textInputPopup.style.display = 'block';
+                        textInput.focus();
+                    }
+                });
+            }
+        }
+
+        function dragText(e) {
+            if (draggingText) {
+                const pos = getMousePos(editCanvas, e);
+                textX = pos.x;
+                textY = pos.y;
+                redraw();
+                editCtx.font = '24px Arial';
+                editCtx.fillStyle = brushColor;
+                editCtx.fillText(textInput.value, textX, textY);
+            }
+        }
+
+        function stopDraggingText() {
+            draggingText = false;
+            if (editingText) {
+                textItems.push({ text: textInput.value, x: textX, y: textY, font: '24px Arial', color: brushColor });
+                textInput.value = '';
+                textInputPopup.style.display = 'none';
+                editingText = false;
+            }
+        }
+
+        // Merge images
+        function mergeImages() {
+            document.getElementById('mergeButton').style.display = 'none';
+            document.getElementById('two').style.display = 'none';
+            document.querySelector('.spinner').style.display = 'block';
+            const originalImg = new Image();
+            originalImg.src = img.src;
+
+            const editImgData = editCanvas.toDataURL();
+
+            // Create a new image element for merged image display
+            const mergedImg = new Image();
+            mergedImg.onload = () => {
+
+                // Upload merged image to Dropbox
+                mergedImgToBlob(mergedImg.src)
+                    .then(blob => {
+                        uploadFile(blob, 'single_retouch.png');
+                    });
+            };
+
+            // Combine images into one
+            const mergedCanvas = document.createElement('canvas');
+            mergedCanvas.width = originalImg.width + editCanvas.width;
+            mergedCanvas.height = Math.max(originalImg.height, editCanvas.height);
+            const mergedCtx = mergedCanvas.getContext('2d');
+            mergedCtx.drawImage(originalImg, 0, 0);
+            const editImg = new Image();
+            editImg.src = editImgData;
+            editImg.onload = () => {
+                mergedCtx.drawImage(editImg, originalImg.width, 0);
+                mergedImg.src = mergedCanvas.toDataURL();
+            };
+        }
+
+        function mergedImgToBlob(dataURL) {
+            return fetch(dataURL)
+                .then(res => res.blob());
+        }
+
+        // Upload success
+        function showSuccessMessage() {
+            document.querySelector('.spinner').style.display = 'none';
+            var overlay = document.getElementById('successOverlay');
+            overlay.classList.add('active');
+        }
+    </script>
+</body>
+</html>
