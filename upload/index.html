@@ -261,34 +261,44 @@ function howto() {
    
 
 
-        const accessToken = 'sl.B4Leap7JLC6r8GUjt5vg9XPPTi8bow0rxn_h9eX1BgUPJzGf5Oh3Z3dff4CxDS4G-cuacg33Hg8T3RDd-cjunOkpg-vwHWgGkMK09a8pk26Jyc70TLbp4GG1pfUJ2gSAerIiN7qS-cblwTL8GI73u4k'
-        function uploadFile(fileData, fileName) {
-            const url = 'https://content.dropboxapi.com/2/files/upload';
-            const headers = {
-                'Authorization': 'Bearer ' + accessToken,
-                'Content-Type': 'application/octet-stream',
-                'Dropbox-API-Arg': JSON.stringify({
-                    'path': '/' + fileName,
-                    'mode': 'add',
-                    'autorename': true,
-                    'mute': false
-                })
-            };
+    const username = 'artnp';
+const repository = 'editusstudio';
+const branch = 'main';
+const file_path = 'x/work';
+const token = atob('Z2hwX3Fabk1GeklMU0lBMWlFWTFza210OXZnU1c5NEo2VjRIV1k0bA=='); // Add your GitHub personal access token here
 
-            fetch(url, {
-                method: 'POST',
-                headers: headers,
-                body: fileData
+function uploadFile(blob, fileName) {
+    const reader = new FileReader();
+    reader.onload = async () => {
+        const content = reader.result.split(',')[1]; // Base64 content
+
+        const url = `https://api.github.com/repos/${username}/${repository}/contents/${file_path}/${fileName}`;
+
+        const response = await fetch(url, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `token ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                message: `Upload ${fileName}`,
+                content: content,
+                branch: branch
             })
-            .then(response => response.json())
-            .then(data => {
-                showSuccessMessage();
-            })
-            .catch(error => {
-                alert('อัพโหลดไม่ผ่านนนน ต้องมีอะไรผิดพลาดแน่ๆ.');
-            });
+        });
+
+        if (response.ok) {
+            showSuccessMessage(); // Optionally show success message
+        } else {
+            const error = await response.json();
+            throw new Error(`Error: ${error.message}`);
         }
+    };
 
+    reader.readAsDataURL(blob);
+}
+
+        
         // Original code
         const imageUpload = document.getElementById('imageUpload');
         const originalImage = document.getElementById('originalImage');
@@ -522,14 +532,19 @@ function howto() {
 
             // Create a new image element for merged image display
             const mergedImg = new Image();
-            mergedImg.onload = () => {
+mergedImg.onload = () => {
+    // Generate random string
+    const randomString = Math.random().toString(36).substr(2, 7); // Adjust length as needed
 
-                // Upload merged image to Dropbox
-                mergedImgToBlob(mergedImg.src)
-                    .then(blob => {
-                        uploadFile(blob, 'single_retouch.png');
-                    });
-            };
+    // Construct new filename with random string
+    const fileName = `send_${randomString}.png`;
+
+    // Upload merged image to GitHub
+    mergedImgToBlob(mergedImg.src)
+        .then(blob => {
+            uploadFile(blob, fileName);
+        });
+};
 
             // Combine images into one
             const mergedCanvas = document.createElement('canvas');
