@@ -48,6 +48,11 @@
   justify-content: center;
   align-items: center;
 }
+#sender {
+    height: 50%;
+    display: block;
+    margin: 0 auto;
+}
 
 </style>
 </head>
@@ -86,7 +91,7 @@
     
     <script>
             clearUrl = window.location.href.replace('https://artnp.github.io/editusstudio/redzone/index.html?', '')
-            document.getElementById("show").innerHTML = '<img src="https://i.ibb.co/' + clearUrl + '" height="60%" style="border: 5px solid red;" onerror="this.onerror=null; this.src=\'404.png\'">'
+            document.getElementById("show").innerHTML = '<img id="sender" src="https://i.ibb.co/' + clearUrl + '" style="border: 5px solid red;" onerror="this.onerror=null; this.src=\'404.png\'">'
             function save(){
                 window.open('https://i.ibb.co/'+clearUrl)
             }
