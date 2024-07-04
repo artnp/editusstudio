@@ -3,23 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Play YouTube Videos Sequentially with Auto Refresh and End Detection</title>
-  <script src="https://www.youtube.com/iframe_api"></script>
+  <title>Full-Screen YouTube Video Background</title>
   <style>
-    /* Optional: CSS for centering the player */
-    body, html {
+    html, body {
       margin: 0;
       padding: 0;
+      width: 100%;
+      height: 100%;
       overflow: hidden;
     }
 
     #player {
-      position: absolute;
+      position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: black; /* Fallback background */
+      z-index: -1; /* Place the player behind other content */
+    }
+
+    /* Optional: Center content vertically */
+    .content {
+      position: relative;
+      z-index: 1; /* Place content in front of the player */
+      text-align: center;
+      color: white;
+      padding: 20px;
+      font-size: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
     }
   </style>
 </head>
@@ -27,6 +42,12 @@
 
 <div id="player"></div>
 
+<div class="content">
+  <h1>Your Content Here</h1>
+  <p>This content will appear on top of the video background.</p>
+</div>
+
+<script src="https://www.youtube.com/iframe_api"></script>
 <script>
   var player;
   var currentIndex = 0;
@@ -43,11 +64,9 @@
   function loadNextVideo() {
     if (currentIndex < videoIds.length) {
       player = new YT.Player('player', {
-        width: '100%',
-        height: '100%',
         videoId: videoIds[currentIndex],
         playerVars: {
-          'autoplay': 1,
+          'autoplay': 1, // Autoplay video
           'controls': 0,
           'fs': 1, // Allow fullscreen
           'loop': 0, // Disable looping
@@ -66,8 +85,8 @@
   }
 
   function onPlayerReady(event) {
-    event.target.playVideo();
-  }
+  event.target.playVideo(); // Start playing the video
+}
 
   function onPlayerStateChange(event) {
     if (event.data === YT.PlayerState.ENDED) {
@@ -93,24 +112,9 @@
   // Listen for resize events to adjust player dimensions
   window.addEventListener('resize', function() {
     if (player) {
-      resizePlayer();
+      player.setSize(window.innerWidth, window.innerHeight);
     }
   });
-
-  // Function to resize player maintaining aspect ratio
-  function resizePlayer() {
-    var playerWidth = window.innerWidth;
-    var playerHeight = window.innerHeight;
-    var playerRatio = 16 / 9; // YouTube video ratio is 16:9
-
-    if (playerHeight * playerRatio > playerWidth) {
-      // If video ratio is wider than player width, resize based on width
-      player.setSize(playerWidth, playerWidth / playerRatio);
-    } else {
-      // Otherwise, resize based on height
-      player.setSize(playerHeight * playerRatio, playerHeight);
-    }
-  }
 
 </script>
 
