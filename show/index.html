@@ -3,13 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Play YouTube Videos Sequentially with Error Handling</title>
+  <title>Play YouTube Videos Sequentially</title>
   <script src="https://www.youtube.com/iframe_api"></script>
   <style>
     /* Optional: CSS for centering the player */
     #player {
-      margin: 0 auto;
-      display: block;
+      width: 100vw; /* Full width of viewport */
+      height: 100vh; /* Full height of viewport */
+      position: absolute;
+      top: 0;
+      left: 0;
     }
   </style>
 </head>
@@ -40,28 +43,32 @@
           // Optional: Handle end of playlist, maybe redirect or show a message
           console.log("End of playlist");
         }
-      } else if (event.data === YT.PlayerState.ERROR) {
-        // Error handling
-        console.log("Error playing video:", event);
-        // Move to the next video
-        currentIndex++;
-        if (currentIndex < videoIds.length) {
-          player.loadVideoById(videoIds[currentIndex]);
-        } else {
-          // Optional: Handle end of playlist, maybe redirect or show a message
-          console.log("End of playlist");
-        }
       }
     }
 
     player = new YT.Player('player', {
-      height: '360',
-      width: '640',
+      width: window.innerWidth,
+      height: window.innerHeight,
       videoId: videoIds[currentIndex],
+      playerVars: {
+        'autoplay': 1,
+        'controls': 0,
+        'fs': 1, // Allow fullscreen
+        'loop': 1,
+        'rel': 0,
+        'showinfo': 0,
+        'disablekb': 1,
+        'playlist': videoIds.join(',') // Play all videos in sequence
+      },
       events: {
         'onReady': onPlayerReady,
         'onStateChange': onPlayerStateChange
       }
+    });
+
+    // Listen for resize events to adjust player dimensions
+    window.addEventListener('resize', function() {
+      player.setSize(window.innerWidth, window.innerHeight);
     });
   }
 </script>
