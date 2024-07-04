@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Playlist</title>
+</head>
+<body>
+    <div id="player"></div>
+
+    <script>
+        // Decode the URL parameter
+        const urlParams = decodeURIComponent(window.location.href.split('index.html?')[1]);
+        const videoIds = urlParams.split(',');
+
+        let currentVideoIndex = 0;
+        let player;
+
+        function loadYouTubePlayer() {
+            if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') {
+                // If the YouTube API is not loaded, retry after a delay
+                setTimeout(loadYouTubePlayer, 1000); // Retry after 1 second
+                return;
+            }
+
+            // YouTube API is ready, create the player
+            player = new YT.Player('player', {
+                height: '390',
+                width: '640',
+                videoId: videoIds[currentVideoIndex],
+                playerVars: {
+                    'autoplay': 1,
+                    'controls': 1
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        // Start loading the YouTube player when the page is ready
+        window.onload = loadYouTubePlayer;
+
+        // The API will call this function when the video player is ready.
+        function onPlayerReady(event) {
+            event.target.playVideo();
+        }
+
+        // The API calls this function when the player's state changes.
+        function onPlayerStateChange(event) {
+            if (event.data == YT.PlayerState.ENDED) {
+                playNextVideo();
+            } else if (event.data == YT.PlayerState.UNSTARTED && event.target.getPlayerState() == -1) {
+                // If the video is unavailable or removed, go to the next video
+                playNextVideo();
+            }
+        }
+
+        // Function to play the next video in the playlist
+        function playNextVideo() {
+            currentVideoIndex++;
+            if (currentVideoIndex < videoIds.length) {
+                player.loadVideoById(videoIds[currentVideoIndex]);
+                player.playVideo(); // Ensure autoplay continues for the next video
+            }
+        }
+    </script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+</body>
+</html>
