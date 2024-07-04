@@ -19,21 +19,17 @@
       left: 0;
       width: 100%;
       height: 100%;
-      z-index: -1; /* Place the player behind other content */
     }
 
     /* Optional: Center content vertically */
     .content {
-      position: relative;
+      position: fixed;
       z-index: 1; /* Place content in front of the player */
       text-align: center;
       color: white;
       padding: 20px;
       font-size: 24px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+      height: 10px;
       background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
     }
   </style>
