@@ -7,18 +7,19 @@
   <script src="https://www.youtube.com/iframe_api"></script>
   <style>
     /* Optional: CSS for centering the player */
+    body, html {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
     #player {
       position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: black; /* Fallback background */
     }
   </style>
 </head>
@@ -42,8 +43,8 @@
   function loadNextVideo() {
     if (currentIndex < videoIds.length) {
       player = new YT.Player('player', {
-        width: window.innerWidth,
-        height: window.innerHeight,
+        width: '100%',
+        height: '100%',
         videoId: videoIds[currentIndex],
         playerVars: {
           'autoplay': 1,
@@ -92,9 +93,24 @@
   // Listen for resize events to adjust player dimensions
   window.addEventListener('resize', function() {
     if (player) {
-      player.setSize(window.innerWidth, window.innerHeight);
+      resizePlayer();
     }
   });
+
+  // Function to resize player maintaining aspect ratio
+  function resizePlayer() {
+    var playerWidth = window.innerWidth;
+    var playerHeight = window.innerHeight;
+    var playerRatio = 16 / 9; // YouTube video ratio is 16:9
+
+    if (playerHeight * playerRatio > playerWidth) {
+      // If video ratio is wider than player width, resize based on width
+      player.setSize(playerWidth, playerWidth / playerRatio);
+    } else {
+      // Otherwise, resize based on height
+      player.setSize(playerHeight * playerRatio, playerHeight);
+    }
+  }
 
 </script>
 
