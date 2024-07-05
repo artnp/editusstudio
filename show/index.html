@@ -78,9 +78,9 @@ html, body {
 <body>
 
 <div id="player"></div>
-<div id="first" class="overlay-text">๓</div>
-<div id="second" class="overlay-text">๖</div>
-<div id="third" class="overlay-text">๙</div>
+<div id="first" class="overlay-text">6</div>
+<div id="second" class="overlay-text">6</div>
+<div id="third" class="overlay-text">6</div>
 <div class="timeCode">E - Timecode</div>
 
 <script src="https://www.youtube.com/iframe_api"></script>
@@ -136,6 +136,10 @@ html, body {
         // End of playlist, stop playback
         player.stopVideo();
         document.getElementById("player").style.display = "none";
+        document.getElementById("first").style.display = "none";
+        document.getElementById("second").style.display = "none";
+        document.getElementById("third").style.display = "none";
+        document.getElementById("timeCode").style.display = "none";
       }
     }
   }
