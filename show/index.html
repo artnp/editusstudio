@@ -5,75 +5,75 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Full-Screen YouTube Video Background</title>
   <style>
-     @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
 
-html, body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  font-family: 'Roboto', sans-serif;
-  background-color: #121212;
-  color: #ffffff;
-}
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Roboto', sans-serif;
+      background-color: #121212;
+      color: #ffffff;
+    }
 
-#player {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
+    #player {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
 
-.overlay-text {
-  position: fixed;
-  z-index: 1;
-  text-align: center;
-  color: #ffffff;
-  font-size: 40px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  transition: transform 0.3s ease, opacity 0.3s ease;
-}
+    .overlay-text {
+      position: fixed;
+      z-index: 1;
+      text-align: center;
+      color: #ffffff;
+      font-size: 40px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
 
-#first {
-  top: 10%;
-  left: 50%;
-  transform: translateX(-50%);
-}
+    #first {
+      top: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
 
-#second {
-  top: 50%;
-  left: 10%;
-  transform: translateY(-50%);
-}
+    #second {
+      top: 50%;
+      left: 10%;
+      transform: translateY(-50%);
+    }
 
-#third {
-  top: 50%;
-  right: 10%;
-  transform: translateY(-50%);
-}
+    #third {
+      top: 50%;
+      right: 10%;
+      transform: translateY(-50%);
+    }
 
-.timeCode {
-  position: fixed;
-  z-index: 1; 
-  bottom: 5%;
-  left: 50%;
-  transform: translateX(-50%);
-  text-align: center;
-  font-size: 24px; 
-  background-color: rgba(0, 0, 0, 0.7); 
-  border-radius: 10px;
-  padding: 10px 20px;
-  border: 2px solid #f1c40f; 
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
+    .timeCode {
+      position: fixed;
+      z-index: 1; 
+      bottom: 5%;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      font-size: 24px; 
+      background-color: rgba(0, 0, 0, 0.7); 
+      border-radius: 10px;
+      padding: 10px 20px;
+      border: 2px solid #f1c40f; 
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
 
-.overlay-text:hover {
-  transform: scale(1.1);
-  opacity: 0.8;
-}
-</style>
+    .overlay-text:hover {
+      transform: scale(1.1);
+      opacity: 0.8;
+    }
+  </style>
 </head>
 <body>
 
@@ -148,7 +148,13 @@ html, body {
     // Attempt to reload the player after a delay if there's an error
     setTimeout(function() {
       player.destroy();
-      loadNextVideo();
+      currentIndex++; // Move to the next video in case the current one is causing the error
+      if (currentIndex < videoIds.length) {
+        loadNextVideo();
+      } else {
+        // If all videos have been tried, refresh the page
+        location.reload();
+      }
     }, 5000); // Retry after 5 seconds
   }
 
