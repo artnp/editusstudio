@@ -21,26 +21,59 @@
       height: 100%;
     }
 
-    /* Optional: Center content vertically */
-    .content {
-      position: fixed;
-      z-index: 1; /* Place content in front of the player */
-      text-align: center;
-      color: white;
-      padding: 20px;
-      font-size: 24px;
-      height: 10px;
-      background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+    #first{
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    top:1%;
+    transform: translateX(-50%);
+    text-align: center;
+    color: white;
+    font-size: 40px;
     }
+    #second{
+    position: fixed;
+    z-index: 1;
+    left: 2%;
+    top:50%;
+    transform: translateX(-50%);
+    text-align: center;
+    color: white;
+    font-size: 40px;
+    }
+    #third{
+    position: fixed;
+    z-index: 1;
+    right: 2%;
+    top:50%;
+    transform: translateX(-50%);
+    text-align: center;
+    color: white;
+    font-size: 40px;
+    }
+    /* Optional: Center content vertically */
+    .timeCode {
+  position: fixed;
+  z-index: 1; /* Place content in front of the player */
+  bottom: 1%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: white;
+  font-size: 24px; /* Make the text larger */
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+  border: 1px solid yellow; /* Add a yellow border */
+}
+
+
   </style>
 </head>
 <body>
 
 <div id="player"></div>
-
-<div class="content">
-  <h1>Your Content Here</h1>
-  <p>This content will appear on top of the video background.</p>
+<div id="first">๓</div><div id="second">๖</div><div id="third">๙</div>
+<div class="timeCode">
+  E - Timecode
 </div>
 
 <script src="https://www.youtube.com/iframe_api"></script>
