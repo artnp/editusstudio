@@ -5,76 +5,83 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Full-Screen YouTube Video Background</title>
   <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-    }
+     @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
 
-    #player {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-    }
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Roboto', sans-serif;
+  background-color: #121212;
+  color: #ffffff;
+}
 
-    #first{
-    position: fixed;
-    z-index: 1;
-    left: 50%;
-    top:0%;
-    transform: translateX(-50%);
-    text-align: center;
-    color: white;
-    font-size: 40px;
-    }
-    #second{
-    position: fixed;
-    z-index: 1;
-    left: 2%;
-    top:50%;
-    transform: translateX(-50%);
-    text-align: center;
-    color: white;
-    font-size: 40px;
-    }
-    #third{
-    position: fixed;
-    z-index: 1;
-    right: 2%;
-    top:50%;
-    transform: translateX(-50%);
-    text-align: center;
-    color: white;
-    font-size: 40px;
-    }
-    /* Optional: Center content vertically */
-    .timeCode {
+#player {
   position: fixed;
-  z-index: 1; /* Place content in front of the player */
-  bottom: 1%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.overlay-text {
+  position: fixed;
+  z-index: 1;
+  text-align: center;
+  color: #ffffff;
+  font-size: 40px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+#first {
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#second {
+  top: 50%;
+  left: 10%;
+  transform: translateY(-50%);
+}
+
+#third {
+  top: 50%;
+  right: 10%;
+  transform: translateY(-50%);
+}
+
+.timeCode {
+  position: fixed;
+  z-index: 1; 
+  bottom: 5%;
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
-  color: white;
-  font-size: 24px; /* Make the text larger */
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
-  border: 1px solid yellow; /* Add a yellow border */
+  font-size: 24px; 
+  background-color: rgba(0, 0, 0, 0.7); 
+  border-radius: 10px;
+  padding: 10px 20px;
+  border: 2px solid #f1c40f; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-
-  </style>
+.overlay-text:hover {
+  transform: scale(1.1);
+  opacity: 0.8;
+}
+</style>
 </head>
 <body>
 
 <div id="player"></div>
-<div id="first">๓</div><div id="second">๖</div><div id="third">๙</div>
-<div class="timeCode">
-  E - Timecode
-</div>
+<div id="first" class="overlay-text">๓</div>
+<div id="second" class="overlay-text">๖</div>
+<div id="third" class="overlay-text">๙</div>
+<div class="timeCode">E - Timecode</div>
 
 <script src="https://www.youtube.com/iframe_api"></script>
 <script>
@@ -128,7 +135,7 @@
       } else {
         // End of playlist, stop playback
         player.stopVideo();
-        console.log("End of playlist");
+        document.getElementById("player").style.display = "none";
       }
     }
   }
