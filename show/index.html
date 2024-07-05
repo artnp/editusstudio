@@ -25,7 +25,7 @@
     position: fixed;
     z-index: 1;
     left: 50%;
-    top:0.5%;
+    top:0%;
     transform: translateX(-50%);
     text-align: center;
     color: white;
@@ -99,8 +99,10 @@
           'controls': 0,
           'fs': 1, // Allow fullscreen
           'loop': 0, // Disable looping
-          'rel': 0,
-          'showinfo': 0,
+          'rel': 0, // Disable related videos
+          'showinfo': 0, // Disable video title
+          'modestbranding': 1, // Disable YouTube logo
+          'iv_load_policy': 3, // Disable video annotations
           'disablekb': 1,
           'playlist': videoIds.join(',') // Play all videos in sequence
         },
@@ -114,8 +116,9 @@
   }
 
   function onPlayerReady(event) {
-  event.target.playVideo(); // Start playing the video
-}
+    event.target.setVolume(100); // Set volume to 100%
+    event.target.playVideo(); // Start playing the video
+  }
 
   function onPlayerStateChange(event) {
     if (event.data === YT.PlayerState.ENDED) {
