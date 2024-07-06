@@ -5503,5 +5503,6 @@ const videoIds = [
 "MOfiImnlUFo,JP Morgan ปล่อยกู้เงินให้แก่ฮิตเลอร์",
 "GHHmer-WPgA,ต่อถังเพื่อเพิ่มแรงดันน้ำ",
 "Jm9YXfSvuCc,ไม้เกี่ยวคล้องสายไฟในที่สูง",
-"jNPew0pihSM,ฝาครอบเขาสัตว์กันขวิด"
+"jNPew0pihSM,ฝาครอบเขาสัตว์กันขวิด",
+"f92DH3Svk94,CPR โดยใช้จังหวะเพลง Stayin' Alive"
 ];
