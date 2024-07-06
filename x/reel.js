@@ -5505,5 +5505,5 @@ const videoIds = [
 "Jm9YXfSvuCc,ไม้เกี่ยวคล้องสายไฟในที่สูง",
 "jNPew0pihSM,ฝาครอบเขาสัตว์กันขวิด",
 "f92DH3Svk94,CPR โดยใช้จังหวะเพลง Stayin' Alive",
-"1vMFucwq8EQ,ซ่อนไฟ่ไว้ในอุ้งมือ"
+"1vMFucwq8EQ,ซ่อนไพ่ไว้ในอุ้งมือ"
 ];
