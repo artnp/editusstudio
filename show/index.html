@@ -60,11 +60,11 @@
       bottom: 5%;
       left: 50%;
       transform: translateX(-50%);
-      text-align: center;
+      text-align: left;
       font-size: 24px; 
       background-color: rgba(0, 0, 0, 0.7); 
       border-radius: 10px;
-      padding: 10px 20px;
+      padding: 10px 10px;
       border: 2px solid #f1c40f; 
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     }
@@ -78,16 +78,23 @@
 <body>
 
 <div id="player"></div>
-<div id="first" class="overlay-text">6</div>
-<div id="second" class="overlay-text">6</div>
-<div id="third" class="overlay-text">6</div>
-<div class="timeCode">E - Timecode</div>
+<div id="first" class="overlay-text"></div>
+<div id="second" class="overlay-text"></div>
+<div id="third" class="overlay-text"></div>
+<div class="timeCode"><img src="https://cdn-icons-png.flaticon.com/128/3855/3855783.png" height="24px"> : 1232132</div>
 
 <script src="https://www.youtube.com/iframe_api"></script>
 <script>
   var player;
   var currentIndex = 0;
   var videoIds;
+  var playerReady = false;
+  var errorCount = 0;
+  var maxErrors = 5;
+  var blackScreenTimeout;
+
+  // Array of text to display for each clip
+  var texts = ['E', 'D', 'I', 'T', 'U', 'S'];
 
   function onYouTubeIframeAPIReady() {
     // Parse the URL parameter into video IDs array
@@ -95,6 +102,7 @@
     videoIds = urlParams.split(',');
 
     loadNextVideo();
+    checkPlayerReady();
   }
 
   function loadNextVideo() {
@@ -123,39 +131,77 @@
   }
 
   function onPlayerReady(event) {
+    playerReady = true;
+    errorCount = 0; // Reset error count on successful load
     event.target.setVolume(100); // Set volume to 100%
     event.target.playVideo(); // Start playing the video
+
+    // Check for black screen
+    blackScreenTimeout = setTimeout(checkForBlackScreen, 5000); // Check after 5 seconds
   }
 
   function onPlayerStateChange(event) {
+    clearTimeout(blackScreenTimeout); // Clear the timeout if state changes
+
+    if (event.data === YT.PlayerState.PLAYING) {
+      // Update the text based on the current index
+      document.getElementById('first').innerText = texts[currentIndex];
+      document.getElementById('second').innerText = texts[currentIndex];
+      document.getElementById('third').innerText = texts[currentIndex];
+    }
+
     if (event.data === YT.PlayerState.ENDED) {
       currentIndex++;
       if (currentIndex < videoIds.length) {
         loadNextVideo(); // Load next video if available
       } else {
         // End of playlist, stop playback
-        player.stopVideo();
         document.getElementById("player").style.display = "none";
         document.getElementById("first").style.display = "none";
         document.getElementById("second").style.display = "none";
         document.getElementById("third").style.display = "none";
-        document.getElementById("timeCode").style.display = "none";
+        document.querySelector('.timeCode').style.display = 'none';
+        player.stopVideo();
       }
     }
   }
 
   function onPlayerError(event) {
-    // Attempt to reload the player after a delay if there's an error
-    setTimeout(function() {
-      player.destroy();
-      currentIndex++; // Move to the next video in case the current one is causing the error
-      if (currentIndex < videoIds.length) {
-        loadNextVideo();
+    errorCount++;
+    if (errorCount > maxErrors) {
+      location.reload(); // Refresh page after exceeding max errors
+    } else {
+      // Attempt to reload the player after a delay if there's an error
+      setTimeout(function() {
+        player.destroy();
+        currentIndex++; // Move to the next video in case the current one is causing the error
+        if (currentIndex < videoIds.length) {
+          loadNextVideo();
+        } else {
+          location.reload();
+        }
+      }, 5000); // Retry after 5 seconds
+    }
+  }
+
+  function checkForBlackScreen() {
+    if (player.getPlayerState() !== YT.PlayerState.PLAYING) {
+      errorCount++;
+      if (errorCount > maxErrors) {
+        location.reload(); // Refresh page if too many errors
       } else {
-        // If all videos have been tried, refresh the page
+        player.destroy();
+        loadNextVideo(); // Reload the video
+      }
+    }
+  }
+
+  function checkPlayerReady() {
+    setTimeout(function() {
+      if (!playerReady) {
         location.reload();
       }
-    }, 5000); // Retry after 5 seconds
+    }, 10000); // Check player readiness after 10 seconds
   }
 
   // Listen for resize events to adjust player dimensions
@@ -164,7 +210,6 @@
       player.setSize(window.innerWidth, window.innerHeight);
     }
   });
-
 </script>
 
 </body>
