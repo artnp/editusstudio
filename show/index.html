@@ -171,9 +171,7 @@ updateTimeCode();
 
     if (event.data === YT.PlayerState.PLAYING) {
       // Update the text based on the current index
-      document.getElementById('first').innerText = texts[currentIndex];
-      document.getElementById('second').innerText = texts[currentIndex];
-      document.getElementById('third').innerText = texts[currentIndex];
+      updateText();
     }
 
     if (event.data === YT.PlayerState.ENDED) {
@@ -230,6 +228,12 @@ updateTimeCode();
     }, 10000); // Check player readiness after 10 seconds
   }
 
+  function updateText() {
+    document.getElementById('first').innerText = texts[currentIndex];
+    document.getElementById('second').innerText = texts[currentIndex];
+    document.getElementById('third').innerText = texts[currentIndex];
+  }
+
   // Listen for resize events to adjust player dimensions
   window.addEventListener('resize', function() {
     if (player) {
@@ -237,6 +241,7 @@ updateTimeCode();
     }
   });
 </script>
+
 
 </body>
 </html>
