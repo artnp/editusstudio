@@ -133,6 +133,8 @@ updateTimeCode();
 
   function loadNextVideo() {
     if (currentIndex < videoIds.length) {
+      updateText(); // Update text before loading the next video
+
       player = new YT.Player('player', {
         videoId: videoIds[currentIndex],
         playerVars: {
@@ -170,7 +172,7 @@ updateTimeCode();
     clearTimeout(blackScreenTimeout); // Clear the timeout if state changes
 
     if (event.data === YT.PlayerState.PLAYING) {
-      // Update the text based on the current index
+      // Ensure the text is updated if the video starts playing
       updateText();
     }
 
@@ -229,9 +231,9 @@ updateTimeCode();
   }
 
   function updateText() {
-    document.getElementById('first').innerText = texts[currentIndex];
-    document.getElementById('second').innerText = texts[currentIndex];
-    document.getElementById('third').innerText = texts[currentIndex];
+    document.getElementById('first').innerText = texts[currentIndex] || '';
+    document.getElementById('second').innerText = texts[currentIndex] || '';
+    document.getElementById('third').innerText = texts[currentIndex] || '';
   }
 
   // Listen for resize events to adjust player dimensions
