@@ -81,7 +81,33 @@
 <div id="first" class="overlay-text"></div>
 <div id="second" class="overlay-text"></div>
 <div id="third" class="overlay-text"></div>
-<div class="timeCode"><img src="https://cdn-icons-png.flaticon.com/128/3855/3855783.png" height="24px"> : 1232132</div>
+<div class="timeCode"><img src="https://cdn-icons-png.flaticon.com/128/3855/3855783.png" height="24px"> : <span id="masterOfTime"></span></div>
+
+<script>
+function updateTimeCode() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = now.getMonth() + 1;
+  const day = now.getDate();
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+  const seconds = now.getSeconds();
+
+  const dateTimeString = `${year}.${month}${day}${hours}${minutes}${seconds}`;
+  const dateTimeNumber = Number(dateTimeString);
+
+  const timeCode = Number((((((dateTimeNumber + 3113) - 5125) * ((dateTimeNumber + 3113) / 5125) * 0.618) + (dateTimeNumber + 3113)) - 3113)).toFixed(9);
+
+  document.getElementById("masterOfTime").innerText = timeCode;
+}
+
+// Update every second (1000 milliseconds)
+setInterval(updateTimeCode, 1000);
+
+// Initial call to display the time code immediately on load
+updateTimeCode();
+
+</script>
 
 <script src="https://www.youtube.com/iframe_api"></script>
 <script>
