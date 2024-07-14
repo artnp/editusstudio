@@ -75,7 +75,6 @@
     }
     #welcome-container img {
       width: 100%;
-      height: 100%;
     }
     .hidden {
       display: none;
@@ -97,6 +96,7 @@
     </div>
   </div>
 
+  
   <script>
     function showPlayer() {
       document.getElementById('welcome-container').classList.add('hidden');
@@ -200,13 +200,14 @@
         if (currentIndex < videoIds.length) {
           loadNextVideo(); // Load next video if available
         } else {
-          // End of playlist, stop playback
+          // End of playlist, stop playback and show alert
           document.getElementById("player").style.display = "none";
           document.getElementById("first").style.display = "none";
           document.getElementById("second").style.display = "none";
           document.getElementById("third").style.display = "none";
           document.querySelector('.timeCode').style.display = 'none';
           player.stopVideo();
+          alert("All videos have finished playing.");
         }
       }
     }
