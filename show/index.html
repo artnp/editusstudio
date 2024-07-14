@@ -73,177 +73,194 @@
       transform: scale(1.1);
       opacity: 0.8;
     }
+    #welcome-container img {
+      width: 100%;
+      height: 100%;
+    }
+    .hidden {
+      display: none;
+    }
   </style>
 </head>
 <body>
+  <div id="welcome-container">
+    <img src="welcome.gif" alt="Welcome GIF">
+  </div>
+  <div id="player-container" class="hidden">
+    <div id="player"></div>
+    <div id="first" class="overlay-text"></div>
+    <div id="second" class="overlay-text"></div>
+    <div id="third" class="overlay-text"></div>
+    <div class="timeCode">
+      <img src="https://cdn-icons-png.flaticon.com/128/3855/3855783.png" height="24px"> : 
+      <span id="masterOfTime"></span>
+    </div>
+  </div>
 
-<div id="player"></div>
-<div id="first" class="overlay-text"></div>
-<div id="second" class="overlay-text"></div>
-<div id="third" class="overlay-text"></div>
-<div class="timeCode"><img src="https://cdn-icons-png.flaticon.com/128/3855/3855783.png" height="24px"> : <span id="masterOfTime"></span></div>
-
-<script>
-function updateTimeCode() {
-  const now = new Date();
-  const year = now.getFullYear();
-  const month = now.getMonth() + 1;
-  const day = now.getDate();
-  const hours = now.getHours();
-  const minutes = now.getMinutes();
-  const seconds = now.getSeconds();
-
-  const dateTimeString = `${year}.${month}${day}${hours}${minutes}${seconds}`;
-  const dateTimeNumber = Number(dateTimeString);
-
-  const timeCode = Number((((((dateTimeNumber + 3113) - 5125) * ((dateTimeNumber + 3113) / 5125) * 0.618) + (dateTimeNumber + 3113)) - 3113)).toFixed(9);
-
-  document.getElementById("masterOfTime").innerText = timeCode;
-}
-
-// Update every second (1000 milliseconds)
-setInterval(updateTimeCode, 1000);
-
-// Initial call to display the time code immediately on load
-updateTimeCode();
-
-</script>
-
-<script src="https://www.youtube.com/iframe_api"></script>
-<script>
-  var player;
-  var currentIndex = 0;
-  var videoIds;
-  var playerReady = false;
-  var errorCount = 0;
-  var maxErrors = 5;
-  var blackScreenTimeout;
-
-  // Array of text to display for each clip
-  var texts = ['E', 'D', 'I', 'T', 'U', 'S'];
-
-  function onYouTubeIframeAPIReady() {
-    // Parse the URL parameter into video IDs array
-    var urlParams = decodeURIComponent(window.location.href.split('index.html?')[1]);
-    videoIds = urlParams.split(',');
-
-    loadNextVideo();
-    checkPlayerReady();
-  }
-
-  function loadNextVideo() {
-    if (currentIndex < videoIds.length) {
-      updateText(); // Update text before loading the next video
-
-      player = new YT.Player('player', {
-        videoId: videoIds[currentIndex],
-        playerVars: {
-          'autoplay': 1, // Autoplay video
-          'controls': 0,
-          'fs': 1, // Allow fullscreen
-          'loop': 0, // Disable looping
-          'rel': 0, // Disable related videos
-          'showinfo': 0, // Disable video title
-          'modestbranding': 1, // Disable YouTube logo
-          'iv_load_policy': 3, // Disable video annotations
-          'disablekb': 1,
-          'playlist': videoIds.join(',') // Play all videos in sequence
-        },
-        events: {
-          'onReady': onPlayerReady,
-          'onStateChange': onPlayerStateChange,
-          'onError': onPlayerError
-        }
-      });
-    }
-  }
-
-  function onPlayerReady(event) {
-    playerReady = true;
-    errorCount = 0; // Reset error count on successful load
-    event.target.setVolume(100); // Set volume to 100%
-    event.target.playVideo(); // Start playing the video
-
-    // Check for black screen
-    blackScreenTimeout = setTimeout(checkForBlackScreen, 5000); // Check after 5 seconds
-  }
-
-  function onPlayerStateChange(event) {
-    clearTimeout(blackScreenTimeout); // Clear the timeout if state changes
-
-    if (event.data === YT.PlayerState.PLAYING) {
-      // Ensure the text is updated if the video starts playing
-      updateText();
+  <script>
+    function showPlayer() {
+      document.getElementById('welcome-container').classList.add('hidden');
+      document.getElementById('player-container').classList.remove('hidden');
     }
 
-    if (event.data === YT.PlayerState.ENDED) {
-      currentIndex++;
+    // Show the player after 4 seconds
+    setTimeout(showPlayer, 4000);
+
+    function updateTimeCode() {
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = now.getMonth() + 1;
+      const day = now.getDate();
+      const hours = now.getHours();
+      const minutes = now.getMinutes();
+      const seconds = now.getSeconds();
+
+      const dateTimeString = `${year}.${month}${day}${hours}${minutes}${seconds}`;
+      const dateTimeNumber = Number(dateTimeString);
+
+      const timeCode = Number((((((dateTimeNumber + 3113) - 5125) * ((dateTimeNumber + 3113) / 5125) * 0.618) + (dateTimeNumber + 3113)) - 3113)).toFixed(9);
+
+      document.getElementById("masterOfTime").innerText = timeCode;
+    }
+
+    // Update every second (1000 milliseconds)
+    setInterval(updateTimeCode, 1000);
+
+    // Initial call to display the time code immediately on load
+    updateTimeCode();
+  </script>
+
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script>
+    var player;
+    var currentIndex = 0;
+    var videoIds;
+    var playerReady = false;
+    var errorCount = 0;
+    var maxErrors = 5;
+    var blackScreenTimeout;
+
+    // Array of text to display for each clip
+    var texts = ['E', 'D', 'I', 'T', 'U', 'S'];
+
+    function onYouTubeIframeAPIReady() {
+      // Parse the URL parameter into video IDs array
+      var urlParams = decodeURIComponent(window.location.href.split('index.html?')[1]);
+      videoIds = urlParams.split(',');
+
+      loadNextVideo();
+      checkPlayerReady();
+    }
+
+    function loadNextVideo() {
       if (currentIndex < videoIds.length) {
-        loadNextVideo(); // Load next video if available
-      } else {
-        // End of playlist, stop playback
-        document.getElementById("player").style.display = "none";
-        document.getElementById("first").style.display = "none";
-        document.getElementById("second").style.display = "none";
-        document.getElementById("third").style.display = "none";
-        document.querySelector('.timeCode').style.display = 'none';
-        player.stopVideo();
+        player = new YT.Player('player', {
+          videoId: videoIds[currentIndex],
+          playerVars: {
+            'autoplay': 1, // Autoplay video
+            'controls': 0,
+            'fs': 1, // Allow fullscreen
+            'loop': 0, // Disable looping
+            'rel': 0, // Disable related videos
+            'showinfo': 0, // Disable video title
+            'modestbranding': 1, // Disable YouTube logo
+            'iv_load_policy': 3, // Disable video annotations
+            'disablekb': 1,
+            'playlist': videoIds.join(',') // Play all videos in sequence
+          },
+          events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange,
+            'onError': onPlayerError
+          }
+        });
       }
     }
-  }
 
-  function onPlayerError(event) {
-    errorCount++;
-    if (errorCount > maxErrors) {
-      location.reload(); // Refresh page after exceeding max errors
-    } else {
-      // Attempt to reload the player after a delay if there's an error
-      setTimeout(function() {
-        player.destroy();
-        currentIndex++; // Move to the next video in case the current one is causing the error
-        if (currentIndex < videoIds.length) {
-          loadNextVideo();
-        } else {
-          location.reload();
-        }
-      }, 5000); // Retry after 5 seconds
+    function onPlayerReady(event) {
+      playerReady = true;
+      errorCount = 0; // Reset error count on successful load
+      event.target.setVolume(100); // Set volume to 100%
+      event.target.playVideo(); // Start playing the video
+
+      // Check for black screen
+      blackScreenTimeout = setTimeout(checkForBlackScreen, 5000); // Check after 5 seconds
     }
-  }
 
-  function checkForBlackScreen() {
-    if (player.getPlayerState() !== YT.PlayerState.PLAYING) {
+    function onPlayerStateChange(event) {
+      clearTimeout(blackScreenTimeout); // Clear the timeout if state changes
+
+      if (event.data === YT.PlayerState.PLAYING) {
+        // Update the text based on the current index
+        updateText();
+      }
+
+      if (event.data === YT.PlayerState.ENDED) {
+        currentIndex++;
+        if (currentIndex < videoIds.length) {
+          loadNextVideo(); // Load next video if available
+        } else {
+          // End of playlist, stop playback
+          document.getElementById("player").style.display = "none";
+          document.getElementById("first").style.display = "none";
+          document.getElementById("second").style.display = "none";
+          document.getElementById("third").style.display = "none";
+          document.querySelector('.timeCode').style.display = 'none';
+          player.stopVideo();
+        }
+      }
+    }
+
+    function onPlayerError(event) {
       errorCount++;
       if (errorCount > maxErrors) {
-        location.reload(); // Refresh page if too many errors
+        location.reload(); // Refresh page after exceeding max errors
       } else {
-        player.destroy();
-        loadNextVideo(); // Reload the video
+        // Attempt to reload the player after a delay if there's an error
+        setTimeout(function() {
+          player.destroy();
+          currentIndex++; // Move to the next video in case the current one is causing the error
+          if (currentIndex < videoIds.length) {
+            loadNextVideo();
+          } else {
+            location.reload();
+          }
+        }, 5000); // Retry after 5 seconds
       }
     }
-  }
 
-  function checkPlayerReady() {
-    setTimeout(function() {
-      if (!playerReady) {
-        location.reload();
+    function checkForBlackScreen() {
+      if (player.getPlayerState() !== YT.PlayerState.PLAYING) {
+        errorCount++;
+        if (errorCount > maxErrors) {
+          location.reload(); // Refresh page if too many errors
+        } else {
+          player.destroy();
+          loadNextVideo(); // Reload the video
+        }
       }
-    }, 10000); // Check player readiness after 10 seconds
-  }
-
-  function updateText() {
-    document.getElementById('first').innerText = texts[currentIndex] || '';
-    document.getElementById('second').innerText = texts[currentIndex] || '';
-    document.getElementById('third').innerText = texts[currentIndex] || '';
-  }
-
-  // Listen for resize events to adjust player dimensions
-  window.addEventListener('resize', function() {
-    if (player) {
-      player.setSize(window.innerWidth, window.innerHeight);
     }
-  });
-</script>
 
+    function checkPlayerReady() {
+      setTimeout(function() {
+        if (!playerReady) {
+          location.reload();
+        }
+      }, 10000); // Check player readiness after 10 seconds
+    }
 
+    function updateText() {
+      document.getElementById('first').innerText = texts[currentIndex];
+      document.getElementById('second').innerText = texts[currentIndex];
+      document.getElementById('third').innerText = texts[currentIndex];
+    }
+
+    // Listen for resize events to adjust player dimensions
+    window.addEventListener('resize', function() {
+      if (player) {
+        player.setSize(window.innerWidth, window.innerHeight);
+      }
+    });
+  </script>
 </body>
 </html>
