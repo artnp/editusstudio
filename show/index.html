@@ -96,7 +96,6 @@
     </div>
   </div>
 
-  
   <script>
     function showPlayer() {
       document.getElementById('welcome-container').classList.add('hidden');
@@ -196,6 +195,7 @@
       }
 
       if (event.data === YT.PlayerState.ENDED) {
+        console.log('Video ended, currentIndex:', currentIndex);
         currentIndex++;
         if (currentIndex < videoIds.length) {
           loadNextVideo(); // Load next video if available
@@ -207,12 +207,13 @@
           document.getElementById("third").style.display = "none";
           document.querySelector('.timeCode').style.display = 'none';
           player.stopVideo();
-          alert("All videos have finished playing.");
+
         }
       }
     }
 
     function onPlayerError(event) {
+      console.log('Player error, currentIndex:', currentIndex);
       errorCount++;
       if (errorCount > maxErrors) {
         location.reload(); // Refresh page after exceeding max errors
@@ -251,6 +252,7 @@
     }
 
     function updateText() {
+      console.log('Updating text for currentIndex:', currentIndex);
       document.getElementById('first').innerText = texts[currentIndex];
       document.getElementById('second').innerText = texts[currentIndex];
       document.getElementById('third').innerText = texts[currentIndex];
