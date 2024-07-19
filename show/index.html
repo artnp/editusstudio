@@ -2,10 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Full-Screen YouTube Video Background</title>
+  <title>YouTube API Example</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Estonia&display=swap');
 
     html, body {
       margin: 0;
@@ -13,15 +12,25 @@
       width: 100%;
       height: 100%;
       overflow: hidden;
-      font-family: 'Roboto', sans-serif;
+      font-family: "Estonia", cursive;
       background-color: #121212;
       color: #ffffff;
     }
 
-    #player {
+    #player-container {
       position: fixed;
       top: 0;
       left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    #player {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       width: 100%;
       height: 100%;
     }
@@ -43,13 +52,13 @@
     }
 
     #second {
-      top: 50%;
+      top: 29%;
       left: 10%;
       transform: translateY(-50%);
     }
 
     #third {
-      top: 50%;
+      top: 29%;
       right: 10%;
       transform: translateY(-50%);
     }
@@ -73,9 +82,11 @@
       transform: scale(1.1);
       opacity: 0.8;
     }
+
     #welcome-container img {
       width: 100%;
     }
+
     .hidden {
       display: none;
     }
@@ -86,7 +97,7 @@
     <img src="welcome.gif" alt="Welcome GIF">
   </div>
   <div id="player-container" class="hidden">
-    <div id="player"></div>
+    <div id="player" class="videoContainer"></div>
     <div id="first" class="overlay-text"></div>
     <div id="second" class="overlay-text"></div>
     <div id="third" class="overlay-text"></div>
@@ -95,15 +106,20 @@
       <span id="masterOfTime"></span>
     </div>
   </div>
-
+  <img id="endScreen" src="end.gif" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; z-index:9999;" />
+  
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
+    var min_w = 300; // minimum video width allowed
+    var vid_w_orig;  // original video dimensions
+    var vid_h_orig;
+
     function showPlayer() {
       document.getElementById('welcome-container').classList.add('hidden');
       document.getElementById('player-container').classList.remove('hidden');
+      resizeToCover(); // Ensure the video is resized initially
     }
-
-    // Show the player after 4 seconds
-    setTimeout(showPlayer, 4000);
+    setTimeout(showPlayer, 3500);
 
     function updateTimeCode() {
       const now = new Date();
@@ -113,157 +129,116 @@
       const hours = now.getHours();
       const minutes = now.getMinutes();
       const seconds = now.getSeconds();
-
       const dateTimeString = `${year}.${month}${day}${hours}${minutes}${seconds}`;
       const dateTimeNumber = Number(dateTimeString);
-
       const timeCode = Number((((((dateTimeNumber + 3113) - 5125) * ((dateTimeNumber + 3113) / 5125) * 0.618) + (dateTimeNumber + 3113)) - 3113)).toFixed(9);
-
       document.getElementById("masterOfTime").innerText = timeCode;
     }
-
-    // Update every second (1000 milliseconds)
     setInterval(updateTimeCode, 1000);
-
-    // Initial call to display the time code immediately on load
     updateTimeCode();
-  </script>
 
-  <script src="https://www.youtube.com/iframe_api"></script>
-  <script>
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    var videoIds = ["CpUFpepSAmU", "K-KxSNONxfk", "bUz98IhvgkM", "29H79Vz_9mY"];
+    var currentVideoIndex = 0;
     var player;
-    var currentIndex = 0;
-    var videoIds;
-    var playerReady = false;
-    var errorCount = 0;
-    var maxErrors = 5;
-    var blackScreenTimeout;
 
-    // Array of text to display for each clip
     var texts = ['E', 'D', 'I', 'T', 'U', 'S'];
 
     function onYouTubeIframeAPIReady() {
-      // Parse the URL parameter into video IDs array
-      var urlParams = decodeURIComponent(window.location.href.split('index.html?')[1]);
-      videoIds = urlParams.split(',');
+      player = new YT.Player('player', {
+        height: '100%',
+        width: '100%',
+        videoId: videoIds[currentVideoIndex],
+        playerVars: {
+          'controls': 0,
+          'rel': 0,
+          'modestbranding': 1,
+          'showinfo': 0
+        },
+        events: {
+          'onReady': onPlayerReady,
+          'onStateChange': onPlayerStateChange,
+          'onError': onPlayerError
+        }
+      });
 
-      loadNextVideo();
-      checkPlayerReady();
-    }
-
-    function loadNextVideo() {
-      if (currentIndex < videoIds.length) {
-        player = new YT.Player('player', {
-          videoId: videoIds[currentIndex],
-          playerVars: {
-            'autoplay': 1, // Autoplay video
-            'controls': 0,
-            'fs': 1, // Allow fullscreen
-            'loop': 0, // Disable looping
-            'rel': 0, // Disable related videos
-            'showinfo': 0, // Disable video title
-            'modestbranding': 1, // Disable YouTube logo
-            'iv_load_policy': 3, // Disable video annotations
-            'disablekb': 1,
-            'playlist': videoIds.join(',') // Play all videos in sequence
-          },
-          events: {
-            'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange,
-            'onError': onPlayerError
-          }
-        });
-      }
+      vid_w_orig = 640; // Default width for YouTube player
+      vid_h_orig = 352; // Default height for YouTube player
     }
 
     function onPlayerReady(event) {
-      playerReady = true;
-      errorCount = 0; // Reset error count on successful load
-      event.target.setVolume(100); // Set volume to 100%
-      event.target.playVideo(); // Start playing the video
-
-      // Check for black screen
-      blackScreenTimeout = setTimeout(checkForBlackScreen, 5000); // Check after 5 seconds
+      event.target.setVolume(100);
+      updateTextOverlay();
+      event.target.playVideo();
     }
 
     function onPlayerStateChange(event) {
-      clearTimeout(blackScreenTimeout); // Clear the timeout if state changes
-
-      if (event.data === YT.PlayerState.PLAYING) {
-        // Update the text based on the current index
-        updateText();
+      if (event.data == YT.PlayerState.ENDED) {
+        playNextVideo();
+      } else if (event.data == YT.PlayerState.PLAYING) {
+        updateTextOverlay();
       }
+    }
 
-      if (event.data === YT.PlayerState.ENDED) {
-        console.log('Video ended, currentIndex:', currentIndex);
-        currentIndex++;
-        if (currentIndex < videoIds.length) {
-          loadNextVideo(); // Load next video if available
-        } else {
-          // End of playlist, stop playback and show alert
+    function onPlayerError(event) {
+      playNextVideo();
+    }
+
+    function playNextVideo() {
+      currentVideoIndex++;
+      if (currentVideoIndex < videoIds.length) {
+        player.loadVideoById(videoIds[currentVideoIndex]);
+      } else {
+        document.getElementById("endScreen").style.display = "block";
+        setTimeout(function() {
+          document.getElementById("endScreen").style.display = "none";
           document.getElementById("player").style.display = "none";
           document.getElementById("first").style.display = "none";
           document.getElementById("second").style.display = "none";
           document.getElementById("third").style.display = "none";
           document.querySelector('.timeCode').style.display = 'none';
-          player.stopVideo();
-
-        }
+        }, 4000);
       }
     }
 
-    function onPlayerError(event) {
-      console.log('Player error, currentIndex:', currentIndex);
-      errorCount++;
-      if (errorCount > maxErrors) {
-        location.reload(); // Refresh page after exceeding max errors
-      } else {
-        // Attempt to reload the player after a delay if there's an error
-        setTimeout(function() {
-          player.destroy();
-          currentIndex++; // Move to the next video in case the current one is causing the error
-          if (currentIndex < videoIds.length) {
-            loadNextVideo();
-          } else {
-            location.reload();
-          }
-        }, 5000); // Retry after 5 seconds
+    function checkPlayerVisibility() {
+      if (!player || !player.getIframe().offsetParent) {
+        location.reload();
       }
     }
 
-    function checkForBlackScreen() {
-      if (player.getPlayerState() !== YT.PlayerState.PLAYING) {
-        errorCount++;
-        if (errorCount > maxErrors) {
-          location.reload(); // Refresh page if too many errors
-        } else {
-          player.destroy();
-          loadNextVideo(); // Reload the video
-        }
+    function updateTextOverlay() {
+      var text = texts[currentVideoIndex] || '';
+      document.getElementById('first').innerText = text;
+      document.getElementById('second').innerText = text;
+      document.getElementById('third').innerText = text;
+    }
+
+    function resizeToCover() {
+      var container = jQuery('#player-container');
+      container.width(jQuery(window).width());
+      container.height(jQuery(window).height());
+
+      var scale_h = jQuery(window).width() / vid_w_orig;
+      var scale_v = jQuery(window).height() / vid_h_orig;
+      var scale = Math.max(scale_h, scale_v);
+
+      if (scale * vid_w_orig < min_w) {
+        scale = min_w / vid_w_orig;
       }
+
+      jQuery('#player').width(scale * vid_w_orig);
+      jQuery('#player').height(scale * vid_h_orig);
+      container.scrollLeft((jQuery('#player').width() - jQuery(window).width()) / 2);
+      container.scrollTop((jQuery('#player').height() - jQuery(window).height()) / 2);
     }
 
-    function checkPlayerReady() {
-      setTimeout(function() {
-        if (!playerReady) {
-          location.reload();
-        }
-      }, 10000); // Check player readiness after 10 seconds
-    }
-
-    function updateText() {
-      console.log('Updating text for currentIndex:', currentIndex);
-      document.getElementById('first').innerText = texts[currentIndex];
-      document.getElementById('second').innerText = texts[currentIndex];
-      document.getElementById('third').innerText = texts[currentIndex];
-    }
-
-    // Listen for resize events to adjust player dimensions
-    window.addEventListener('resize', function() {
-      if (player) {
-        player.setSize(window.innerWidth, window.innerHeight);
-      }
-    });
+    jQuery(window).resize(function () { resizeToCover(); });
+    jQuery(window).trigger('resize');
   </script>
 </body>
 </html>
