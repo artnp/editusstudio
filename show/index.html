@@ -125,179 +125,177 @@
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
-    document.addEventListener("DOMContentLoaded", function() {
-  const now = new Date();
-  const day = now.getDate();
+   (function() {
+      var today = new Date();
+      var day = today.getDate();
 
-  if ([9, 19, 29].includes(day)) {
+      if (day === 9 || day === 19 || day === 29) {
+        var min_w = 300; // minimum video width allowed
+        var vid_w_orig;  // original video dimensions
+        var vid_h_orig;
 
-    var min_w = 300; // minimum video width allowed
-    var vid_w_orig;  // original video dimensions
-    var vid_h_orig;
-
-    function showPlayer() {
-      document.getElementById('welcome-container').classList.add('hidden');
-      document.getElementById('player-container').classList.remove('hidden');
-      resizeToCover(); // Ensure the video is resized initially
-    }
-    setTimeout(showPlayer, 3500);
-
-    function updateTimeCode() {
-      const now = new Date();
-      const year = now.getFullYear();
-      const month = now.getMonth() + 1;
-      const day = now.getDate();
-      const hours = now.getHours();
-      const minutes = now.getMinutes();
-      const seconds = now.getSeconds();
-      const dateTimeString = `${year}.${month}${day}${hours}${minutes}${seconds}`;
-      const dateTimeNumber = Number(dateTimeString);
-      const timeCode = Number((((((dateTimeNumber + 3113) - 5125) * ((dateTimeNumber + 3113) / 5125) * 0.618) + (dateTimeNumber + 3113)) - 3113)).toFixed(9);
-      document.getElementById("masterOfTime").innerText = timeCode;
-    }
-    setInterval(updateTimeCode, 1000);
-    updateTimeCode();
-
-    var tag = document.createElement('script');
-    tag.src = "https://www.youtube.com/iframe_api";
-    var firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-    var urlParams = decodeURIComponent(window.location.href.split('index.html?')[1]);
-    videoIds = urlParams.split(',');
-
-    var currentVideoIndex = 0;
-    var player;
-
-    var texts = ['E', 'D', 'I', 'T', 'U', 'S'];
-
-    function onYouTubeIframeAPIReady() {
-      player = new YT.Player('player', {
-        height: '100%',
-        width: '100%',
-        videoId: videoIds[currentVideoIndex],
-        playerVars: {
-          'controls': 0,
-          'rel': 0,
-          'modestbranding': 1,
-          'showinfo': 0
-        },
-        events: {
-          'onReady': onPlayerReady,
-          'onStateChange': onPlayerStateChange,
-          'onError': onPlayerError
+        function showPlayer() {
+          document.getElementById('welcome-container').classList.add('hidden');
+          document.getElementById('player-container').classList.remove('hidden');
+          resizeToCover(); // Ensure the video is resized initially
         }
-      });
+        setTimeout(showPlayer, 3500);
 
-      vid_w_orig = 640; // Default width for YouTube player
-      vid_h_orig = 360; // Default height for YouTube player
-    }
+        function updateTimeCode() {
+          const now = new Date();
+          const year = now.getFullYear();
+          const month = now.getMonth() + 1;
+          const day = now.getDate();
+          const hours = now.getHours();
+          const minutes = now.getMinutes();
+          const seconds = now.getSeconds();
+          const dateTimeString = `${year}.${month}${day}${hours}${minutes}${seconds}`;
+          const dateTimeNumber = Number(dateTimeString);
+          const timeCode = Number((((((dateTimeNumber + 3113) - 5125) * ((dateTimeNumber + 3113) / 5125) * 0.618) + (dateTimeNumber + 3113)) - 3113)).toFixed(9);
+          document.getElementById("masterOfTime").innerText = timeCode;
+        }
+        setInterval(updateTimeCode, 1000);
+        updateTimeCode();
 
-    function onPlayerReady(event) {
-      event.target.setVolume(100);
-      updateTextOverlay();
-      event.target.playVideo();
-    }
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-    function onPlayerStateChange(event) {
-      if (event.data == YT.PlayerState.ENDED) {
-        playNextVideo();
-      } else if (event.data == YT.PlayerState.PLAYING) {
-        updateTextOverlay();
-      }
-    }
+        var urlParams = decodeURIComponent(window.location.href.split('index.html?')[1]);
+        var videoIds = urlParams.split(',');
 
-    function onPlayerError(event) {
-      playNextVideo();
-    }
+        var currentVideoIndex = 0;
+        var player;
 
-    function playNextVideo() {
-      currentVideoIndex++;
-      if (currentVideoIndex < videoIds.length) {
-        document.getElementById('player').style.display = 'none';
-        document.getElementById("first").style.display = "none";
-        document.getElementById("second").style.display = "none";
-        document.getElementById("third").style.display = "none";
-        document.querySelector('.timeCode').style.display = 'none';
-        countdown(6, function() {
-                    player.loadVideoById(videoIds[currentVideoIndex]);
-                });
+        var texts = ['E', 'D', 'I', 'T', 'U', 'S'];
+
+        window.onYouTubeIframeAPIReady = function() {
+          player = new YT.Player('player', {
+            height: '100%',
+            width: '100%',
+            videoId: videoIds[currentVideoIndex],
+            playerVars: {
+              'controls': 0,
+              'rel': 0,
+              'modestbranding': 1,
+              'showinfo': 0
+            },
+            events: {
+              'onReady': onPlayerReady,
+              'onStateChange': onPlayerStateChange,
+              'onError': onPlayerError
+            }
+          });
+
+          vid_w_orig = 640; // Default width for YouTube player
+          vid_h_orig = 360; // Default height for YouTube player
+        };
+
+        function onPlayerReady(event) {
+          event.target.setVolume(100);
+          updateTextOverlay();
+          event.target.playVideo();
+        }
+
+        function onPlayerStateChange(event) {
+          if (event.data == YT.PlayerState.ENDED) {
+            playNextVideo();
+          } else if (event.data == YT.PlayerState.PLAYING) {
+            updateTextOverlay();
+          }
+        }
+
+        function onPlayerError(event) {
+          playNextVideo();
+        }
+
+        function playNextVideo() {
+          currentVideoIndex++;
+          if (currentVideoIndex < videoIds.length) {
+            document.getElementById('player').style.display = 'none';
+            document.getElementById("first").style.display = "none";
+            document.getElementById("second").style.display = "none";
+            document.getElementById("third").style.display = "none";
+            document.querySelector('.timeCode').style.display = 'none';
+            countdown(6, function() {
+              player.loadVideoById(videoIds[currentVideoIndex]);
+            });
+          } else {
+            document.getElementById("endScreen").style.display = "block";
+            setTimeout(function() {
+              document.getElementById("endScreen").style.display = "none";
+              document.getElementById("player").style.display = "none";
+              document.getElementById("first").style.display = "none";
+              document.getElementById("second").style.display = "none";
+              document.getElementById("third").style.display = "none";
+              document.querySelector('.timeCode').style.display = 'none';
+            }, 4000);
+          }
+        }
+
+        function countdown(seconds, callback) {
+          var countdownElement = document.getElementById('countdown');
+          var interval = setInterval(function() {
+            countdownElement.textContent = seconds;
+            seconds--;
+            if (seconds < 0) {
+              clearInterval(interval);
+              countdownElement.textContent = '';
+              document.getElementById("first").style.display = "block";
+              document.getElementById("second").style.display = "block";
+              document.getElementById("third").style.display = "block";
+              document.querySelector('.timeCode').style.display = 'block';
+              document.getElementById('player').style.display = 'block';
+              callback();
+            }
+          }, 1000);
+        }
+
+        function checkPlayerVisibility() {
+          if (!player || !player.getIframe().offsetParent) {
+            location.reload();
+          }
+        }
+
+        function updateTextOverlay() {
+          var text = texts[currentVideoIndex] || '';
+          document.getElementById('first').innerText = text;
+          document.getElementById('second').innerText = text;
+          document.getElementById('third').innerText = text;
+        }
+
+        function resizeToCover() {
+          var container = jQuery('#player-container');
+          container.width(jQuery(window).width());
+          container.height(jQuery(window).height());
+
+          var scale_h = jQuery(window).width() / vid_w_orig;
+          var scale_v = jQuery(window).height() / vid_h_orig;
+          var scale = Math.max(scale_h, scale_v);
+
+          if (scale * vid_w_orig < min_w) {
+            scale = min_w / vid_w_orig;
+          }
+
+          jQuery('#player').width(scale * vid_w_orig);
+          jQuery('#player').height(scale * vid_h_orig);
+          container.scrollLeft((jQuery('#player').width() - jQuery(window).width()) / 2);
+          container.scrollTop((jQuery('#player').height() - jQuery(window).height()) / 2);
+        }
+
+        jQuery(window).resize(function () { resizeToCover(); });
+        jQuery(window).trigger('resize');
       } else {
+        document.getElementById('welcome-container').classList.add('hidden');
+        document.getElementById('player-container').classList.remove('hidden');
+        document.querySelector('.timeCode').style.display = 'none';
         document.getElementById("endScreen").style.display = "block";
         setTimeout(function() {
           document.getElementById("endScreen").style.display = "none";
-          document.getElementById("player").style.display = "none";
-          document.getElementById("first").style.display = "none";
-          document.getElementById("second").style.display = "none";
-          document.getElementById("third").style.display = "none";
-          document.querySelector('.timeCode').style.display = 'none';
-        }, 4000);
-      }
-    }
-
-    function countdown(seconds, callback) {
-            var countdownElement = document.getElementById('countdown');
-            var interval = setInterval(function() {
-                countdownElement.textContent = seconds;
-                seconds--;
-                if (seconds < 0) {
-                    clearInterval(interval);
-                    countdownElement.textContent = '';
-                    document.getElementById("first").style.display = "block";
-                    document.getElementById("second").style.display = "block";
-                    document.getElementById("third").style.display = "block";
-                    document.querySelector('.timeCode').style.display = 'block';
-                    document.getElementById('player').style.display = 'block';
-                    callback();
-                }
-            }, 1000);
-        }
-
-    function checkPlayerVisibility() {
-      if (!player || !player.getIframe().offsetParent) {
-        location.reload();
-      }
-    }
-
-    function updateTextOverlay() {
-      var text = texts[currentVideoIndex] || '';
-      document.getElementById('first').innerText = text;
-      document.getElementById('second').innerText = text;
-      document.getElementById('third').innerText = text;
-    }
-
-    function resizeToCover() {
-      var container = jQuery('#player-container');
-      container.width(jQuery(window).width());
-      container.height(jQuery(window).height());
-
-      var scale_h = jQuery(window).width() / vid_w_orig;
-      var scale_v = jQuery(window).height() / vid_h_orig;
-      var scale = Math.max(scale_h, scale_v);
-
-      if (scale * vid_w_orig < min_w) {
-        scale = min_w / vid_w_orig;
-      }
-
-      jQuery('#player').width(scale * vid_w_orig);
-      jQuery('#player').height(scale * vid_h_orig);
-      container.scrollLeft((jQuery('#player').width() - jQuery(window).width()) / 2);
-      container.scrollTop((jQuery('#player').height() - jQuery(window).height()) / 2);
-    }
-
-    jQuery(window).resize(function () { resizeToCover(); });
-    jQuery(window).trigger('resize');
-
-  } else{
-    document.getElementById('welcome-container').classList.add('hidden');
-    document.getElementById('player-container').classList.remove('hidden');
-    document.querySelector('.timeCode').style.display = 'none';
-    document.getElementById("endScreen").style.display = "block";
-        setTimeout(function() {
-          document.getElementById("endScreen").style.display = "none";
         }, 1000);
-  }
-});
+      }
+    })();
   </script>
 </body>
 </html>
