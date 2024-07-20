@@ -90,6 +90,18 @@
     .hidden {
       display: none;
     }
+
+    #countdown {
+           font-size: 98px;
+            color: red;
+            padding: 10px;
+            border-radius: 5px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1; /* Ensure the countdown is on top of the YouTube embed */
+        }
   </style>
 </head>
 <body>
@@ -107,7 +119,9 @@
     </div>
   </div>
   <img id="endScreen" src="end.gif" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; z-index:9999;" />
-  
+  <div id="countdown"></div>
+
+
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
     var min_w = 300; // minimum video width allowed
@@ -142,7 +156,9 @@
     var firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-    var videoIds = ["CpUFpepSAmU", "K-KxSNONxfk", "bUz98IhvgkM", "29H79Vz_9mY"];
+    var urlParams = decodeURIComponent(window.location.href.split('index.html?')[1]);
+    videoIds = urlParams.split(',');
+
     var currentVideoIndex = 0;
     var player;
 
@@ -191,7 +207,14 @@
     function playNextVideo() {
       currentVideoIndex++;
       if (currentVideoIndex < videoIds.length) {
-        player.loadVideoById(videoIds[currentVideoIndex]);
+        document.getElementById('player').style.display = 'none';
+        document.getElementById("first").style.display = "none";
+        document.getElementById("second").style.display = "none";
+        document.getElementById("third").style.display = "none";
+        document.querySelector('.timeCode').style.display = 'none';
+        countdown(6, function() {
+                    player.loadVideoById(videoIds[currentVideoIndex]);
+                });
       } else {
         document.getElementById("endScreen").style.display = "block";
         setTimeout(function() {
@@ -204,6 +227,24 @@
         }, 4000);
       }
     }
+
+    function countdown(seconds, callback) {
+            var countdownElement = document.getElementById('countdown');
+            var interval = setInterval(function() {
+                countdownElement.textContent = seconds;
+                seconds--;
+                if (seconds < 0) {
+                    clearInterval(interval);
+                    countdownElement.textContent = '';
+                    document.getElementById("first").style.display = "block";
+                    document.getElementById("second").style.display = "block";
+                    document.getElementById("third").style.display = "block";
+                    document.querySelector('.timeCode').style.display = 'block';
+                    document.getElementById('player').style.display = 'block';
+                    callback();
+                }
+            }, 1000);
+        }
 
     function checkPlayerVisibility() {
       if (!player || !player.getIframe().offsetParent) {
