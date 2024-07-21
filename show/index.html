@@ -106,6 +106,7 @@
   </style>
 </head>
 <body>
+  <img src="cover.png" width="0%">
   <div id="welcome-container">
     <img src="welcome.gif" alt="Welcome GIF">
   </div>
@@ -129,7 +130,7 @@
       var today = new Date();
       var day = today.getDate();
 
-      if (day === 9 || day === 19 || day === 29) {
+      if (day === 9 || day === 19 || day === 20) {
         var min_w = 300; // minimum video width allowed
         var vid_w_orig;  // original video dimensions
         var vid_h_orig;
@@ -286,7 +287,8 @@
 
         jQuery(window).resize(function () { resizeToCover(); });
         jQuery(window).trigger('resize');
-      } else {
+      } 
+      else {
         document.getElementById('welcome-container').classList.add('hidden');
         document.getElementById('player-container').classList.remove('hidden');
         document.querySelector('.timeCode').style.display = 'none';
