@@ -114,9 +114,7 @@
 const updatedURL = window.location.href.replace(/[?&]fbclid=[^&#]+/, '').replace(/[&?]$/, '');
 window.location.replace(updatedURL);
 }
-if (window.location.href.includes('=')) {
-    window.location.href = window.location.href.replace('=', '');
-}
+
      </script>
        
 <body>
@@ -179,7 +177,8 @@ if (window.location.href.includes('=')) {
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
         var urlParams = decodeURIComponent(window.location.href.split('index.html?')[1]);
-        var videoIds = urlParams.split(',');
+        var urlParams1 = urlParams.split('=').join('');
+        var videoIds = urlParams1.split(',');
 
         var currentVideoIndex = 0;
         var player;
