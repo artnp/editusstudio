@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>IsHaDoEsTeXt</title>
+  <title>IsHaDoEsTeXt | showcase-96</title>
   <style>
   @import url('https://fonts.googleapis.com/css2?family=Estonia&display=swap');
 
@@ -105,6 +105,12 @@
         }
   </style>
 </head>
+<script>
+  if (window.location.href.includes('fbclid')) {
+const updatedURL = window.location.href.replace(/[?&]fbclid=[^&#]+/, '').replace(/[&?]$/, '');
+window.location.replace(updatedURL);
+}
+     </script>
 <body>
   <img src="cover.png" width="0%">
   <div id="welcome-container">
@@ -130,7 +136,7 @@
       var today = new Date();
       var day = today.getDate();
 
-      if (day === 9 || day === 19 || day === 20) {
+      if (day === 9 || day === 19 || day === 22) {
         var min_w = 300; // minimum video width allowed
         var vid_w_orig;  // original video dimensions
         var vid_h_orig;
